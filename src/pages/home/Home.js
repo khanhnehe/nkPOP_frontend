@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import { connect } from "react-redux";
-
+import Sidler from '../../components/Sidler/Sidler';
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -9,18 +8,6 @@ class Home extends Component {
         }
     }
 
-    async componentDidMount() {
-
-    }
-
-    async componentDidUpdate(prevProps, prevState, snapshot) {
-
-
-    }
-
-    handleOnChangeSelect = async (event) => {
-
-    }
 
     render() {
 
@@ -28,6 +15,7 @@ class Home extends Component {
 
         return (
             <>
+                <Sidler />
                 <h1>Home hello</h1>
 
             </>
@@ -36,9 +24,7 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-    return {
-        language: state.app.language,
-    };
+
 };
 
 const mapDispatchToProps = dispatch => {

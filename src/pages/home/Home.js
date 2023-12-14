@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Sidler from '../../components/Sidler/Sidler';
+import ProductCarousel from '../../components/Sidler/ProductCarousel';
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -16,7 +17,7 @@ class Home extends Component {
         return (
             <>
                 <Sidler />
-                <h1>Home hello</h1>
+                <ProductCarousel />
 
             </>
         );

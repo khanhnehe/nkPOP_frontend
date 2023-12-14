@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './Footer.scss';
-import { Link, NavLink } from 'react-router-dom';
 import { FaFacebookF, FaTwitter, FaGoogle, FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa';
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";

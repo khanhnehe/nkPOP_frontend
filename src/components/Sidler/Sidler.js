@@ -4,7 +4,7 @@ import { Carousel } from 'react-bootstrap';
 import poster1 from '../../assets/poster1.jpg'; // Make sure this path is correct
 import poster2 from '../../assets/poster2.jpg'; // Make sure this path is correct
 import poster5 from '../../assets/poster5.1.jpg'; // Make sure this path is correct
-import poster6 from '../../assets/poster6.jpeg'; // Make sure this path is correct
+import poster6 from '../../assets/poster7.jpg'; // Make sure this path is correct
 
 class Sidler extends Component {
     constructor(props) {

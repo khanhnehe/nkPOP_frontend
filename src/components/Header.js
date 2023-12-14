@@ -52,13 +52,13 @@ class Header extends Component {
                         <NavLink to="/Home"> Trang chủ</NavLink>
                         <div className='header-right' >
                             <span className='links'>
-                                <NavLink to={"login"} className='me-3' >
+                                <NavLink to="/login" className="me-3">
                                     Đăng nhập
                                 </NavLink>
-                                <NavLink to={"register"} className='me-3'>
+                                <NavLink to="/register" className="me-3">
                                     Đăng ký
                                 </NavLink>
-                                <NavLink to={"order"} className='me-3'>
+                                <NavLink to="/order" className="me-3">
                                     Giỏ hàng
                                 </NavLink>
                             </span>

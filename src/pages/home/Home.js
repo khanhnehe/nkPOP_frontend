@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Sidler from '../../components/Sidler/Sidler';
 import ProductCarousel from '../../components/Sidler/ProductCarousel';
+import Categories from './Section/Categories';
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -18,6 +20,8 @@ class Home extends Component {
             <>
                 <Sidler />
                 <ProductCarousel />
+
+                <Categories />
 
             </>
         );

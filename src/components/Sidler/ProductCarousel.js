@@ -24,7 +24,7 @@ const ProductCarousel = () => {
                     <button className='btn btn-primary'>ok</button>
                 </div>
             </div>
-            <div className='mx-4'>
+            <div className='mx-4 mb-4'>
                 <Carousel {...settings}>
                     {/* hiển thị product từ productData */}
                     {productData.map((product) => (

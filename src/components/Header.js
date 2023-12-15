@@ -49,7 +49,7 @@ class Header extends Component {
                     <nav className={openMenu ? 'show-nav' : 'hide-nav'}>
 
                         {/* <div className={openMenu ? 'nav-wrapper' : 'hide-nav'}></div> */}
-                        <NavLink to="/Home"> Trang chủ</NavLink>
+                        <NavLink to="/" className="text-home"> Trang chủ</NavLink>
                         <div className='header-right' >
                             <span className='links'>
                                 <NavLink to="/login" className="me-3">

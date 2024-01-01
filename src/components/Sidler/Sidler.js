@@ -17,7 +17,7 @@ class Sidler extends Component {
     render() {
         return (
             <>
-                <div className='Carousel-controller'>
+                <div className='Carousel-controller mx-4'>
                     <Carousel>
                         <Carousel.Item>
                             <img src={poster1} alt="First slide" className="carousel-img" />

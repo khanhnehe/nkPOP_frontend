@@ -26,11 +26,7 @@ class Categories extends Component {
                                 className='item-link'
                             >
                                 <div className='custom'>
-                                    <img
-                                    // src={item.image}
-                                    // alt={item.title}
-                                    // className='custom-img'
-                                    />
+                                    <img/>
                                 </div>
                                 <h3>{item.title}</h3>
                             </Link>

@@ -3,12 +3,16 @@ import './Header.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { PiShoppingCartFill } from "react-icons/pi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { path } from '../utils/constant';
 
 class Header extends Component {
     constructor(props) {
         super(props);
         this.state = {
             openMenu: false,
+            // header lun hiện
+            scrollPage: true,
+
         };
     }
 
@@ -16,7 +20,7 @@ class Header extends Component {
 
     logoHome = (
         <div className='logo'>
-            <Link to="/">
+            <Link to={path.HOME}>
                 <div>
                     <span>KANH POP</span>
                 </div>
@@ -40,16 +44,17 @@ class Header extends Component {
     }
 
     render() {
-        let openMenu = this.state.openMenu;
+        let { openMenu, scrollPage } = this.state;
         return (
             <header>
+                {/* className={scrollPage ? 'fixed' : ''} */}
                 <div className='header'>
                     {this.logoHome}
                     {/* show menu */}
                     <nav className={openMenu ? 'show-nav' : 'hide-nav'}>
 
                         {/* <div className={openMenu ? 'nav-wrapper' : 'hide-nav'}></div> */}
-                        <NavLink to="/" className="text-home"> Trang chủ</NavLink>
+                        <NavLink to={path.HOME} className="text-home"> Trang chủ</NavLink>
                         <div className='header-right' >
                             <span className='links'>
                                 <NavLink to="/login" className="me-3">

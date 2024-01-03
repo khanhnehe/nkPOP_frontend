@@ -5,7 +5,6 @@ import loaderImg from "../assets/loader.png"
 
 class Loader extends Component {
 
-
     render() {
         return ReactDOM.createPortal(
             <>
@@ -23,6 +22,8 @@ class Loader extends Component {
             document.getElementById('loader')
         );
     }
+
 }
+
 
 export default Loader;

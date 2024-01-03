@@ -7,6 +7,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "./components/Footer";
 import Test from "./pages/test";
 import Loader from "./components/Loader";
+import Login from "./Auth/Login";
+import Register from "./Auth/Register";
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Routes>
           <Route path={path.HOME} element={<Home />} />
           <Route path={path.TEST} element={<Test />} />
+          <Route path={path.LOGIN} element={<Login />} />
+          <Route path={path.REGISTER} element={<Register />} />
           {/* Other routes can be added here */}
         </Routes>
         <Footer />

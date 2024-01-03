@@ -1,0 +1,72 @@
+.login-background {
+    height       : 70vh;
+    // background: -webkit-linear-gradient(#e71bff2e, #16b2ed75);
+    .login-container {
+        width        : 400px;
+        height       : 450px;
+        border-radius: 10px;
+        background   : white;
+        position     : absolute;
+        margin       : auto;
+        top          : 0;
+        bottom       : 0;
+        right        : 0;
+        left         : 0;
+        box-shadow   : 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+        .login-title {
+            height                 : 100px;
+            font-size              : 35px;
+            line-height            : 100px;
+            font-weight            : bold;
+            background             : black;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        
+
+        .login-input {
+            font-size              : 15px;
+            font-weight            : bold;
+            color                  : black;
+            -webkit-background-clip: text;
+
+            .custom-input-pas {
+                position: relative;
+
+                i {
+                    position   : absolute;
+                    top        : 7px;
+                    margin-left: 328px;
+                    cursor     : pointer;
+
+                    .eye-icon {
+                        font-size: 20px; /* Kích thước của biểu tượng mắt */
+                        color: black; /* Màu sắc của biểu tượng mắt */
+                        cursor: pointer;
+                        margin-right: 20px;
+                    }
+                }
+            }
+        }
+
+        .login-btn {
+            width        : 75%;
+            height       : 35px;
+            border       : 1px solid #fff;
+            border-radius: 6px;
+            background   : black;
+
+        }
+
+
+    }
+
+    .no-account {
+        display: flex;
+    }
+
+    
+    
+}

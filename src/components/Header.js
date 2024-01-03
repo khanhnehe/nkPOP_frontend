@@ -57,7 +57,7 @@ class Header extends Component {
                         <NavLink to={path.HOME} className="text-home"> Trang chủ</NavLink>
                         <div className='header-right' >
                             <span className='links'>
-                                <NavLink to="/login" className="me-3">
+                                <NavLink to={path.LOGIN} className="me-3">
                                     Đăng nhập
                                 </NavLink>
                                 <NavLink to="/register" className="me-3">

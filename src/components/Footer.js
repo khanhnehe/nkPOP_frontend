@@ -21,10 +21,10 @@ class Footer extends Component {
         return (
             <>
                 <footer className="footer bg-body-tertiary text-center">
-                    <div class="container text-center text-md-start mt-2">
-                        <div class="row mt-2">
-                            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                                <h6 class="text-uppercase fw-bold mb-4">
+                    <div className="container text-center text-md-start mt-2">
+                        <div className="row">
+                            <div className="col-md-3 col-lg-4 col-xl-3 mx-auto my-4">
+                                <h6 className="text-uppercase fw-bold mb-4">
                                     KANH POP
                                 </h6>
                                 <p>
@@ -33,16 +33,16 @@ class Footer extends Component {
                                 </p>
                             </div>
 
-                            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                                <h6 class="text-uppercase fw-bold mb-4">Liên hệ</h6>
+                            <div className="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 my-4">
+                                <h6 className="text-uppercase fw-bold mb-4">Liên hệ</h6>
                                 <p><FaMapMarkerAlt /> 3/2, Ninh Kiều, Cần Thơ</p>
                                 <p><MdEmail />  khanhpop@example.com
                                 </p>
                                 <p><FaPhoneVolume /> 0348 144 669</p>
                             </div>
 
-                            <div class="social-media col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                                <h6 class="text-uppercase fw-bold mb-4">
+                            <div className="social-media col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 my-4">
+                                <h6 className="text-uppercase fw-bold mb-4">
                                     Theo dõi
                                 </h6>
                                 <p className="btn m-1  text-white facebook" >

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { path } from "./utils/constant";
 import Home from "./pages/home/Home";
 import Header from "./components/Header";
@@ -12,38 +12,19 @@ import Register from "./Auth/Register";
 import { ToastContainer } from 'react-toastify';
 import { connect } from "react-redux";
 import { history } from './store/reduxStore';
+
 class App extends Component {
-  // handlePersistorState = () => {
-  //   const { persistor } = this.props;
-  //   let { bootstrapped } = persistor.getState();
-  //   if (bootstrapped) {
-  //     if (this.props.onBeforeLift) {
-  //       Promise.resolve(this.props.onBeforeLift())
-  //         .then(() => this.setState({ bootstrapped: true }))
-  //         .catch(() => this.setState({ bootstrapped: true }));
-  //     } else {
-  //       this.setState({ bootstrapped: true });
-  //     }
-  //   }
-  // };
-
-  // componentDidMount() {
-  //   this.handlePersistorState();
-  // }
-
   render() {
     return (
       <Fragment>
         <Router history={history}>
           <div className="main-container">
-            {/* <Loader /> */}
             <Header />
             <Routes>
-              <Route path={path.HOME} element={<Home />} />
+              <Route path={path.HOMEPAGE} element={<Home />} />
               <Route path={path.TEST} element={<Test />} />
               <Route path={path.LOGIN} element={<Login />} />
               <Route path={path.REGISTER} element={<Register />} />
-              {/* Other routes can be added here */}
             </Routes>
             <Footer />
           </div>
@@ -61,10 +42,8 @@ class App extends Component {
           />
         </Router>
       </Fragment>
-
     );
   }
-
 }
 
 const mapStateToProps = (state) => {

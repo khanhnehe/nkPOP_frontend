@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import './Login.scss';
-import { loginApiService } from '../services/userService';
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { connect } from 'react-redux';
 import { login } from '../store/actions/userActions';
-
 
 class Login extends Component {
     constructor(props) {
@@ -14,60 +12,38 @@ class Login extends Component {
             userName: '',
             password: '',
             isShowPassword: false,
-            errMessage: ''
-
         };
     }
 
-    componentDidMount() {
-
-    }
     handleLogin = async () => {
-        this.setState({
-            errMessage: ''
-        })
         try {
-            await this.props.login(this.state.userName, this.state.password);
-            console.log('login success');
+            await this.props.LoginRedux(this.state.userName, this.state.password);
         } catch (error) {
-            if (error.response) {
-                if (error.response.data) {
-                    this.setState({
-                        errMessage: error.response.data.message
-                    })
-                }
-            }
-            console.log('test thu', error.response)
+            console.log('test thu', error.response);
         }
     }
-    handleOnChangeInputUserName = (event) => {
-        //hàm cập nhật lại biến state
-        //bên trong là cái biến ta muốn setState
-        this.setState({
-            userName: event.target.value
 
-        },
-            () => console.log('userName', this.state.userName)
-        )
+    handleOnChangeInputUserName = (event) => {
+        this.setState({
+            userName: event.target.value,
+        });
     }
 
     handleOnChangeInputPassword = (event) => {
         this.setState({
             password: event.target.value,
-
-        }, () => console.log('paa', this.state.password)
-        )
+        });
     }
 
-    //show pass
     handleShowHidePass = () => {
         this.setState({
             isShowPassword: !this.state.isShowPassword
-        })
-
+        });
     }
 
     render() {
+
+        console.log('this.props.error:', this.props.error);
 
         return (
             <>
@@ -116,7 +92,7 @@ class Login extends Component {
 
                             <div className="col-md-12" style={{ color: 'red' }}>
                                 {/* show error menage */}
-                                {this.state.errMessage}
+                                {this.props.error}
                             </div>
                             <div>
                                 <button type="button" className="col-md-12 login-btn mt-4 ms-5 text-light"
@@ -143,13 +119,12 @@ class Login extends Component {
     }
 }
 
+
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn,
-
+        error: state.user ? state.user.error : null,
     };
 };
-
 const mapDispatchToProps = dispatch => {
     return {
         LoginRedux: (userName, password) => dispatch(login(userName, password)),

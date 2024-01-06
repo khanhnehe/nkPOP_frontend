@@ -13,13 +13,13 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 isLoggedIn: true,
                 userInfo: action.payload,
-                error: null,
+                error: '',
             };
         case actionTypes.USER_LOGIN_FAIL:
             return {
                 ...state,
                 isLoggedIn: false,
-                userInfo: null,
+                userInfo: '',
                 error: action.payload,
             };
 
@@ -27,7 +27,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                userInfo: null,
+                userInfo: '',
                 error: action.payload,
             }
         default:

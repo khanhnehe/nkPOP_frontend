@@ -3,7 +3,8 @@ import './Login.scss';
 import { loginApiService } from '../services/userService';
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
+import { connect } from 'react-redux';
+import { login } from '../store/actions/userActions';
 
 
 class Login extends Component {
@@ -26,17 +27,8 @@ class Login extends Component {
             errMessage: ''
         })
         try {
-            let data = await loginApiService(this.state.userName, this.state.password);
-            if (data && data.errCode !== 0) {
-                this.setState({
-                    errMessage: data.message
-                })
-            }
-            else {
-                this.props.loginApiService(data.user);
-                console.log('login success')
-            }
-
+            await this.props.login(this.state.userName, this.state.password);
+            console.log('login success');
         } catch (error) {
             if (error.response) {
                 if (error.response.data) {
@@ -45,14 +37,9 @@ class Login extends Component {
                     })
                 }
             }
-            console.log('test thu', error)
-
-
-
+            console.log('test thu', error.response)
         }
-
     }
-
     handleOnChangeInputUserName = (event) => {
         //hàm cập nhật lại biến state
         //bên trong là cái biến ta muốn setState
@@ -128,6 +115,7 @@ class Login extends Component {
                             </div>
 
                             <div className="col-md-12" style={{ color: 'red' }}>
+                                {/* show error menage */}
                                 {this.state.errMessage}
                             </div>
                             <div>
@@ -155,4 +143,17 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.user.isLoggedIn,
+
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        LoginRedux: (userName, password) => dispatch(login(userName, password)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

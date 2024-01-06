@@ -25,7 +25,6 @@ const reduxStore = createStore(
             routerMiddleware(history),
             thunk,
             loggerMiddleware, // Thêm middleware log
-            // ...các middleware khác
         ),
     ),
 );

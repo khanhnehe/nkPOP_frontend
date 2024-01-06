@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
 import { path } from "./utils/constant";
 import Home from "./pages/home/Home";
 import Header from "./components/Header";
@@ -17,10 +17,11 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-        <Router history={history}>
+        <Router>
           <div className="main-container">
             <Header />
             <Routes>
+              {/* <Route path={path.HOME} element={<HomePage />} /> */}
               <Route path={path.HOMEPAGE} element={<Home />} />
               <Route path={path.TEST} element={<Test />} />
               <Route path={path.LOGIN} element={<Login />} />

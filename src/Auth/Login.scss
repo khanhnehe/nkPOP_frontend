@@ -1,34 +1,38 @@
 .login-background {
-    height       : 70vh;
-    // background: -webkit-linear-gradient(#e71bff2e, #16b2ed75);
+    height               : 75vh;
+    background           : url(https://cdn-global.popmart.com/images/account_bg.webp);
+    background-size      : 100%;
+    background-repeat    : no-repeat;
+    background-position-y: bottom;
+    width                : 100%;
+
     .login-container {
-        width        : 400px;
-        height       : 450px;
-        border-radius: 10px;
-        background   : white;
-        position     : absolute;
-        margin       : auto;
-        top          : 0;
-        bottom       : 0;
-        right        : 0;
-        left         : 0;
-        box-shadow   : 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        width           : 400px;
+        height          : 200px;
+        border-radius   : 10px;
+        // background   : white;
+        position        : absolute;
+        margin          : auto;
+
+        right           : 0;
+        left            : 0;
+        // box-shadow   : 0 1px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
         .login-title {
-            height                 : 100px;
-            font-size              : 35px;
-            line-height            : 100px;
-            font-weight            : bold;
-            background             : black;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            height                    : 80px;
+            font-size                 : 23px;
+            line-height               : 100px;
+            // font-weight            : bold;
+            color                     : black;
+            text-decoration           : underline; // Thêm dòng này để thêm gạch dưới
+
         }
 
-        
+
 
         .login-input {
             font-size              : 15px;
-            font-weight            : bold;
+            font-weight            : 700;
             color                  : black;
             -webkit-background-clip: text;
 
@@ -42,9 +46,11 @@
                     cursor     : pointer;
 
                     .eye-icon {
-                        font-size: 20px; /* Kích thước của biểu tượng mắt */
-                        color: black; /* Màu sắc của biểu tượng mắt */
-                        cursor: pointer;
+                        font-size   : 20px;
+                        /* Kích thước của biểu tượng mắt */
+                        color       : black;
+                        /* Màu sắc của biểu tượng mắt */
+                        cursor      : pointer;
                         margin-right: 20px;
                     }
                 }
@@ -52,12 +58,21 @@
         }
 
         .login-btn {
-            width        : 75%;
-            height       : 35px;
-            border       : 1px solid #fff;
-            border-radius: 6px;
-            background   : black;
+            width          : 100%;
+            height         : 40px;
+            border         : 1px solid #fff;
+            border-radius  : 6px;
+            background     : #d40000;
+            margin-top     : 25px;
+            background-size: 200%;
+            font-weight: 700;
+            transition     : background-position 0.5s, transform 0.3s ease; // Add transform transition
 
+            &:hover {
+                background-position: right;
+                background         : #e32020;
+
+            }
         }
 
 
@@ -67,6 +82,6 @@
         display: flex;
     }
 
-    
-    
+
+
 }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Sidler from '../../components/Sidler/Sidler';
 import ProductCarousel from '../../components/Sidler/ProductCarousel';
 import Categories from './Section/Categories';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Home extends Component {
     constructor(props) {
@@ -14,7 +16,8 @@ class Home extends Component {
 
     render() {
 
-        console.log("check")
+        const { isLoggedIn } = this.props;
+        let linkToRedirect = isLoggedIn ? '' : '/home';
 
         return (
             <>
@@ -28,4 +31,15 @@ class Home extends Component {
     }
 }
 
-export default Home;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.user.isLoggedIn
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

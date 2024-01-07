@@ -1,5 +1,5 @@
 .login-background {
-    height               : 75vh;
+    height               : 65vh;
     background           : url(https://cdn-global.popmart.com/images/account_bg.webp);
     background-size      : 100%;
     background-repeat    : no-repeat;
@@ -8,23 +8,25 @@
 
     .login-container {
         width           : 400px;
-        height          : 200px;
+        height          : 410px;
         border-radius   : 10px;
         // background   : white;
         position        : absolute;
         margin          : auto;
-
         right           : 0;
         left            : 0;
-        // box-shadow   : 0 1px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        box-shadow   : 0 1px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+        input {
+            border: 1px solid #000; /* Độ dày là 2px, màu đen */
+          }
 
         .login-title {
             height                    : 80px;
             font-size                 : 23px;
             line-height               : 100px;
             // font-weight            : bold;
-            color                     : black;
-            text-decoration           : underline; // Thêm dòng này để thêm gạch dưới
+            color                     : #454545;
+            // text-decoration           : underline; // Thêm dòng này để thêm gạch dưới
 
         }
 
@@ -33,7 +35,7 @@
         .login-input {
             font-size              : 15px;
             font-weight            : 700;
-            color                  : black;
+            color                  : #454545;
             -webkit-background-clip: text;
 
             .custom-input-pas {

@@ -21,16 +21,17 @@ export const login = (userName, password) => {
         } catch (error) {
             dispatch({
                 type: actionTypes.USER_LOGIN_FAIL,
-                payload: error.response.message
+                payload: error.response ? error.response.message : error.message
             });
         }
     };
 };
 
+
 // logout
 export const logout = () => {
     return {
         type: actionTypes.PROCESS_LOGOUT,
-        payload: '',
+        payload: null,
     };
 };

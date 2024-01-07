@@ -2,7 +2,7 @@ import actionTypes from "../actions/actionTypes";
 
 const initialState = {
     isLoggedIn: false,
-    userInfo: '',
+    userInfo: null,  // Thay vì userInfo là một chuỗi, hãy để nó là một đối tượng hoặc null
     error: '',
 };
 
@@ -19,7 +19,7 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                userInfo: '',
+                userInfo: null,  // Đặt userInfo về null khi đăng nhập thất bại
                 error: action.payload,
             };
 
@@ -27,8 +27,8 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLoggedIn: false,
-                userInfo: '',
-                error: action.payload,
+                userInfo: null,  // Đặt userInfo về null khi đăng xuất
+                error: '',
             }
         default:
             return state;

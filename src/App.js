@@ -18,7 +18,7 @@ class App extends Component {
     return (
       <Fragment>
         <Router>
-          <div className="main-container">
+          <div className="">
             <Header />
             <Routes>
               {/* <Route path={path.HOME} element={<HomePage />} /> */}

@@ -1,24 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import './Header.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { PiShoppingCartFill } from "react-icons/pi";
+import { MdOutlineShoppingBag } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { path } from '../utils/constant';
+import { IoSearch } from "react-icons/io5";
+import { MdFavorite } from "react-icons/md";
+import { MdOutlineAccountCircle } from "react-icons/md";
+import { PiPhoneCallLight } from "react-icons/pi";
+import logo1 from "../../src/assets/logo.png"
 
-class Header extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            openMenu: false,
-            // header lun hiện
-            scrollPage: true,
 
-        };
-    }
+const Header = () => {
+    const [openMenu, setOpenMenu] = useState(false);
+    const [scrollPage, setScrollPage] = useState(true);
 
-    componentDidMount() { }
-
-    logoHome = (
+    const logoHome = (
         <div className='logo'>
             <Link to={path.HOME}>
                 <div>
@@ -28,58 +25,99 @@ class Header extends Component {
         </div>
     );
 
-    cartOrder = (
-        <span className='cart'>
+    const cartOrder = (
+        <span className='cart px-3'>
             <Link to="/cart">
-                <PiShoppingCartFill />
+                <MdOutlineShoppingBag />
                 <p>0</p>
             </Link>
         </span>
     )
 
-    toggleMenu = () => {
-        this.setState({
-            openMenu: !this.state.openMenu
-        })
+    const toggleMenu = () => {
+        setOpenMenu(!openMenu);
     }
 
-    render() {
-        let { openMenu, scrollPage } = this.state;
-        return (
+
+    return (
+        <>
+            {/* <div className='top-line'>Hotline: 1900 636 510 </div> */}
             <header>
-                {/* className={scrollPage ? 'fixed' : ''} */}
                 <div className='header'>
-                    {this.logoHome}
-                    {/* show menu */}
+                    {logoHome}
+
+                    <div className='header-left'>
+                        <div className='search'>
+                            <div className='search-group'>
+                                <input
+                                    className='input-search'
+                                    type="text"
+                                    placeholder="Search..."
+                                />
+                                <button className='icon-search'>
+                                    <IoSearch />
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
                     <nav className={openMenu ? 'show-nav' : 'hide-nav'}>
-
-                        {/* <div className={openMenu ? 'nav-wrapper' : 'hide-nav'}></div> */}
-                        <NavLink to={path.HOMEPAGE} className="text-home ms-5"> Trang chủ</NavLink>
-
                         <div className='header-right' >
+                            {/* <span className='links'>
+                            <NavLink to={path.LOGIN} activeClassName="active me-3">
+                                Đăng nhập
+                            </NavLink>
+                        </span>
 
-                            <span className='links'>
-                                <NavLink to={path.LOGIN} className="me-3">
-                                    Đăng nhập
-                                </NavLink>
-                                <NavLink to="/register" className="me-3">
-                                    Đăng ký
-                                </NavLink>
-                                <NavLink to="/order" className="me-3">
+                        <span className='links'>
+                            <NavLink to={path.REGISTER} activeClassName="active me-3">
+                                Đăng ký
+                            </NavLink>
+                        </span> */}
+                            <span className='links px-3'>
+                                <div className="account">
+                                    <MdOutlineAccountCircle className='icon-account' />
+                                    <div className="login-dropdown">
+                                        <div className="login-links">
+                                            <NavLink to={path.LOGIN} activeClassName="active me-3">
+                                                Đăng nhập
+                                            </NavLink>
+                                            <NavLink to={path.REGISTER} activeClassName="active me-3">
+                                                Đăng ký
+                                            </NavLink>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+
+                            <span className='links  px-3'>
+                                <MdFavorite className='tim' />
+                            </span>
+
+                            {cartOrder}
+                            {/* <span className='links  px-3'>
+                                <NavLink to="/order" activeClassName="active me-3">
                                     Giỏ hàng
                                 </NavLink>
+                            </span> */}
+
+                            <span className='links px-3'>
+                                <div className='lienhe'>Hotline: 1900 636 510</div>
+
                             </span>
-                            {this.cartOrder}
                         </div>
                     </nav>
-                    {/* menu phụ */}
+
                     <div className='menu-icon'>
-                        <GiHamburgerMenu onClick={this.toggleMenu} />
+                        <GiHamburgerMenu onClick={toggleMenu} />
                     </div>
                 </div>
+
+
             </header>
-        );
-    }
+        </>
+
+    );
 }
 
 export default Header;

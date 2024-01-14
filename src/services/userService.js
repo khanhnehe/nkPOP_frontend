@@ -8,6 +8,14 @@ const loginApiService = (userEmail, userPassword) => {
     return axios.post('/login', { email: userEmail, password: userPassword })
 }
 
+
+const ResisterApiService = (data) => {
+    console.log('ResisterApiService: ', data);
+
+    return axios.post('/register', data)
+}
+
 export {
-    loginApiService
+    loginApiService,
+    ResisterApiService
 }

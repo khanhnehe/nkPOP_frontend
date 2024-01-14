@@ -4,7 +4,7 @@ import ProductCarousel from '../../components/Sidler/ProductCarousel';
 import Categories from './Section/Categories';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import Banner from '../../components/Banner';
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -21,6 +21,7 @@ class Home extends Component {
 
         return (
             <>
+                <Banner />
                 <Sidler />
                 <ProductCarousel />
 

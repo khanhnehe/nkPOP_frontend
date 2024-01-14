@@ -1,0 +1,42 @@
+.banner {
+    display: flex;
+    height: 100%;
+    padding: 12px;
+    width: 100%;
+    font-weight: 600;
+    background: #000000;
+
+    .banner-right {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 30px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-behavior: smooth;
+        white-space: nowrap;
+        width: 100%;
+        // Ẩn thanh cuộn cho Firefox
+        scrollbar-width: none;
+        scrollbar-height: none;
+
+        // Ẩn thanh cuộn cho Chrome, Edge và Safari
+        &::-webkit-scrollbar {
+            display: none;
+        }
+    }
+
+    .TiThMenu {
+        font-size: 20px;
+    }
+
+    a {
+        color: #ffffff;
+        text-decoration: none;
+        transition: color 0.3s;
+
+        &:hover {
+            color: #85d400;
+        }
+    }
+}

@@ -4,13 +4,17 @@ import { loginApiService } from '../services/userService';
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { login } from '../store/actions/userActions';
 
-const Login = () => {
+//truyền props để LoginRedux
+const Login = (props) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [isShowPassword, setIsShowPassword] = useState(false);
     const [errMessage, setErrMessage] = useState('');
 
+    // hook  điều hướng 
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -18,22 +22,18 @@ const Login = () => {
 
         try {
             let data = await loginApiService(userName, password);
-
             if (data && data.errCode !== 0) {
                 setErrMessage(data.message);
             } else {
-                // với user từ dữ liệu trả về
-                // Lưu ý: Bạn cần xác nhận rằng props.loginApiService đã được định nghĩa trong parent component.
-                // Nếu không, bạn có thể muốn dispatch một action Redux để lưu thông tin user vào store.
-                // this.props.loginApiService(data.user);
-                console.log('login success');
+                props.LoginRedux(userName, password);
                 navigate('/');
             }
         } catch (error) {
             if (error.response) {
+                // Nếu có phản hồi từ server, cập nhật thông báo lỗi trong state
                 setErrMessage(error.response.data.message);
             }
-            console.log('test thu', error);
+            console.log('Lỗi đăng nhập', error);
         }
     };
 
@@ -86,6 +86,7 @@ const Login = () => {
                         </div>
 
                         <div className="col-md-12" style={{ color: 'red' }}>
+                            {/* Hiển thị thông báo lỗi (nếu có) */}
                             {errMessage}
                         </div>
                         <div>
@@ -98,7 +99,7 @@ const Login = () => {
                             </button>
                         </div>
 
-                        <div className="text-center  mt-3">
+                        <div className="text-center  mt-4">
                             Bạn chưa có tài khoản?
                             <span onClick={() => navigate('/register')} className="register-link text-primary ms-2">
                                 Đăng ký ngay
@@ -111,4 +112,17 @@ const Login = () => {
     );
 };
 
-export default Login;
+const mapStateToProps = state => {
+    return {
+        error: state.user.error,
+        isLoggedIn: state.isLoggedIn
+
+    };
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        LoginRedux: (userName, password) => dispatch(login(userName, password)),
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

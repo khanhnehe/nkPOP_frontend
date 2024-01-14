@@ -1,8 +1,20 @@
 .Carousel-controller{
+  padding: 10px 15px;
+  // margin-top: 10px;
+
   .carousel-img {
     width: 100%; 
     display: block;
-    margin: auto; 
-    max-height: 50%;  
-    transform:scale(0.9)  }
+    
+      }
+}
+
+.left-side{
+
+  // border: 1px solid red;
+  .row-img {
+    object-fit: contain;
+    width: 100%;  // Giảm kích thước xuống 50%
+    height: auto;  // Đặt chiều cao tự động dựa trên chiều rộng
+  }
 }

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import './Sidler.scss';
 import { Carousel } from 'react-bootstrap';
-import poster1 from '../../assets/poster1.jpg'; // Make sure this path is correct
-import poster2 from '../../assets/poster2.jpg'; // Make sure this path is correct
-import poster5 from '../../assets/poster5.1.jpg'; // Make sure this path is correct
-import poster6 from '../../assets/poster7.jpg'; // Make sure this path is correct
+import poster1 from '../../assets/skin1.webp';
+import poster6 from '../../assets/skin2.webp';
+// import poster5 from '../../assets/poster5.1.jpg';
+import poster2 from '../../assets/skin3.webp';
+import row1 from "../../assets/row1.jpg"
+import row2 from "../../assets/row2.jpeg"
+import row3 from "../../assets/banner-giam-gia.png"
 
 class Sidler extends Component {
     constructor(props) {
@@ -18,31 +21,42 @@ class Sidler extends Component {
         return (
             <>
                 <div className='Carousel-controller'>
-                    <Carousel>
-                        <Carousel.Item>
-                            <img src={poster1} alt="First slide" className="carousel-img" />
-                            <Carousel.Caption>
+                    <div className='row'>
+                        <div className='col-9'>
+                            <Carousel>
+                                <Carousel.Item>
+                                    <img src={poster1} alt="First slide" className="carousel-img" />
+                                    <Carousel.Caption>
 
-                            </Carousel.Caption>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={poster2} alt="Second slide" className="carousel-img" />
-                            <Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                    <img src={poster6} alt="Second slide" className="carousel-img" />
+                                    <Carousel.Caption>
 
-                            </Carousel.Caption>
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src={poster5} alt="Third slide" className="carousel-img" />
-                            <Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                                <Carousel.Item>
+                                    <img src={poster2} alt="Third slide" className="carousel-img" />
+                                    <Carousel.Caption>
 
-                            </Carousel.Caption>
-                        </Carousel.Item><Carousel.Item>
-                            <img src={poster6} alt="Third slide" className="carousel-img" />
-                            <Carousel.Caption>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+                            </Carousel>
+                        </div>
+                        <div className='col-3 left-side'>
 
-                            </Carousel.Caption>
-                        </Carousel.Item>
-                    </Carousel>
+                            <div className='row line-1'>
+                                <img src={row1} className="row-img" />
+                            </div>
+                            <div className='row line-2 mt-3'>
+                                <img src={row2} className="row-img" />
+
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </>
         );

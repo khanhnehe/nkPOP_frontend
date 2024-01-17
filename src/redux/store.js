@@ -8,6 +8,8 @@ export const store = configureStore({
     // Định nghĩa các reducer cho store.
     reducer: {
         // authReducer sẽ quản lý state được gọi là 'auth'
-        auth: authReducer
+        user: authReducer
     }
 })
+
+export default store;

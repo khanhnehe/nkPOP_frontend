@@ -1,36 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Login.scss';
 import { loginApiService } from '../services/userService';
 import { FaRegEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { login } from '../store/actions/userActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../redux/feature/auth/authSilce';
 
-//truyền props để LoginRedux
-const Login = (props) => {
+const Login = () => {
+    const dispatch = useDispatch();
+    const { isLoggedIn, isSuccess, userInfo } = useSelector(state => state.user);
+    console.log({ isLoggedIn, isSuccess, userInfo });
+
+
+    const navigate = useNavigate();
+
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
-    const [isShowPassword, setIsShowPassword] = useState(false);
+    const [isShowPassword, setIsShowPassword] = useState('');
     const [errMessage, setErrMessage] = useState('');
 
-    // hook  điều hướng 
-    const navigate = useNavigate();
+    useEffect(() => {
+        if (isSuccess && isLoggedIn) {
+            // Sử dụng callback function để thực hiện chuyển hướng sau khi render
+            navigate('/');
+        }
+    }, [isSuccess, isLoggedIn, navigate]);
 
     const handleLogin = async () => {
         setErrMessage('');
 
         try {
-            let data = await loginApiService(userName, password);
+            const data = await loginApiService(userName, password);
             if (data && data.errCode !== 0) {
                 setErrMessage(data.message);
             } else {
-                props.LoginRedux(userName, password);
-                navigate('/');
+                dispatch(loginUser({ email: userName, password }));
+                // Không cần navigate ở đây, nó sẽ được xử lý bởi useEffect
             }
         } catch (error) {
             if (error.response) {
-                // Nếu có phản hồi từ server, cập nhật thông báo lỗi trong state
                 setErrMessage(error.response.data.message);
             }
             console.log('Lỗi đăng nhập', error);
@@ -112,17 +121,4 @@ const Login = (props) => {
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        // error: state.user.error,
-        // isLoggedIn: state.isLoggedIn
-
-    };
-};
-const mapDispatchToProps = dispatch => {
-    return {
-        LoginRedux: (userName, password) => dispatch(login(userName, password)),
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default Login;

@@ -1,65 +1,66 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { act } from "react-dom/test-utils";
-import { loginApiService, ResisterApiService } from "../../../services/userService";
-import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
+// userSlice.js
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { loginApiService, ResisterApiService } from '../../../services/userService';
 
 const initialState = {
     isLoggedIn: false,
     isSuccess: false,
     userInfo: null,
-    isError: '',
-}
+    error: '', // Thay đổi tên thành 'error'
+};
 
-export const register = createAsyncThunk(
-    "auth/register", // Tên của action.
-    async (data, thunkAPI) => {
-        try {
-            // Gọi API với đối tượng data chứa các trường cần thiết.
-            return await ResisterApiService(data);
-        } catch (error) {
-            // Trả về lỗi nếu có.
-            const message = (error.response
-                && error.response.data
-                && error.response.data.message) ||
-                error.toString();
-            return thunkAPI.rejectWithValue(message);
+// Async Thunks
+export const loginUser = createAsyncThunk('user/login', async (credentials, { dispatch }) => {
+    try {
+        const response = await loginApiService(credentials.email, credentials.password);
+        dispatch(setUser(response.data));
+    } catch (error) {
+        if (error.response.data.message) {
+            dispatch(setError(error.response.data.message));
         }
     }
-)
+});
 
-const authSlice = createSlice({
-    name: 'auth', // Tên của slice.
+export const registerUser = createAsyncThunk('user/register', async (userData, { dispatch }) => {
+    try {
+        const response = await ResisterApiService(userData);
+        dispatch(setUser(response.data));
+    } catch (error) {
+        if (error.response.data.message) {
+            dispatch(setError(error.response.data.message));
+        }
+    }
+});
+
+const userSlice = createSlice({
+    name: 'user',
     initialState,
-    reducers: { // Định nghĩa các reducer.
-        RESET_AUTH(state) { // Reducer để reset trạng thái auth.
+    reducers: {
+        setUser: (state, action) => {
+            state.userInfo = action.payload;
+            state.isLoggedIn = !!action.payload;
+            state.isSuccess = true;
+            state.error = ''; // Thay đổi tên thành 'error'
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('userInfo', JSON.stringify(action.payload));
+        },
+        clearUser: (state) => {
+            state.userInfo = null;
+            state.isLoggedIn = false;
             state.isSuccess = false;
-            state.isError = '';
-        }
-    },// Định nghĩa các extra reducer
-    extraReducers: (builder) => {
-        builder
-            // action đăng ký đang được xử lý.
-            .addCase(register.pending, (state) => {
-                // state.isLoading = true // Đặt trạng thái đang tải.
-            })
-            // Khi action đăng ký thành công.
-            .addCase(register.fulfilled, (state, action) => {
-                // state.isLoading = false;
-                state.isLoggedIn = true;
-                state.isSuccess = true;
-                state.isError = action.payload.message; // Lưu thông báo từ payload của action.
-                state.userInfo = action.payload.user; // Lưu thông tin người dùng từ payload của action.
-            })
-            // Khi action đăng ký thất bại.
-            .addCase(register.rejected, (state, action) => {
-                // state.isLoading = false;
-                state.userInfo = null; // Xóa thông tin người dùng.
-                state.isError = action.error.message; // Lưu thông báo lỗi từ action.
-            })
-    }
-})
+            state.error = ''; // Thay đổi tên thành 'error'
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userInfo');
+        },
+        setError: (state, action) => {
+            state.error = action.payload; // Thay đổi tên thành 'error'
+            state.isSuccess = false;
+        },
+        clearError: (state) => {
+            state.error = ''; // Thay đổi tên thành 'error'
+        },
+    },
+});
 
-export const { RESET_AUTH } = authSlice.actions;
-// Xuất reducer của slice để sử dụng khi cấu hình store.
-export default authSlice.reducer; 
+export const { setUser, clearUser, setError, clearError } = userSlice.actions;
+export default userSlice.reducer;

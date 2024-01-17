@@ -24,42 +24,48 @@ const Banner = () => {
 
     return (
         <>
+            <div className='banner-container'>
+                <SwipeableViews enableMouseEvents>
+                    <animated.div className='banner' style={bannerAnimation}>
+                        {/* để cái này nó mới ăn */}
 
-            <SwipeableViews enableMouseEvents>
-                <animated.div className='banner' style={bannerAnimation}>
-                    {/* để cái này nó mới ăn */}
-                    <span onClick={toggleMenu}></span>
-                    <div className='banner-right'>
-                        <NavLink to="/hot-deals" activeClassName="active me-3">
-                            <TiThMenu className='TiThMenu me-2' />
-                            DANH MỤC
-                        </NavLink>
-                        <NavLink to="/hot-deals" activeClassName="active me-3">
-                            HOT DEAL
-                        </NavLink>
+                        <div className='banner-left'>
+                            <NavLink to="/hot-deals" activeClassName="active me-3">
+                                <TiThMenu className='TiThMenu me-1' />
+                                DANH MỤC
+                            </NavLink>
+                        </div>
+                        <span onClick={toggleMenu}></span>
+                        <div className='banner-right'>
 
-                        <NavLink to="/hot-deals" activeClassName="active me-3">
-                            CHĂM SÓC DA
-                        </NavLink>
+                            <NavLink to="/hot-deals" activeClassName="active me-3">
+                                HOT DEAL
+                            </NavLink>
 
-                        <NavLink to="/hot-deals" activeClassName="active me-3">
-                            TRANG ĐIỂM
-                        </NavLink>
+                            <NavLink to="/hot-deals" activeClassName="active me-3">
+                                CHĂM SÓC DA
+                            </NavLink>
 
-                        <NavLink to="/brand" activeClassName="active me-3">
-                            THƯƠNG HIỆU
-                        </NavLink>
+                            <NavLink to="/hot-deals" activeClassName="active me-3">
+                                TRANG ĐIỂM
+                            </NavLink>
 
-                        <NavLink to="/new-products" activeClassName="active me-3">
-                            HÀNG MỚI VỀ
-                        </NavLink>
+                            <NavLink to="/brand" activeClassName="active me-3">
+                                THƯƠNG HIỆU
+                            </NavLink>
 
-                        <NavLink to="/best-seller" activeClassName="active me-3">
-                            BÁN CHẠY
-                        </NavLink>
-                    </div>
-                </animated.div>
-            </SwipeableViews>
+                            <NavLink to="/new-products" activeClassName="active me-3">
+                                HÀNG MỚI VỀ
+                            </NavLink>
+
+                            <NavLink to="/best-seller" activeClassName="active me-3">
+                                BÁN CHẠY
+                            </NavLink>
+                        </div>
+                    </animated.div>
+                </SwipeableViews>
+            </div>
+
         </>
     )
 }

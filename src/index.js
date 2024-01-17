@@ -3,13 +3,20 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+//redux
 import { Provider } from 'react-redux';
 import reduxStore, { persistor } from './store/reduxStore';
+// redux toolkit
+import { store } from './redux/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={reduxStore}>
+    {/* redux 
+    <Provider store={reduxStore}> */}
+
+    {/* redux toolkit */}
+    <Provider store={store}>
       <App persistor={persistor} />
 
     </Provider>

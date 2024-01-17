@@ -10,20 +10,20 @@
 
 // banner
 
-// .top-line{
-//   height: 100%;
-//   width: 100%;
-//   background-color: #000000;
-//   padding: 0px 15px;
-//   color: white;
-// }
+.top-line{
+  height: 10px;
+  width: 100%;
+  background-color: black;
+  font-size: 10px;
+  color: white;
+}
 
 header {
-  width           : 100%;
-  color           : #fff;
+  width: 100%;
+  color: #fff;
 
   .header {
-    border-bottom     : 1px solid grey;
+    border-bottom     : 2px solid rgb(0, 0, 0);
     // width          : 100%;
     height            : 100%;
     padding           : 20px;
@@ -39,40 +39,17 @@ header {
 
     }
 
-    .logo {
-      font-size       : 25px;
-      font-weight     : 700;
-      color           : #fff;
-      cursor          : pointer;
-      background-color: #85d400;
-      padding         : 6px 15px;
-      border-radius: 5px ;
-
-      a {
-        color          : #000000;
-        text-decoration: none;
-        transition     : color 0.3s;
-       
-
-        &:hover {
-          color: #85d400;
-        }
-      }
-
-      span {
-        color: #fff;
-        white-space: nowrap;
-
-      }
-    
+    .logo  img {
+      width : 60%;
+  height: 60%;
     }
 
 
     // thanh tìm kiếm
     .header-left {
-      width: 35%;
-      margin-left: 17%;
-      justify-content: center;
+      width          : 37%;
+      margin-right    :5%;
+      // justify-content: center;
 
       .search {
         .search-group {
@@ -83,15 +60,17 @@ header {
             width        : 100%;
             padding      : 10px;
             border-radius: 0%;
-            border       : 1px solid rgb(171, 171, 171);
             outline      : none;
-            border-radius   : 5px 0px 0px 5px;
+            border-radius: 5px 0px 0px 5px;
+            border       : 2px solid #afafaf;
+            border-right:1px solid  #85d400;
+
 
           }
 
           .icon-search {
             border-radius   : 0 5px 5px 0;
-            border          : 1px  solid #85d400;
+            border          : 2px solid #85d400;
             background-color: #85d400;
             padding         : 10px;
             color           : white;
@@ -160,17 +139,19 @@ header {
         //icon tim
         .tim {
           font-size: 35px;
+
           &:hover {
             color: #049632;
           }
         }
 
-        .lienhe{
+        .lienhe {
           margin-top: 4px;
+
           // border: 1px solid black;
           &:hover {
             color: #049632;
-           
+
           }
         }
 
@@ -187,14 +168,15 @@ header {
         //icon account
         .icon-account {
           font-size: 35px;
+
           &:hover {
             color: #049632;
           }
         }
 
         .login-dropdown {
-          width: 170px; // Tăng kích thước của login-dropdown
-          height: 100px;
+          width           : 170px; // Tăng kích thước của login-dropdown
+          height          : 100px;
           display         : none;
           position        : absolute;
           top             : 100%;
@@ -206,13 +188,13 @@ header {
 
 
           //các link 
-          .login-links{
-            display: flex;
+          .login-links {
+            display       : flex;
             flex-direction: column;
-            align-items: start; // Căn chỉnh các liên kết về bên trái
+            align-items   : start; // Căn chỉnh các liên kết về bên trái
 
             a {
-              margin: 5px;
+              margin    : 5px;
               border-top: 1px solid gray; // Tạo khoảng cách giữa các liên kết
             }
           }

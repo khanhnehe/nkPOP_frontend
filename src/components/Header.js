@@ -19,7 +19,7 @@ const Header = () => {
         <div className='logo'>
             <Link to={path.HOME}>
                 <div>
-                    <span>KANH POP</span>
+                    <img src={logo1} alt="Logo" />
                 </div>
             </Link>
         </div>
@@ -41,7 +41,7 @@ const Header = () => {
 
     return (
         <>
-            {/* <div className='top-line'>Hotline: 1900 636 510 </div> */}
+            <div className='top-line'></div>
             <header>
                 <div className='header'>
                     {logoHome}
@@ -101,10 +101,10 @@ const Header = () => {
                                 </NavLink>
                             </span> */}
 
-                            <span className='links px-3'>
+                            {/* <span className='links px-3'>
                                 <div className='lienhe'>Hotline: 1900 636 510</div>
 
-                            </span>
+                            </span> */}
                         </div>
                     </nav>
 

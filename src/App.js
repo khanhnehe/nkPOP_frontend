@@ -19,6 +19,18 @@ class App extends Component {
       <Fragment>
         <Router>
           <div className="">
+            <ToastContainer
+              position="top-center"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <Header />
             <Routes>
               {/* <Route path={path.HOME} element={<HomePage />} /> */}
@@ -29,18 +41,7 @@ class App extends Component {
             </Routes>
             <Footer />
           </div>
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
+
         </Router>
       </Fragment>
     );
@@ -49,8 +50,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    started: state.app.started,
-    isLoggedIn: state.user.isLoggedIn,
+    // isLoggedIn: state.user.isLoggedIn,
   };
 };
 

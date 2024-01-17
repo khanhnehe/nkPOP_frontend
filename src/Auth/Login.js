@@ -114,8 +114,8 @@ const Login = (props) => {
 
 const mapStateToProps = state => {
     return {
-        error: state.user.error,
-        isLoggedIn: state.isLoggedIn
+        // error: state.user.error,
+        // isLoggedIn: state.isLoggedIn
 
     };
 };

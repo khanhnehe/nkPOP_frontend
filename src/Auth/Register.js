@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Register.scss';
 import { ResisterApiService } from '../services/userService';
 import { FaRegEye } from 'react-icons/fa';
 import { FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { Register } from '../store/actions/userActions';
+import { RESET_AUTH, register } from '../redux/feature/auth/authSilce'
+import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from '../components/Loader';
+import { useDispatch } from 'react-redux';
 
 // Truyền props để RegisterRedux
 const Register = (props) => {
@@ -15,7 +20,6 @@ const Register = (props) => {
         email: '',
         password: '',
         phoneNumber: '',
-        address: '',
 
     });
     const [isShowPassword, setIsShowPassword] = useState(false);
@@ -43,13 +47,13 @@ const Register = (props) => {
     //validate input
     const checkValidateInput = () => {
         let isValid = true;
-        let checkArr = ['lastName', 'firstName', 'email', 'password', 'phoneNumber', 'address'];
+        let checkArr = ['lastName', 'firstName', 'email', 'password', 'phoneNumber',];
 
         //lăp để tiếp kiệm thời gian thay gì lặp từng phần tử
         for (let i = 0; i < checkArr.length; i++) {
             if (!state[checkArr[i]]) {
                 isValid = false;
-                alert('Bạn chưa nhập: ' + checkArr[i])
+                toast.error('Bạn chưa nhập: ' + checkArr[i])
                 break;
             }
         }
@@ -60,32 +64,41 @@ const Register = (props) => {
 
 
 
-
     const handleSubmit = async () => {
-        setErrMessage('');
         try {
             let isValid = checkValidateInput();
             if (!isValid) {
                 return;
             }
 
-            let response = await ResisterApiService(state)
+            let response = await props.RegisterRedux(state);
             if (response && response.errCode !== 0) {
-                setErrMessage(response.errCode);
+                console.log(response.errCode);
             }
             else {
                 navigate('/login');
-                alert('Đăng ký thành công')
+                toast.success('Đăng ký thành công')
             }
-
         } catch (error) {
 
         }
-
     };
+
+    // điều hướng
+    // ...
+
+    // const dispatch = useDispatch();
+
+    // useEffect(() => {
+    //     if (props.isSuccess && props.isLoggedIn) {
+    //         navigate('/login');
+    //     }
+    //     dispatch(RESET_AUTH());
+    // }, [props.isSuccess, props.isLoggedIn, dispatch, navigate]);
 
     return (
         <>
+            {/* {props.isLoading && <Loader />} */}
             <div className="Register-background">
                 <div className="left-content mt-4 text-center"></div>
                 <div className="Register-container">
@@ -123,6 +136,11 @@ const Register = (props) => {
                                     value={state.email}
                                     onChange={(event) => handleOnChangeInput(event, 'email')}
                                 />
+
+                                <div className="col-md-12" style={{ color: 'red', fontWeight: '400' }}>
+                                    {/* lỗi */}
+                                    {/* {props.isError} */}
+                                </div>
                             </div>
                         </div>
                         <div className="col-md-12 Register-input form-group mt-4">
@@ -159,23 +177,7 @@ const Register = (props) => {
                                 />
                             </div>
                         </div>
-                        <div className="col-md-12 Register-input form-group mt-4">
-                            <label className="">Địa chỉ:</label>
-                            <div className="custom-input-pas">
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Địa chỉ của bạn"
-                                    value={state.address}
-                                    onChange={(event) => handleOnChangeInput(event, 'address')}
-                                />
-                            </div>
-                        </div>
 
-                        <div className="col-md-12" style={{ color: 'red' }}>
-                            {/* lỗi */}
-                            {errMessage}
-                        </div>
                         <div>
                             <button
                                 type="button"
@@ -194,13 +196,17 @@ const Register = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        error: state.user.error,
-        isLoggedIn: state.isLoggedIn,
+        isError: state.auth.isError, // Lấy từ Redux store
+        isLoggedIn: state.auth.isLoggedIn,
+        // isLoading: state.auth.isLoading,
+        isSuccess: state.auth.isSuccess
     };
 };
+
 const mapDispatchToProps = (dispatch) => {
     return {
-        RegisterRedux: (userName, password) => dispatch(Register(userName, password)),
+        RegisterRedux: (data) => dispatch(register(data)), // Dispatch action register
+        // resetAuth: () => dispatch(RESET_AUTH()), // Dispatch action reset auth
     };
 };
 

@@ -10,12 +10,12 @@
 
 // banner
 
-.top-line{
-  height: 10px;
-  width: 100%;
+.top-line {
+  height          : 10px;
+  width           : 100%;
   background-color: black;
-  font-size: 10px;
-  color: white;
+  font-size       : 10px;
+  color           : white;
 }
 
 header {
@@ -23,16 +23,16 @@ header {
   color: #fff;
 
   .header {
-    border-bottom     : 1px solid #afafaf;
-    
+    border-bottom: 1px solid #afafaf;
+
     // width          : 100%;
-    height            : 100%;
-    padding           : 15px 20px;
-    display           : flex;
-    justify-content   : space-around;
-    align-items       : center;
-    position          : relative;
-    background-color  : white;
+    height          : 100%;
+    padding         : 15px 20px;
+    display         : flex;
+    justify-content : space-around;
+    align-items     : center;
+    position        : relative;
+    background-color: white;
 
     .text-home {
       color      : #000000;
@@ -40,16 +40,16 @@ header {
 
     }
 
-    .logo  img {
+    .logo img {
       width : 57%;
-  height: 60%;
+      height: 60%;
     }
 
 
     // thanh tìm kiếm
     .header-left {
-      width          : 37%;
-      margin-right    :5%;
+      width             : 37%;
+      margin-right      : 5%;
       // justify-content: center;
 
       .search {
@@ -64,7 +64,7 @@ header {
             outline      : none;
             border-radius: 5px 0px 0px 5px;
             border       : 2px solid #afafaf;
-            border-right:1px solid  #85d400;
+            border-right : 1px solid #85d400;
 
 
           }
@@ -94,6 +94,17 @@ header {
         display        : flex;
         justify-content: space-around;
 
+        .hello {
+          color           : #000000;
+          /* font-weight  : 500; */
+          font-size       : 17px;
+          border          : 2px solid #7ed957;
+          padding         : 3px 4px;
+          background-color: #85d400;
+          border-radius   : 10px 8px 10px 0px;
+          color           : white;
+
+        }
 
         .cart a {
           display  : flex;
@@ -168,7 +179,7 @@ header {
 
         //icon account
         .icon-account {
-          font-size: 35px;
+          font-size: 37px;
 
           &:hover {
             color: #049632;

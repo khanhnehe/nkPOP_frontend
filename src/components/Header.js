@@ -10,12 +10,14 @@ import { logout } from '../store/actions/userActions';
 import logo1 from "../../src/assets/logo.png"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { TbLogout } from "react-icons/tb";
 import { useAlert } from 'react-alert'
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
     const navigate = useNavigate();
+    const { isLoggedIn, userInfo } = useSelector(state => state.user);
+
     const dispatch = useDispatch();
 
     const logoHome = (
@@ -46,6 +48,9 @@ const Header = () => {
         navigate('/login');
     };
 
+    // lấy name
+
+
     return (
         <>
             <div className='top-line'></div>
@@ -66,29 +71,53 @@ const Header = () => {
 
                     <nav className={openMenu ? 'show-nav' : 'hide-nav'}>
                         <div className='header-right'>
-                            <span className='links px-3'>
-                                <div className='account'>
-                                    <MdOutlineAccountCircle className='icon-account' />
-                                    <div className='login-dropdown'>
-                                        <div className='login-links'>
-                                            <NavLink to='/login' activeClassName='active me-3'>
-                                                Đăng nhập
-                                            </NavLink>
-                                            <NavLink to='/register' activeClassName='active me-3'>
-                                                Đăng ký
-                                            </NavLink>
+                            {/* chia menu */}
+                            {isLoggedIn ? (
+                                <span className='links px-3'>
+                                    <div className='account'>
+
+                                        <MdOutlineAccountCircle className='icon-account' />
+                                        <span className='hello'>
+                                            Hi, {userInfo.firstName}!
+                                        </span>
+                                        <div className='login-dropdown'>
+                                            <div className='login-links'>
+                                                <NavLink to='/account' activeClassName='active me-3'>
+                                                    Hồ sơ                                                </NavLink>
+
+                                                <span className='links px-3'>
+                                                    <div onClick={handleLogout}><TbLogout />
+                                                    </div>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </span>
+                                </span>
+
+                            ) : (
+                                <span className='links px-3'>
+                                    <div className='account'>
+                                        <MdOutlineAccountCircle className='icon-account' />
+                                        <div className='login-dropdown'>
+                                            <div className='login-links'>
+                                                <NavLink to='/login' activeClassName='active me-3'>
+                                                    Đăng nhập
+                                                </NavLink>
+                                                <NavLink to='/register' activeClassName='active me-3'>
+                                                    Đăng ký
+                                                </NavLink>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </span>
+
+                            )}
 
                             <span className='links px-3'>
                                 <MdFavorite className='tim' />
                             </span>
 
-                            <span className='links px-3'>
-                                <button onClick={handleLogout}>Logout</button>
-                            </span>
+
 
                             {cartOrder}
                         </div>

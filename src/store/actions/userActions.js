@@ -1,4 +1,4 @@
-import { loginApiService } from "../../services/userService";
+import { loginApiService, logoutApi } from "../../services/userService";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
 
@@ -30,8 +30,16 @@ export const login = (userName, password) => {
 
 // logout
 export const logout = () => {
-    return {
-        type: actionTypes.PROCESS_LOGOUT,
-        payload: null,
+    return dispatch => {
+        try {
+            logoutApi();
+            dispatch({
+                type: actionTypes.PROCESS_LOGOUT,
+                payload: null,
+            });
+            console.log('Logged out successfully');
+        } catch (error) {
+            console.log('Logout failed');
+        }
     };
 };

@@ -18,30 +18,27 @@ class App extends Component {
     return (
       <Fragment>
         <Router>
-          <div className="">
-            <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-            <Header />
-            <Routes>
-              {/* <Route path={path.HOME} element={<HomePage />} /> */}
-              <Route path={path.HOMEPAGE} element={<Home />} />
-              <Route path={path.TEST} element={<Test />} />
-              <Route path={path.LOGIN} element={<Login />} />
-              <Route path={path.REGISTER} element={<Register />} />
-            </Routes>
-            <Footer />
-          </div>
-
+          <Header />
+          <Routes>
+            {/* <Route path={path.HOME} element={<HomePage />} /> */}
+            <Route path={path.HOMEPAGE} element={<Home />} />
+            <Route path={path.TEST} element={<Test />} />
+            <Route path={path.LOGIN} element={<Login />} />
+            <Route path={path.REGISTER} element={<Register />} />
+          </Routes>
+          <Footer />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </Router>
       </Fragment>
     );

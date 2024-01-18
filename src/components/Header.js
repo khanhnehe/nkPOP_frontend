@@ -1,25 +1,28 @@
 import React, { useState } from 'react';
 import './Header.scss';
 import { Link, NavLink } from 'react-router-dom';
-import { MdOutlineShoppingBag } from "react-icons/md";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { path } from '../utils/constant';
-import { IoSearch } from "react-icons/io5";
-import { MdFavorite } from "react-icons/md";
-import { MdOutlineAccountCircle } from "react-icons/md";
-import { PiPhoneCallLight } from "react-icons/pi";
+import { MdOutlineShoppingBag } from 'react-icons/md';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { IoSearch } from 'react-icons/io5';
+import { MdFavorite, MdOutlineAccountCircle } from 'react-icons/md';
+import { connect } from 'react-redux';
+import { logout } from '../store/actions/userActions';
 import logo1 from "../../src/assets/logo.png"
-
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import { useAlert } from 'react-alert'
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
-    const [scrollPage, setScrollPage] = useState(true);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const logoHome = (
         <div className='logo'>
-            <Link to={path.HOME}>
+            <Link to='/'>
                 <div>
-                    <img src={logo1} alt="Logo" />
+                    <img src={logo1} alt='Logo' />
                 </div>
             </Link>
         </div>
@@ -27,17 +30,21 @@ const Header = () => {
 
     const cartOrder = (
         <span className='cart px-3'>
-            <Link to="/cart">
+            <Link to='/cart'>
                 <MdOutlineShoppingBag />
                 <p>0</p>
             </Link>
         </span>
-    )
+    );
 
     const toggleMenu = () => {
         setOpenMenu(!openMenu);
-    }
+    };
 
+    const handleLogout = async () => {
+        await dispatch(logout());
+        navigate('/login');
+    };
 
     return (
         <>
@@ -49,11 +56,7 @@ const Header = () => {
                     <div className='header-left'>
                         <div className='search'>
                             <div className='search-group'>
-                                <input
-                                    className='input-search'
-                                    type="text"
-                                    placeholder="Search..."
-                                />
+                                <input className='input-search' type='text' placeholder='Search...' />
                                 <button className='icon-search'>
                                     <IoSearch />
                                 </button>
@@ -62,27 +65,16 @@ const Header = () => {
                     </div>
 
                     <nav className={openMenu ? 'show-nav' : 'hide-nav'}>
-                        <div className='header-right' >
-                            {/* <span className='links'>
-                            <NavLink to={path.LOGIN} activeClassName="active me-3">
-                                Đăng nhập
-                            </NavLink>
-                        </span>
-
-                        <span className='links'>
-                            <NavLink to={path.REGISTER} activeClassName="active me-3">
-                                Đăng ký
-                            </NavLink>
-                        </span> */}
+                        <div className='header-right'>
                             <span className='links px-3'>
-                                <div className="account">
+                                <div className='account'>
                                     <MdOutlineAccountCircle className='icon-account' />
-                                    <div className="login-dropdown">
-                                        <div className="login-links">
-                                            <NavLink to={path.LOGIN} activeClassName="active me-3">
+                                    <div className='login-dropdown'>
+                                        <div className='login-links'>
+                                            <NavLink to='/login' activeClassName='active me-3'>
                                                 Đăng nhập
                                             </NavLink>
-                                            <NavLink to={path.REGISTER} activeClassName="active me-3">
+                                            <NavLink to='/register' activeClassName='active me-3'>
                                                 Đăng ký
                                             </NavLink>
                                         </div>
@@ -90,21 +82,15 @@ const Header = () => {
                                 </div>
                             </span>
 
-                            <span className='links  px-3'>
+                            <span className='links px-3'>
                                 <MdFavorite className='tim' />
                             </span>
 
+                            <span className='links px-3'>
+                                <button onClick={handleLogout}>Logout</button>
+                            </span>
+
                             {cartOrder}
-                            {/* <span className='links  px-3'>
-                                <NavLink to="/order" activeClassName="active me-3">
-                                    Giỏ hàng
-                                </NavLink>
-                            </span> */}
-
-                            {/* <span className='links px-3'>
-                                <div className='lienhe'>Hotline: 1900 636 510</div>
-
-                            </span> */}
                         </div>
                     </nav>
 
@@ -112,12 +98,9 @@ const Header = () => {
                         <GiHamburgerMenu onClick={toggleMenu} />
                     </div>
                 </div>
-
-
             </header>
         </>
-
     );
-}
+};
 
 export default Header;

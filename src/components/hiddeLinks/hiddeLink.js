@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-const Test = (props) => {
+const showOnLogin = () => {
 
 
 
@@ -11,4 +11,4 @@ const Test = (props) => {
     );
 }
 
-export default Test;
+export default showOnLogin;

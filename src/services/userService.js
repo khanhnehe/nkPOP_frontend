@@ -10,12 +10,15 @@ const loginApiService = (userEmail, userPassword) => {
 
 
 const ResisterApiService = (data) => {
-    console.log('ResisterApiService: ', data);
-
     return axios.post('/register', data)
+}
+
+const logoutApi = () => {
+    return axios.post('logout')
 }
 
 export {
     loginApiService,
-    ResisterApiService
+    ResisterApiService,
+    logoutApi
 }

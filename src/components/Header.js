@@ -83,7 +83,7 @@ const Header = () => {
                                         <div className='login-dropdown'>
                                             <div className='login-links'>
                                                 <NavLink to='/account' activeClassName='active me-3'>
-                                                    Hồ sơ                                                </NavLink>
+                                                    Hồ sơ !                                             </NavLink>
 
                                                 <span className='links px-3'>
                                                     <div onClick={handleLogout}><TbLogout />

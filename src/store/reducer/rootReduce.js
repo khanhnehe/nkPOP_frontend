@@ -26,7 +26,7 @@ const appPersistConfig = {
     key: 'app',
     storage, // Lưu trữ để sử dụng (localStorage trong web),
     stateReconciler: autoMergeLevel2,//  không ghi đè lên state mà là à hợp nhất lại các thay dổi
-    whitelist: ['',] // Danh sách các reducer để lưu trữ
+    whitelist: [] // Danh sách các reducer để lưu trữ
 };
 
 // Kết hợp tất cả các reducer
@@ -34,9 +34,10 @@ const appPersistConfig = {
 //     user: userReducer // Sử dụng reducer của người dùng dưới khóa 'user'
 // });
 
-export default (history) => combineReducers({
+const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
-    // admin: adminReducer
-})
+});
+
+export default rootReducer; // Thêm expor

@@ -8,14 +8,14 @@ import { Provider } from 'react-redux';
 import reduxStore, { persistor } from './store/reduxStore';
 // redux toolkit
 import { store } from './redux/store'
+import { history } from './store/reduxStore';
+import { ConnectedRouter } from 'connected-react-router';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={reduxStore}>
 
-      {/* redux toolkit */}
-      {/* <Provider store={store}> */}
       <App persistor={persistor} />
 
     </Provider>

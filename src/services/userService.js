@@ -14,11 +14,24 @@ const ResisterApiService = (data) => {
 }
 
 const logoutApi = () => {
-    return axios.post('logout')
+    return axios.post('/logout')
 }
+
+
+// truyền thêm token vì được protected
+const updateApi = (inputData, token) => {
+    return axios.put('/updateUser', inputData, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+}
+
 
 export {
     loginApiService,
     ResisterApiService,
-    logoutApi
+    logoutApi,
+    updateApi
 }

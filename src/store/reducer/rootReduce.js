@@ -19,7 +19,7 @@ const userPersistConfig = {
     key: 'user',
     storage, // Lưu trữ để sử dụng (localStorage trong web),
     stateReconciler: autoMergeLevel2,//  không ghi đè lên state mà là à hợp nhất lại các thay dổi
-    whitelist: ['isLoggedIn', 'userInfo',] // Danh sách các reducer để lưu trữ
+    whitelist: ['isLoggedIn', 'userInfo', 'accessToken'] // Danh sách các reducer để lưu trữ
 };
 
 const appPersistConfig = {

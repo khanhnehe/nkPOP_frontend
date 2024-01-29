@@ -12,6 +12,8 @@ import Register from "./Auth/Register";
 import { ToastContainer } from 'react-toastify';
 import { connect } from "react-redux";
 import { history } from './store/reduxStore';
+import Profile from "./pages/profile/Profile";
+import MyOrder from "./pages/profile/MyOrder";
 
 class App extends Component {
   render() {
@@ -25,6 +27,8 @@ class App extends Component {
             <Route path={path.TEST} element={<Test />} />
             <Route path={path.LOGIN} element={<Login />} />
             <Route path={path.REGISTER} element={<Register />} />
+            <Route path={path.PROFILE} element={<Profile />} />
+            <Route path={path.MY_ORDER} element={<MyOrder />} />
           </Routes>
           <Footer />
           <ToastContainer

@@ -18,6 +18,8 @@ const Header = () => {
     const navigate = useNavigate();
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
 
+    const firstName = userInfo ? userInfo.firstName : '';
+
     const dispatch = useDispatch();
 
     const logoHome = (
@@ -78,12 +80,13 @@ const Header = () => {
 
                                         <MdOutlineAccountCircle className='icon-account' />
                                         <span className='hello'>
-                                            Hi, {userInfo.firstName}!
+                                            Hi, {firstName}!
                                         </span>
                                         <div className='login-dropdown'>
                                             <div className='login-links'>
-                                                <NavLink to='/account' activeClassName='active me-3'>
-                                                    Hồ sơ !                                             </NavLink>
+                                                <NavLink to='/profile/account' activeClassName='active me-3'>
+                                                    Hồ sơ
+                                                </NavLink>
 
                                                 <span className='links px-3'>
                                                     <div onClick={handleLogout}><TbLogout />

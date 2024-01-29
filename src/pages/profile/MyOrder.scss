@@ -1,0 +1,92 @@
+.MyOrder {
+
+    margin: 40px 120px;
+
+    .row-big {
+        justify-content: center;
+        display        : flex;
+
+        .content-left {
+            // border       : 2px solid #afafaf;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+            border-radius: 5px;
+            margin-right : 15px;
+            height: 330px;
+
+
+            .account {
+                height          : 70px;
+                // background-color: #d1ffd8;
+                background-color: #85d400;
+                border-radius: 4px 4px 0px 0px;
+                padding: 4px 10px;
+                color: white;
+                // border-bottom: 10px solid white;
+
+                .image {
+                    border-radius      : 50px;
+                    width              : 60px;
+                    /* Đặt chiều rộng cho hình ảnh */
+                    height             : 60px;
+                    /* Đặt chiều cao cho hình ảnh */
+                    background-image   : url('../../assets/avatar-trang-4.jpg');
+                    /* Thay 'path-to-your-image.jpg' bằng đường dẫn tới ảnh đại diện của bạn */
+                    background-size    : cover;
+                    /* Đảm bảo ảnh bao phủ toàn bộ khu vực */
+                    background-position: center;
+                    /* Đảm bảo ảnh được căn giữa */
+
+                }
+
+                .name {
+                    margin-top : 20px;
+                    font-size  : 17px;
+                    font-weight: 500;
+                    white-space: nowrap;
+                }
+            }
+
+            .nav-content {
+                display        : grid;
+                // grid-row-gap: 15px;
+                // color: white;
+
+                .child-nav {
+                    font-weight: 500;
+                    font-size  : 18px;
+                    padding    : 10px 30px;
+                    text-decoration: none;
+                    color: black;
+
+                    
+
+                    // &:hover {
+                    //     background-color: black;
+                    //     color           : white;
+                    //     flex-direction  : row;
+
+                    // }
+
+                    &.active {
+                        background-color: #e2b3f9;
+                        color           : white;
+                        flex-direction  : row;
+                      }
+                }
+            }
+        }
+
+
+        .content {
+            // border       : 2px solid #afafaf;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+
+            border-radius: 5px;
+
+        }
+    }
+
+
+
+}

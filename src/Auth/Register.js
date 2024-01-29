@@ -6,6 +6,7 @@ import { FaEyeSlash } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { Register } from '../store/actions/userActions';
+import { toast } from 'react-toastify';
 
 // Truyền props để RegisterRedux
 const Register = (props) => {
@@ -49,8 +50,7 @@ const Register = (props) => {
         for (let i = 0; i < checkArr.length; i++) {
             if (!state[checkArr[i]]) {
                 isValid = false;
-                alert('Bạn chưa nhập: ' + checkArr[i])
-                break;
+                toast.error('Bạn điền thiếu: ' + checkArr[i]); break;
             }
         }
         return isValid;

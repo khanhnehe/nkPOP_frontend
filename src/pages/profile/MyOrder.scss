@@ -9,7 +9,6 @@
         .content-left {
             // border       : 2px solid #afafaf;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-
             border-radius: 5px;
             margin-right : 15px;
             height: 330px;
@@ -22,9 +21,8 @@
                 border-radius: 4px 4px 0px 0px;
                 padding: 4px 10px;
                 color: white;
-                // border-bottom: 10px solid white;
 
-                .image {
+                .image img{
                     border-radius      : 50px;
                     width              : 60px;
                     /* Đặt chiều rộng cho hình ảnh */
@@ -69,7 +67,7 @@
                     // }
 
                     &.active {
-                        background-color: #e2b3f9;
+                        background-color: #ff8f68;
                         color           : white;
                         flex-direction  : row;
                       }

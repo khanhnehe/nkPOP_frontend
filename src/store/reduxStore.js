@@ -1,10 +1,13 @@
 //reduxStore.js
 import { createStore, applyMiddleware, compose } from 'redux';
-import { persistStore } from 'redux-persist';
+//
+import { persistStore, persistReducer } from 'redux-persist';
 import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'connected-react-router';
 import thunk from 'redux-thunk';
 import rootReducer from './reducer/rootReduce';
+//
+import storage from 'redux-persist/lib/storage'; // import storage
 
 export const history = createBrowserHistory();
 
@@ -17,6 +20,7 @@ const loggerMiddleware = store => next => action => {
     console.log('Next state:', store.getState());
     return result;
 };
+
 
 const reduxStore = createStore(
     rootReducer(history),

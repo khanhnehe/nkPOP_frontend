@@ -10,6 +10,7 @@ import Loader from "./components/Loader";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { connect } from "react-redux";
 import { history } from './store/reduxStore';
 import Profile from "./pages/profile/Profile";
@@ -49,10 +50,5 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    // isLoggedIn: state.user.isLoggedIn,
-  };
-};
 
-export default connect(mapStateToProps)(App);
+export default App;

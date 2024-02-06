@@ -19,7 +19,7 @@ const logoutApi = () => {
 
 
 // truyền thêm token vì được protected
-const updateApi = (inputData, token) => {
+const updateUserApi = (inputData, token) => {
     return axios.put('/updateUser', inputData, {
         headers: {
             Authorization: `Bearer ${token}`
@@ -28,10 +28,21 @@ const updateApi = (inputData, token) => {
 
 }
 
+const updatePhotoApi = (inputData, token) => {
+    return axios.put('/updatePhoto', inputData, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+}
+
+
 
 export {
     loginApiService,
     ResisterApiService,
     logoutApi,
-    updateApi
+    updateUserApi,
+    updatePhotoApi
 }

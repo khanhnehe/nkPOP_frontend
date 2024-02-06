@@ -12,6 +12,7 @@ const MyOrder = () => {
     // Kiểm tra xem userInfo có tồn tại không trước khi truy cập lastName và firstName
     const lastName = userInfo && userInfo.lastName;
     const firstName = userInfo && userInfo.firstName;
+    const image = userInfo && userInfo.image;
 
     return (
         <>
@@ -20,7 +21,10 @@ const MyOrder = () => {
                     <div className='col-3 content-left'>
 
                         <div className='row account'>
-                            <div className='col-4 image'></div>
+                            <div className='col-4 image'>
+                                <img src={image} />
+
+                            </div>
                             <div className='col-6 name'>{lastName} {firstName}</div>
                         </div>
                         <div className='col nav-content'>

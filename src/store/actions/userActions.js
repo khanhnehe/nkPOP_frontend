@@ -1,7 +1,4 @@
-// userActions.js
-
-// Import các hàm service và thư viện cần thiết
-import { loginApiService, logoutApi, updateApi } from "../../services/userService";
+import { loginApiService, logoutApi, updateUserApi, updatePhotoApi } from "../../services/userService";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
 
@@ -77,7 +74,7 @@ export const editProfile = (data) => {
             const token = state.user.accessToken;
 
             // Gọi API để cập nhật thông tin người dùng
-            const response = await updateApi(data, token);
+            const response = await updateUserApi(data, token);
 
             // Kiểm tra kết quả trả về từ API
             if (response.errCode !== 0) {
@@ -102,7 +99,6 @@ export const editProfile = (data) => {
                 // Cập nhật local storage
                 const updatedState = { ...state.user, userInfo: updatedUserInfo };
                 updateLocalStorage(updatedState, true, token);
-
                 toast.success('Cập nhật thông tin thành công!');
             }
         } catch (error) {
@@ -116,6 +112,42 @@ export const editProfile = (data) => {
     };
 };
 
+//update image user
+export const updatePhoto = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+
+            const response = await updatePhotoApi(data, token);
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.UPDATE_USER_PHOTO_FAILED,
+                    payload: response.message
+                })
+            }
+            else {
+                // Cập nhật thông tin người dùng trong Redux state
+                const updateUserInfo = { ...getState().user.userInfo, ...data }
+                dispatch({
+                    type: actionTypes.UPDATE_USER_PHOTO_SUCCESS,
+                    payload: updateUserInfo
+                })
+                // Cập nhật local storage
+                const updatedState = { ...state.user, userInfo: updateUserInfo };
+                updateLocalStorage(updatedState, true, token);
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.EDIT_USER_FAILED,
+                payload: error.response ? error.response.message : error.message
+            });
+            toast.error('Có lỗi xảy ra khi cập nhật thông tin!');
+        }
+    }
+}
+
+
 // Hàm utility để cập nhật local storage
 const updateLocalStorage = (userState, isLoggedIn, accessToken) => {
     const persistUser = {
@@ -126,3 +158,4 @@ const updateLocalStorage = (userState, isLoggedIn, accessToken) => {
 
     localStorage.setItem('persist:user', JSON.stringify(persistUser));
 };
+

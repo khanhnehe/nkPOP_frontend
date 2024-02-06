@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.scss';
 import { Link, NavLink } from 'react-router-dom';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoSearch } from 'react-icons/io5';
 import { MdFavorite, MdOutlineAccountCircle } from 'react-icons/md';
-import { connect } from 'react-redux';
 import { logout } from '../store/actions/userActions';
 import logo1 from "../../src/assets/logo.png"
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +17,14 @@ const Header = () => {
     const navigate = useNavigate();
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
 
-    const firstName = userInfo ? userInfo.firstName : '';
+    const [firstName, setFirstName] = useState(userInfo ? userInfo.firstName : '');
+    const [image, setImage] = useState(userInfo ? userInfo.image : '');
+
+    // Sử dụng useEffect để cập nhật firstName khi userInfo thay đổi
+    useEffect(() => {
+        setFirstName(userInfo ? userInfo.firstName : '');
+        setImage(userInfo ? userInfo.image : '');
+    }, [userInfo]);
 
     const dispatch = useDispatch();
 
@@ -75,13 +81,16 @@ const Header = () => {
                         <div className='header-right'>
                             {/* chia menu */}
                             {isLoggedIn ? (
-                                <span className='links px-3'>
+                                <div className='links px-3'>
                                     <div className='account'>
+                                        <div className="image-header">
+                                            {<img src={image} />}
+                                            <span className='hello'>
+                                                Hi, {firstName}!
+                                            </span>
+                                        </div>
 
-                                        <MdOutlineAccountCircle className='icon-account' />
-                                        <span className='hello'>
-                                            Hi, {firstName}!
-                                        </span>
+
                                         <div className='login-dropdown'>
                                             <div className='login-links'>
                                                 <NavLink to='/profile/account' activeClassName='active me-3'>
@@ -95,7 +104,7 @@ const Header = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </span>
+                                </div>
 
                             ) : (
                                 <span className='links px-3'>

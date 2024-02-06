@@ -65,7 +65,7 @@
                     // }
                     
                     &.active {
-                        background-color: #e2b3f9;
+                        background-color: #ff8f68;
                         color           : white;
                         flex-direction  : row;
                       }
@@ -90,6 +90,15 @@
                     display: grid;
                     align-content: center;
                     margin-bottom: 120px;
+
+                    .text-image{
+                        margin-top : 5px;
+                        font-size  : 15px;
+                        font-weight: 600;
+                        white-space: nowrap;
+                        cursor: pointer;      
+    
+                        }
                     
 
                     .image-right img{
@@ -107,14 +116,6 @@
                         cursor: pointer;      
                      }
 
-                    .text-iamge{
-                    margin-top : 5px;
-                    font-size  : 17px;
-                    white-space: nowrap;
-                    // text-align: center;
-                    cursor: pointer;      
-
-                    }
                 }
 
                 .ben-trai{
@@ -123,6 +124,7 @@
                         background-color: #85d400;
                         border: 1px solid #85d400;
                     }
+
                 }
               
             }

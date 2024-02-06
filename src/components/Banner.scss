@@ -8,6 +8,7 @@
         width: 100%;
         font-weight: 600;
         // border-bottom: 1px solid  black;
+        background-color: #85d400;
     .banner-left{
         display: flex;
         white-space: nowrap; // Ngăn chặn xuống dòng
@@ -40,12 +41,12 @@
         }
     
         a {
-            color: black;
+            color: rgb(255, 255, 255);
             text-decoration: none;
             transition: color 0.3s;
     
             &:hover {
-                color: #85d400;
+                color: #f5ff85;
             }
         }
     }

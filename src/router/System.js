@@ -1,17 +1,18 @@
-import React, { Component, Fragment } from "react";
-import { BrowserRouter as Router, Route, Routes, useNavigate } from "react-router-dom";
+import React, { Fragment } from "react";
+import { Route, Routes } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-class System extends Component {
-    render() {
-        return (
-            <>
-                <Router>
+import HomeAdmin from "../pages/home/HomeAdmin";
+import AdminUser from "../pages/home/AdminUser";
 
-                </Router>
-            </>
-        )
-    }
-
+const System = () => {
+    return (
+        <Routes>
+            <Route path="admin-manage" element={<HomeAdmin />} />
+            {/* <Route path="admin-user" element={<AdminUser />} /> */}
+        </Routes>
+    );
 }
 
 export default System;

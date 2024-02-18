@@ -9,6 +9,9 @@ import { editProfile, updatePhoto } from '../../store/actions/userActions';
 const Profile = () => {
     const dispatch = useDispatch();
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
+    // Thêm một trạng thái mới để lưu trữ tệp hình ảnh
+    const [imageFile, setImageFile] = useState(null);
+
     // const lastName = userInfo && userInfo.lastName;
     // const firstName = userInfo && userInfo.firstName;
 
@@ -80,11 +83,20 @@ const Profile = () => {
     //up anh
     const fileInputRef = useRef();
 
-    const handleImageChange = (event) => {
+    const handleImageChange = async (event) => {
         if (event.target.files && event.target.files[0]) {
+            // Create a FormData object to send the image file
+            const formData = new FormData();
+            formData.append('image', event.target.files[0]);
+            formData.append('_id', profile.userId);
+
+            // Upload the image and get the URL of the uploaded image
+            const uploadedImageUrl = await dispatch(updatePhoto(formData));
+
+            // Update the image URL to the URL of the uploaded image
             setProfile(prevProfile => ({
                 ...prevProfile,
-                image: URL.createObjectURL(event.target.files[0])
+                image: uploadedImageUrl
             }));
         }
     };
@@ -99,9 +111,15 @@ const Profile = () => {
 
     const handleUpdateImg = async () => {
         try {
-            if (profile.image && profile.image !== userInfo.image) {
-                await dispatch(updatePhoto({ _id: profile.userId, ...profile }));
+            if (imageFile) { // Kiểm tra xem có tệp hình ảnh mới không
+                // Tạo một đối tượng FormData để gửi tệp hình ảnh
+                const formData = new FormData();
+                formData.append('image', imageFile);
+                formData.append('_id', profile.userId);
+                // Gửi tệp hình ảnh thay vì URL
+                await dispatch(updatePhoto(formData));
             }
+            toast.success('Cập nhật ảnh đại diện thành công.');
 
             handleCloseImg();
         } catch (error) {

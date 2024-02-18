@@ -128,7 +128,7 @@ export const updatePhoto = (data) => {
             }
             else {
                 // Cập nhật thông tin người dùng trong Redux state
-                const updateUserInfo = { ...getState().user.userInfo, ...data }
+                const updateUserInfo = { ...getState().user.userInfo, image: response.data.image }
                 dispatch({
                     type: actionTypes.UPDATE_USER_PHOTO_SUCCESS,
                     payload: updateUserInfo
@@ -143,6 +143,7 @@ export const updatePhoto = (data) => {
                 payload: error.response ? error.response.message : error.message
             });
             toast.error('Có lỗi xảy ra khi cập nhật thông tin!');
+            console.log('error', error)
         }
     }
 }

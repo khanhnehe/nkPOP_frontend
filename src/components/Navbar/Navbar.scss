@@ -1,0 +1,62 @@
+.navbar {
+    height          : 70px;
+    background-color: yellowgreen;
+    align-items     : center;
+    font-size       : 14px;
+    color           : black;
+    border-bottom   : 1px solid lightgray;
+
+    .navbarContainer {
+        display        : flex;
+        width          : 100%;
+        align-items : center; 
+        justify-content: space-between;
+        // padding        : 2px 20px;
+
+        .items-left{
+            display: flex;
+            justify-content: space-between;
+            align-items : center; 
+
+
+
+            .item-image img {
+                border-radius      : 50px;
+                width              : 50px;
+                height             : 50px;
+                background-image   : url('../../assets/avatar-trang-4.jpg');
+                background-size    : cover;
+                background-position: center;
+            }
+            .hello {
+                color           : #000000;
+                font-weight  : 500; 
+                font-size       : 17px;
+                // border          : 2px solid #7ed957;
+                padding         : 3px 4px;
+                background-color:  white;
+                border-radius   : 10px 8px 10px 0px;
+                color           : #85d400;
+                margin-left: 5px ;
+                cursor: pointer;
+      
+              }
+
+              .icon {
+                // background-color:  white;
+                border-radius   : 10px;
+                color         : white;
+                font-size     : 34px;
+                margin-right  : 3px;
+                padding-bottom: 5px;
+                font-weight: 700;
+                padding         : 3px 4px;
+                cursor: pointer;
+
+            }
+        }
+
+        
+
+    }
+}

@@ -15,40 +15,45 @@ import { connect } from "react-redux";
 import { history } from './store/reduxStore';
 import Profile from "./pages/profile/Profile";
 import MyOrder from "./pages/profile/MyOrder";
+import HomeAdmin from "./pages/home/HomeAdmin";
+import System from "./router/System";
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        <Router>
-          <Header />
-          <Routes>
-            {/* <Route path={path.HOME} element={<HomePage />} /> */}
-            <Route path={path.HOMEPAGE} element={<Home />} />
-            <Route path={path.TEST} element={<Test />} />
-            <Route path={path.LOGIN} element={<Login />} />
-            <Route path={path.REGISTER} element={<Register />} />
-            <Route path={path.PROFILE} element={<Profile />} />
-            <Route path={path.MY_ORDER} element={<MyOrder />} />
-          </Routes>
-          <Footer />
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-        </Router>
-      </Fragment>
+      <Router>
+        <Routes>
+          <Route path={path.SYSTEM + "/*"} element={<System />} />
+          <Route path="/*" element={
+            <Fragment>
+              <Header />
+              <Routes>
+                <Route path={path.HOMEPAGE} element={<Home />} />
+                <Route path={path.TEST} element={<Test />} />
+                <Route path={path.LOGIN} element={<Login />} />
+                <Route path={path.REGISTER} element={<Register />} />
+                <Route path={path.PROFILE} element={<Profile />} />
+                <Route path={path.MY_ORDER} element={<MyOrder />} />
+              </Routes>
+              <Footer />
+            </Fragment>
+          } />
+        </Routes>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+      </Router>
     );
   }
 }
-
 
 export default App;

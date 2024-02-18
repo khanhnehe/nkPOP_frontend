@@ -7,6 +7,8 @@ export const path = {
     REGISTER: "/register",
     PROFILE: "/profile/account",
     MY_ORDER: "/profile/my-order",
+    SYSTEM: "/system"
+
 
 
 };

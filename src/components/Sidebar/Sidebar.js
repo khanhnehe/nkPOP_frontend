@@ -1,0 +1,86 @@
+import React from "react";
+import "./Sidebar.scss"
+import logo from "../../assets/logo.png"
+import { MdDashboard } from "react-icons/md";
+import { MdManageAccounts } from "react-icons/md";
+import { TbShoppingBagCheck } from "react-icons/tb";
+import { BiSolidDiscount } from "react-icons/bi";
+import { PiNotepadFill } from "react-icons/pi";
+import { IoBagAddSharp } from "react-icons/io5";
+
+
+const Sidebar = () => {
+    return (
+        <>
+            <div className="sidebar">
+                <div className="top">
+                    <span className="logo">
+                        <img src={logo} alt='Logo' />
+                    </span>
+                </div>
+                <div className="bottom">
+                    <ul>
+                        <div className="title"><MdDashboard className="icon" />TỔNG QUAN</div>
+                        <li>
+                            <span>Tổng quan</span>
+                        </li>
+                        <li>
+                            <span>Doanh thu</span>
+                        </li>
+                        <li>
+                            <span>Hiệu suất</span>
+                        </li>
+                        {/*  */}
+                        <div className="title"><MdManageAccounts className="icon" />NGƯỜI DÙNG</div>
+                        <li>
+                            <span>Quản lý gười dùng</span>
+                        </li>
+                        {/*  */}
+                        <div className="title"><PiNotepadFill className="icon" />ĐƠN HÀNG</div>
+                        <li>
+                            <span>Tất cả đơn hàng</span>
+                        </li>
+                        <li>
+                            <span>Đơn hàng đã hủy</span>
+                        </li>
+                        <li>
+                            <span>Trả/Hoàn hàng</span>
+                        </li>
+                        <div className="title"><IoBagAddSharp className="icon" /> SẢN PHẨM</div>
+                        <li>
+                            <span>Quản lý sản phẩm</span>
+                        </li>
+                        <li>
+                            <span>Quản lý danh mục</span>
+                        </li>
+                        <li>
+                            <span>Quản lý hương hiệu</span>
+                        </li>
+                        <li>
+                            {/*  */}
+                        </li>
+                        <div className="title"><BiSolidDiscount className="icon" />KHUYẾN MÃI
+                        </div>
+                        <li>
+                            <span>Mã giảm giá</span>
+                        </li>
+                        <div className="title">HỒ SƠ</div>
+                        <li>
+                            <span>Tổng quan</span>
+                        </li>
+                        <li>
+                            <span>Tổng quan</span>
+                        </li>
+                        <li>
+                            <span>Tổng quan</span>
+                        </li>
+                    </ul>
+                </div>
+
+
+            </div>
+        </>
+    )
+}
+
+export default Sidebar;

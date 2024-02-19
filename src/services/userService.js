@@ -28,30 +28,13 @@ const updateUserApi = (inputData, token) => {
 
 }
 
-const updatePhotoApi = async (inputData, token) => {
-    const response = await axios.put('/updatePhoto', inputData, {
+const updatePhotoApi = (inputData, token) => {
+    return axios.put('/updatePhoto', inputData, {
         headers: {
             Authorization: `Bearer ${token}`
         }
-    });
+    })
 
-    // Kiểm tra xem response.data có tồn tại không
-    if (response.data) {
-        // Tạo URL đầy đủ cho ảnh
-        const imageUrl = `http://localhost:3000/uploads/${response.data.image}`;
-
-        // Trả về phản hồi từ server, bao gồm URL đầy đủ của ảnh
-        return {
-            ...response,
-            data: {
-                ...response.data,
-                image: imageUrl
-            }
-        };
-    } else {
-        console.log('response.data is undefined');
-        // Xử lý trường hợp response.data là undefined
-    }
 }
 
 

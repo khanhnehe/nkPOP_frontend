@@ -5,13 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { editProfile, updatePhoto } from '../../store/actions/userActions';
-
+import { getBase64 } from '../../utils/Base64';
 const Profile = () => {
     const dispatch = useDispatch();
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
-    // Thêm một trạng thái mới để lưu trữ tệp hình ảnh
-    const [imageFile, setImageFile] = useState(null);
-
     // const lastName = userInfo && userInfo.lastName;
     // const firstName = userInfo && userInfo.firstName;
 
@@ -84,21 +81,14 @@ const Profile = () => {
     const fileInputRef = useRef();
 
     const handleImageChange = async (event) => {
-        if (event.target.files && event.target.files[0]) {
-            // Create a FormData object to send the image file
-            const formData = new FormData();
-            formData.append('image', event.target.files[0]);
-            formData.append('_id', profile.userId);
-
-            // Upload the image and get the URL of the uploaded image
-            const uploadedImageUrl = await dispatch(updatePhoto(formData));
-
-            // Update the image URL to the URL of the uploaded image
-            setProfile(prevProfile => ({
-                ...prevProfile,
-                image: uploadedImageUrl
-            }));
+        const fileList = event.target.files;
+        const file = fileList[0];
+        if (!file.url && !file.preview) {
+            let base64Image = await getBase64(file);
+            base64Image = `data:image/jpeg;base64,${base64Image.split(',')[1]}`;
+            file.preview = base64Image;
         }
+        setProfile(prevProfile => ({ ...prevProfile, image: file.preview }));
     };
 
     const handleUploadClick = () => {
@@ -111,15 +101,9 @@ const Profile = () => {
 
     const handleUpdateImg = async () => {
         try {
-            if (imageFile) { // Kiểm tra xem có tệp hình ảnh mới không
-                // Tạo một đối tượng FormData để gửi tệp hình ảnh
-                const formData = new FormData();
-                formData.append('image', imageFile);
-                formData.append('_id', profile.userId);
-                // Gửi tệp hình ảnh thay vì URL
-                await dispatch(updatePhoto(formData));
+            if (profile.image && profile.image !== userInfo.image) {
+                await dispatch(updatePhoto({ _id: profile.userId, ...profile }));
             }
-            toast.success('Cập nhật ảnh đại diện thành công.');
 
             handleCloseImg();
         } catch (error) {

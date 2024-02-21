@@ -113,36 +113,45 @@ export const editProfile = (data) => {
     };
 };
 
-//update image user
+// Hàm updatePhoto nhận vào dữ liệu cần cập nhật và trả về một hàm bất đồng bộ
 export const updatePhoto = (data) => {
     return async (dispatch, getState) => {
         try {
+            // Lấy state hiện tại từ Redux store
             const state = getState();
+            // Lấy access token từ state
             const token = state.user.accessToken;
 
+            // Gọi API để cập nhật ảnh, truyền vào dữ liệu và token
             const response = await updatePhotoApi(data, token);
+            // Nếu API trả về lỗi (errCode khác 0)
             if (response.errCode !== 0) {
+                // Dispatch action để Redux store cập nhật trạng thái lỗi
                 dispatch({
                     type: actionTypes.UPDATE_USER_PHOTO_FAILED,
                     payload: response.message
                 })
             }
             else {
-                // Cập nhật thông tin người dùng trong Redux state
+                // Nếu API trả về thành công, cập nhật thông tin người dùng trong Redux state
                 const updateUserInfo = { ...getState().user.userInfo, ...data }
+                // Dispatch action để Redux store cập nhật trạng thái thành công
                 dispatch({
                     type: actionTypes.UPDATE_USER_PHOTO_SUCCESS,
                     payload: updateUserInfo
                 })
-                // Cập nhật local storage
+                // Cập nhật local storage với thông tin người dùng mới
                 const updatedState = { ...state.user, userInfo: updateUserInfo };
                 updateLocalStorage(updatedState, true, token);
             }
         } catch (error) {
+            // Nếu có lỗi xảy ra trong quá trình gọi API hoặc xử lý dữ liệu
+            // Dispatch action để Redux store cập nhật trạng thái lỗi
             dispatch({
                 type: actionTypes.EDIT_USER_FAILED,
                 payload: error.response ? error.response.message : error.message
             });
+            // Hiển thị thông báo lỗi cho người dùng
             toast.error('Có lỗi xảy ra khi cập nhật thông tin!');
         }
     }

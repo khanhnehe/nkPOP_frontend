@@ -4,13 +4,14 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import HomeAdmin from "../pages/home/HomeAdmin";
-import AdminUser from "../pages/home/AdminUser";
+import ManagerUser from "../admin/user/ManagerUser";
+
 
 const System = () => {
     return (
         <Routes>
             <Route path="admin-manage" element={<HomeAdmin />} />
-            {/* <Route path="admin-user" element={<AdminUser />} /> */}
+            <Route path="manage-user" element={<ManagerUser />} />
         </Routes>
     );
 }

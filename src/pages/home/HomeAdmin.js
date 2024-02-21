@@ -3,6 +3,9 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Navbar from '../../components/Navbar/Navbar';
 import './HomeAdmin.scss'
 import Widget from '../../admin/Widget/Widget';
+import Chart from "../../components/chart/Chart";
+import Featured from "../../components/featured/Featured";
+import Listht from '../../components/listht/Listht';
 
 const HomeAdmin = () => {
     return (
@@ -17,8 +20,15 @@ const HomeAdmin = () => {
                         <Widget type='user' />
                         <Widget type='out_stock' />
                     </div>
+                    <div className='charts'>
+                        <Featured />
+                        <Chart />
+                    </div>
+                    <div className='list-container'>
+                        <div className='list-Title'>Đơn hàng đã giao thành công</div>
+                        <Listht />
+                    </div>
                 </div>
-
             </div>
         </>
     )

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import "./Sidebar.scss"
 import logo from "../../assets/logo.png"
 import { MdDashboard } from "react-icons/md";
@@ -7,6 +8,7 @@ import { TbShoppingBagCheck } from "react-icons/tb";
 import { BiSolidDiscount } from "react-icons/bi";
 import { PiNotepadFill } from "react-icons/pi";
 import { IoBagAddSharp } from "react-icons/io5";
+
 
 
 const Sidebar = () => {
@@ -22,7 +24,10 @@ const Sidebar = () => {
                     <ul>
                         <div className="title"><MdDashboard className="icon" />TỔNG QUAN</div>
                         <li>
-                            <span>Tổng quan</span>
+                            <span>
+                                <Link to="/system/admin-manage">Tổng quan</Link>
+
+                            </span>
                         </li>
                         <li>
                             <span>Doanh thu</span>
@@ -33,7 +38,9 @@ const Sidebar = () => {
                         {/*  */}
                         <div className="title"><MdManageAccounts className="icon" />NGƯỜI DÙNG</div>
                         <li>
-                            <span>Quản lý gười dùng</span>
+                            <span>
+                                <Link to="/system/manage-user">Quản lý người dùng</Link>
+                            </span>
                         </li>
                         {/*  */}
                         <div className="title"><PiNotepadFill className="icon" />ĐƠN HÀNG</div>

@@ -12,6 +12,7 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from './userReducer';
 import { connectRouter } from 'connected-react-router';
 import appReducer from './appReducer';
+import adminReducer from './adminReducer';
 //
 
 
@@ -34,10 +35,18 @@ const appPersistConfig = {
 //     user: userReducer // Sử dụng reducer của người dùng dưới khóa 'user'
 // });
 
+const adminPersistConfig = {
+    key: 'admin',
+    storage,
+    stateReconciler: autoMergeLevel2,
+    whitelist: ['infoProduct'] // Chỉ định trạng thái cần lưu trữ từ reducer admin
+};
+
 const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
+    admin: adminReducer// Thêm adminReducer vào rootReducer
 });
 
 export default rootReducer; // Thêm expor

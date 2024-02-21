@@ -37,6 +37,24 @@ const updatePhotoApi = (inputData, token) => {
 
 }
 
+const getAllProductApi = (token) => {
+    return axios.get('/admin/getAllProduct', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+}
+
+const getAllUserApi = (token) => {
+    return axios.get('/admin/getAllUser', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+
+}
+
 
 
 export {
@@ -44,5 +62,7 @@ export {
     ResisterApiService,
     logoutApi,
     updateUserApi,
-    updatePhotoApi
+    updatePhotoApi,
+    getAllProductApi,
+    getAllUserApi
 }

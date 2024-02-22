@@ -3,7 +3,7 @@ import "./ManagerUser.scss"
 import Sidebar from '../../components/Sidebar/Sidebar';
 import Navbar from "../../components/Navbar/Navbar";
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
-import { getAllUser, updateProfile } from '../../store/actions/adminAction';
+import { getAllUser, deleteUser, createUser } from '../../store/actions/adminAction';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Button } from '@mui/material';
@@ -11,8 +11,10 @@ import { RiEdit2Line } from "react-icons/ri";
 import { MdDeleteOutline } from "react-icons/md";
 import { Modal } from 'react-bootstrap';
 import { getBase64 } from '../../utils/Base64';
-
+import { editProfile } from '../../store/actions/userActions'
+import CreateUser from './CreateUser';
 const ManagerUser = () => {
+
     const columns = [
         { id: 'fullName', label: 'Họ tên', minWidth: 170 },
         {
@@ -42,10 +44,11 @@ const ManagerUser = () => {
         },
     ];
 
+
     const dispatch = useDispatch();
     const listUsers = useSelector(state => state.admin.allUser);
-    const updateUser = useSelector(state => state.admin.editUser)
-
+    const updateUser = useSelector(state => state.user.userInfo)
+    //fetch list usrr
     const initialState = {
         userId: updateUser ? updateUser._id : '',
         lastName: updateUser ? updateUser.lastName : '',
@@ -81,10 +84,18 @@ const ManagerUser = () => {
         handleShow();
     };
 
-    const handleDelete = (rowData) => {
-        console.log("Delete:", rowData);
-    };
+    const handleDelete = async (rowData) => {
+        try {
+            // Gọi action deleteUser với id của người dùng cần xóa
+            await dispatch(deleteUser(rowData._id));
 
+            // Nếu xóa thành công, cập nhật danh sách người dùng và hiển thị thông báo
+            fetchListUser();
+        } catch (error) {
+            // Nếu xóa thất bại, hiển thị thông báo lỗi
+            console.error('Error deleting user:', error);
+        }
+    };
 
     const handleOnChange = (event, name) => {
         const { value } = event.target;
@@ -107,6 +118,8 @@ const ManagerUser = () => {
         return isValid;
     }
 
+
+    // Then in your handleUpdate function, set dbChange to true after dispatching the updateProfile action
     const handleUpdate = async () => {
         try {
             let isValid = validateInput();
@@ -115,7 +128,9 @@ const ManagerUser = () => {
             }
 
             let updatedProfile = { ...profile, _id: profile.userId };
-            await dispatch(updateProfile(updatedProfile));
+            await dispatch(editProfile(updatedProfile));
+
+            // Set dbChange to true here
 
             fetchListUser();
             handleClose();
@@ -123,7 +138,6 @@ const ManagerUser = () => {
             console.error('Error updating profile:', error);
         }
     }
-
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -137,9 +151,11 @@ const ManagerUser = () => {
         }
     };
 
+
     useEffect(() => {
         fetchListUser();
     }, []);
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -175,15 +191,22 @@ const ManagerUser = () => {
                 <div className="user-Container">
                     <Navbar />
                     <div className="user-content">
-                        <div className="top">top</div>
+                        <div className="top col-6" style={{ height: '470px' }}>
+                            <CreateUser />
+                        </div>
                         <div className="bottom mt-3">
+                            <div className='h4 my-3 mx-2'>Danh sách người dùng</div>
                             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                                 <TableContainer sx={{ maxHeight: 440 }}>
                                     <Table stickyHeader aria-label="sticky table">
                                         <TableHead>
                                             <TableRow>
                                                 {columns.map((column) => (
-                                                    <TableCell key={column.id} align={column.align} style={{ minWidth: column.minWidth }}>
+                                                    <TableCell key={column.id} align={column.align}
+                                                        style={{
+                                                            minWidth: column.minWidth,
+                                                            backgroundColor: '#dfffd2'
+                                                        }}>
                                                         {column.label}
                                                     </TableCell>
                                                 ))}
@@ -215,7 +238,7 @@ const ManagerUser = () => {
                                     </Table>
                                 </TableContainer>
                                 <TablePagination
-                                    rowsPerPageOptions={[10, 25, 100]}
+                                    rowsPerPageOptions={[5, 10, 25, 100]}
                                     component="div"
                                     count={listUsers.length}
                                     rowsPerPage={rowsPerPage}

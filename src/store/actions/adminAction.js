@@ -1,9 +1,10 @@
-import { getAllProductApi, updateUserApi, getAllUserApi } from "../../services/userService";
+import {
+    getAllProductApi, updateUserApi, getAllUserApi, deleteUserApi,
+    createUserApi
+} from "../../services/userService";
 import adminReducer from "../reducer/adminReducer";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
-
-
 
 export const getAllProduct = () => {
     return async (dispatch, getState) => {
@@ -72,7 +73,7 @@ export const updateProfile = (data) => {
         try {
             const state = getState();
             const token = state.user.accessToken;
-
+            // Log giá trị của token ra console
             const response = await updateUserApi(data, token);
 
             if (response.errCode !== 0) {
@@ -83,7 +84,9 @@ export const updateProfile = (data) => {
             } else {
                 dispatch({
                     type: actionTypes.UPDATE_USER_SUCCESS,
-                    payload: response.user
+                    payload: {
+                        user: response.user
+                    }
                 });
                 toast.success('Cập nhật thông tin thành công!');
             }
@@ -93,6 +96,65 @@ export const updateProfile = (data) => {
                 payload: error.response ? error.response.message : error.message
             });
             toast.error('Có lỗi xảy ra khi cập nhật thông tin!');
+            console.log(error)
+        }
+    };
+};
+
+export const deleteUser = (userId) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // console.log('Token:', token);
+
+            const response = await deleteUserApi(token, userId);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.DELETE_USER_SUCCESS,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.DELETE_USER_FAILED,
+                });
+                toast.success('Xóa người dùng thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.DELETE_USER_FAILED,
+            });
+            toast.error('Xóa người dùng thất bại!');
+            console.log(error)
+        }
+    };
+};
+
+export const createUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await createUserApi(token, data);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.CREATE_USER_FAILED,
+                });
+                toast.error('Có lỗi xảy ra khi Thêm người dùng!');
+
+            } else {
+                dispatch({
+                    type: actionTypes.CREATE_USER_SUCCESS,
+                });
+                toast.success('Thêm người dùng thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.CREATE_USER_FAILED,
+            });
+            toast.error('Có lỗi xảy ra khi Thêm người dùng!');
             console.log(error)
         }
     };

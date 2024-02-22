@@ -102,7 +102,7 @@ const Profile = () => {
     const handleUpdateImg = async () => {
         try {
             if (profile.image && profile.image !== userInfo.image) {
-                await dispatch(updatePhoto({ _id: profile.userId, ...profile }));
+                await dispatch(editProfile({ _id: profile.userId, ...profile }));
             }
 
             handleCloseImg();

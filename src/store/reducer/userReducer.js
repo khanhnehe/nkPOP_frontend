@@ -1,4 +1,5 @@
 import actionTypes from "../actions/actionTypes";
+import adminReducer from "./adminReducer";
 
 const initialState = {
     isLoggedIn: false,
@@ -33,7 +34,22 @@ const userReducer = (state = initialState, action) => {
                 userInfo: null,  // Đặt userInfo về null khi đăng xuất
                 error: '',
             }
+        case actionTypes.UPDATE_USER_SUCCESS:
+            // Cập nhật state với danh sách sản phẩm từ action
+            return {
+                ...state,
+                userInfo: {
+                    ...state.userInfo,
+                    ...action.payload.user,
+                }
+            };
 
+        case actionTypes.UPDATE_USER_FAILED:
+            // Cập nhật state với danh sách sản phẩm trống
+            return {
+                ...state,
+                userInfo: [],
+            };
         default:
             return state;
     }

@@ -16,7 +16,7 @@ const Navbar = () => {
     useEffect(() => {
         setFirstName(userInfo ? userInfo.firstName : '');
         setImage(userInfo ? userInfo.image : '');
-    }, [userInfo]);
+    }, []);
 
 
 

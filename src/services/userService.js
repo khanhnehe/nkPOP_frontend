@@ -46,6 +46,7 @@ const getAllProductApi = (token) => {
 
 }
 
+
 const getAllUserApi = (token) => {
     return axios.get('/admin/getAllUser', {
         headers: {
@@ -55,14 +56,30 @@ const getAllUserApi = (token) => {
 
 }
 
+const deleteUserApi = (token, userId) => {
+    return axios.delete(`/admin/deleteUser/${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
 
+
+const createUserApi = (token, data) => {
+    return axios.post(`/admin/createUser`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
 
 export {
     loginApiService,
-    ResisterApiService,
+    ResisterApiService, createUserApi,
     logoutApi,
     updateUserApi,
     updatePhotoApi,
     getAllProductApi,
-    getAllUserApi
+    getAllUserApi,
+    deleteUserApi
 }

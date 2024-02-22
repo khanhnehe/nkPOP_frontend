@@ -73,36 +73,23 @@ export const editProfile = (data) => {
             const state = getState();
             const token = state.user.accessToken;
 
-            // Gọi API để cập nhật thông tin người dùng
             const response = await updateUserApi(data, token);
 
-            // Kiểm tra kết quả trả về từ API
             if (response.errCode !== 0) {
-                // Nếu có lỗi, dispatch action xử lý cập nhật thất bại
                 dispatch({
-                    type: actionTypes.EDIT_USER_FAILED,
+                    type: actionTypes.UPDATE_USER_FAILED,
                     payload: response.message
                 });
             } else {
-                // Nếu cập nhật thành công, dispatch action xử lý cập nhật thành công
                 dispatch({
-                    type: actionTypes.EDIT_USER_SUCCESS,
+                    type: actionTypes.UPDATE_USER_SUCCESS,
+                    payload: {
+                        user: response.user
+                    }
                 });
-
-                // Cập nhật thông tin người dùng trong Redux state
-                const updatedUserInfo = { ...getState().user.userInfo, ...data };
-                dispatch({
-                    type: actionTypes.UPDATE_USER_INFO,
-                    payload: updatedUserInfo,
-                });
-
-                // Cập nhật local storage
-                const updatedState = { ...state.user, userInfo: updatedUserInfo };
-                updateLocalStorage(updatedState, true, token);
                 toast.success('Cập nhật thông tin thành công!');
             }
         } catch (error) {
-            // Xử lý nếu có lỗi trong quá trình gọi API
             dispatch({
                 type: actionTypes.EDIT_USER_FAILED,
                 payload: error.response ? error.response.message : error.message

@@ -58,10 +58,10 @@ const Sidebar = () => {
                             <span>Quản lý sản phẩm</span>
                         </li>
                         <li>
-                            <span>Quản lý danh mục</span>
+                            <span><Link to="/system/manage-category">Quản lý danh mục</Link></span>
                         </li>
                         <li>
-                            <span>Quản lý hương hiệu</span>
+                            <span><Link to="/system/manage-brand">Quản lý Thương hiệu</Link></span>
                         </li>
                         <li>
                             {/*  */}

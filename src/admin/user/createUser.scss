@@ -1,7 +1,16 @@
-.create{
+.create {
     // padding: 10px;
+    .top {
+        padding: 20px;
+        // height: 300px;
 
-    .top{
-        // padding: 20px;
+        .title-user {
+            background-color: #dfffd2;
+            border-radius   : 5px;
+            padding         : 6px 7px;
+            font-weight     : 600;
+            margin-left     : 5px;
+            font-size: 20px;
+        }
     }
 }

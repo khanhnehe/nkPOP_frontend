@@ -8,7 +8,6 @@ const loginApiService = (userEmail, userPassword) => {
     return axios.post('/login', { email: userEmail, password: userPassword })
 }
 
-
 const ResisterApiService = (data) => {
     return axios.post('/register', data)
 }
@@ -16,7 +15,6 @@ const ResisterApiService = (data) => {
 const logoutApi = () => {
     return axios.post('/logout')
 }
-
 
 // truyền thêm token vì được protected
 const updateUserApi = (inputData, token) => {
@@ -72,7 +70,82 @@ const createUserApi = (token, data) => {
         }
     });
 }
+//Category
+const getAllCategoryApi = (token) => {
+    return axios.get(`/admin/getAllCategory`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
 
+const editCategoryApi = (data, token) => {
+    return axios.put(`/admin/editCategory`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const deleteCategoryApi = (token, _id) => {
+    return axios.delete(`/admin/deleteCategory/${_id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const createCategoryApi = (token, data) => {
+    return axios.post(`/admin/createCategory`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+const productCategoryApi = (token, categoryId) => {
+    return axios.get(`/admin/productCategory/${categoryId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+// brand
+const getAllBrandApi = (token) => {
+    return axios.get(`/admin/getAllBrand`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+const editBrandApi = (data, token) => {
+    return axios.put(`/admin/editBrandry`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const deleteBrandApi = (token, _id) => {
+    return axios.delete(`/admin/deleteBrand/${_id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const createBrandApi = (token, data) => {
+    return axios.post(`/admin/createBrand`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+const productBrandApi = (token, brandId) => {
+    return axios.get(`/admin/productBrand/${brandId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
 export {
     loginApiService,
     ResisterApiService, createUserApi,
@@ -81,5 +154,10 @@ export {
     updatePhotoApi,
     getAllProductApi,
     getAllUserApi,
-    deleteUserApi
+    deleteUserApi,
+    getAllCategoryApi, getAllBrandApi,
+    editCategoryApi, editBrandApi,
+    deleteCategoryApi, deleteBrandApi,
+    createCategoryApi, createBrandApi,
+    productCategoryApi, productBrandApi
 }

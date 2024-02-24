@@ -22,7 +22,7 @@ const ManagerUser = () => {
             label: 'Ảnh',
             minWidth: 100,
             render: (rowData) => (
-                <img src={rowData.image} alt="User Image" style={{ width: '50px', height: '50px' }} />
+                <img src={rowData.image} style={{ width: '50px', height: '50px' }} />
             )
         }, { id: 'email', label: 'Email', minWidth: 170 },
         { id: 'phoneNumber', label: 'Số điện thoại', minWidth: 170 },
@@ -49,6 +49,7 @@ const ManagerUser = () => {
     const listUsers = useSelector(state => state.admin.allUser);
     const updateUser = useSelector(state => state.user.userInfo)
     //fetch list usrr
+
     const initialState = {
         userId: updateUser ? updateUser._id : '',
         lastName: updateUser ? updateUser.lastName : '',
@@ -135,7 +136,7 @@ const ManagerUser = () => {
             fetchListUser();
             handleClose();
         } catch (error) {
-            console.error('Error updating profile:', error);
+            console.log('Error updating profile:', error);
         }
     }
     const [page, setPage] = useState(0);
@@ -190,10 +191,9 @@ const ManagerUser = () => {
                 <Sidebar />
                 <div className="user-Container">
                     <Navbar />
-                    <div className="user-content">
-                        <div className="top col-6" style={{ height: '470px' }}>
-                            <CreateUser />
-                        </div>
+                    <div className="user">
+                        <div className="top col-6">
+                            <CreateUser onUserCreated={fetchListUser} />                        </div>
                         <div className="bottom mt-3">
                             <div className='h4 my-3 mx-2'>Danh sách người dùng</div>
                             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
@@ -224,7 +224,7 @@ const ManagerUser = () => {
                                                                         `${row.lastName} ${row.firstName}`
                                                                     ) : (
                                                                         column.id === 'image' ? (
-                                                                            <img src={row[column.id]} alt="User Image" style={{ width: '50px', height: '50px' }} />
+                                                                            <img src={row[column.id]} style={{ width: '50px', height: '50px' }} />
                                                                         ) : (
                                                                             column.render ? column.render(row) : row[column.id]
                                                                         )

@@ -13,10 +13,10 @@ const Navbar = () => {
     const [image, setImage] = useState(userInfo ? userInfo.image : '');
 
     // Sử dụng useEffect để cập nhật firstName khi userInfo thay đổi
-    useEffect(() => {
-        setFirstName(userInfo ? userInfo.firstName : '');
-        setImage(userInfo ? userInfo.image : '');
-    }, []);
+    // useEffect(() => {
+    //     setFirstName(userInfo ? userInfo.firstName : '');
+    //     setImage(userInfo ? userInfo.image : '');
+    // }, []);
 
 
 

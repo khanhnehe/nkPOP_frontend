@@ -65,6 +65,10 @@ const CreateUser = ({ onUserCreated }) => {
         setImagePreview(file.preview);
     };
 
+    const handleUploadClick = () => {
+        fileInputRef.current.click();
+    };
+
     const handleCreateUser = async () => {
         try {
             let isValid = validateInput();
@@ -72,8 +76,6 @@ const CreateUser = ({ onUserCreated }) => {
                 return;
             }
             await dispatch(createUser(state));
-            //
-            onUserCreated();
             // Reset the form state after successful user creation
             setState({
                 firstName: '',
@@ -85,6 +87,11 @@ const CreateUser = ({ onUserCreated }) => {
                 image: null,
             });
             setImagePreview(null); // Also reset the image preview
+
+            // Call the onUserCreated callback function
+            if (onUserCreated) {
+                onUserCreated();
+            }
         } catch (error) {
             console.error('Error create user:', error);
         }
@@ -94,9 +101,11 @@ const CreateUser = ({ onUserCreated }) => {
         <>
             <div className="create">
                 <div className="top col-12 p3" style={{ height: '470px' }}>
-                    <form className="row g-3 p-4">
-                        <div className='title'>Thêm người dùng</div>
-                        <div className="col-md-6">
+
+                    <form className="row g-2 p-4">
+
+                        <div className='title-user'>Thêm người dùng</div>
+                        <div className="col-md-6 ">
                             <label className="form-label">Họ</label>
                             <input
                                 type="text"
@@ -160,11 +169,12 @@ const CreateUser = ({ onUserCreated }) => {
                                 ref={fileInputRef}
                                 onChange={handleImageChange}
                             />
-                            <Button variant="outlined" >
+                            <Button variant="outlined" onClick={handleUploadClick}
+                            >
                                 Chọn hình ảnh
                             </Button>
-                            {state.image && (
-                                <img src={state.image} style={{ height: '40px', width: '40px', marginTop: '5px' }} />
+                            {imagePreview && (
+                                <img src={imagePreview} style={{ height: '40px', width: '40px', marginTop: '5px' }} />
                             )}
                         </div>
 

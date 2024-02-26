@@ -1,24 +1,25 @@
 import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    allProduct: [],  // Danh sách sản phẩm, ban đầu là một mảng trống
     allUser: [],
     infoUser: null,
+    //category
     allCategory: [],
     productCategory: [],
     //brand
     allBrand: [],
     productBrand: [],
+    //type
+    allType: [],
+    productType: [],
+    //product
+    allProduct: [],  // Danh sách sản phẩm, ban đầu là một mảng trống
+
+
 };
 
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.GET_All_PRODUCT_SUCCESS:
-            // Cập nhật state với danh sách sản phẩm từ action
-            return {
-                ...state,
-                allProduct: action.payload.product
-            };
 
         case actionTypes.GET_All_PRODUCT_FAILED:
             // Cập nhật state với danh sách sản phẩm trống
@@ -77,7 +78,6 @@ const adminReducer = (state = initialState, action) => {
             };
 
         case actionTypes.GET_All_PRODUCT_CATEGORY_FAILED:
-            // Cập nhật state với danh sách sản phẩm trống
             return {
                 ...state,
                 productCategory: [],
@@ -85,32 +85,62 @@ const adminReducer = (state = initialState, action) => {
 
         //brand
         case actionTypes.GET_All_BRAND_SUCCESS:
-            // Cập nhật state với danh sách sản phẩm từ action
             return {
                 ...state,
                 allBrand: action.payload.brand
             };
 
         case actionTypes.GET_All_BRAND_FAILED:
-            // Cập nhật state với danh sách sản phẩm trống
             return {
                 ...state,
                 allBrand: [],
             };
 
         case actionTypes.GET_All_PRODUCT_BRAND_SUCCESS:
-            // Cập nhật state với danh sách sản phẩm từ action
             return {
                 ...state,
                 productBrand: action.payload.product
             };
 
         case actionTypes.GET_All_PRODUCT_BRAND_FAILED:
-            // Cập nhật state với danh sách sản phẩm trống
             return {
                 ...state,
                 productBrand: [],
             };
+
+        //type
+        case actionTypes.GET_All_TYPE_SUCCESS:
+            return {
+                ...state,
+                allType: action.payload.type
+            };
+
+        case actionTypes.GET_All_TYPE_FAILED:
+            return {
+                ...state,
+                allType: [],
+            };
+
+        case actionTypes.GET_All_PRODUCT_TYPE_SUCCESS:
+            return {
+                ...state,
+                productType: action.payload.product
+            };
+
+        case actionTypes.GET_All_PRODUCT_TYPE_FAILED:
+            return {
+                ...state,
+                productType: [],
+            };
+
+        //product
+        case actionTypes.GET_All_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                allProduct: action.payload.product
+            };
+
+
 
         default:
             return state;

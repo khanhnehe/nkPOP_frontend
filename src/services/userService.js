@@ -35,14 +35,7 @@ const updatePhotoApi = (inputData, token) => {
 
 }
 
-const getAllProductApi = (token) => {
-    return axios.get('/admin/getAllProduct', {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
 
-}
 
 
 const getAllUserApi = (token) => {
@@ -116,9 +109,8 @@ const getAllBrandApi = (token) => {
         }
     });
 }
-
 const editBrandApi = (data, token) => {
-    return axios.put(`/admin/editBrandry`, data, {
+    return axios.put(`/admin/editBrand`, data, {
         headers: {
             Authorization: `Bearer ${token}`
         }
@@ -146,6 +138,83 @@ const productBrandApi = (token, brandId) => {
         }
     });
 }
+//type
+const getAllTypeApi = (token) => {
+    return axios.get(`/admin/getAllType`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const editTypeApi = (data, token) => {
+    return axios.put(`/admin/editType`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const deleteTypeApi = (token, _id) => {
+    return axios.delete(`/admin/deleteType/${_id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const createTypeApi = (token, data) => {
+    return axios.post(`/admin/createType`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+const productTypeApi = (token, typeId) => {
+    return axios.get(`/admin/productType/${typeId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+//product
+const getAllProductApi = (token) => {
+    return axios.get(`/admin/getAllProduct`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+// const getAllProductApi = (token) => {
+//     return axios.get('/admin/getAllProduct', {
+//         headers: {
+//             Authorization: `Bearer ${token}`
+//         }
+//     })
+
+// }
+const editProductApi = (data, token) => {
+    return axios.put(`/admin/editProduct`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const deleteProductApi = (token, _id) => {
+    return axios.delete(`/admin/deleteProduct/${_id}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+const createProductApi = (token, data) => {
+    return axios.post(`/admin/createProduct`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 export {
     loginApiService,
     ResisterApiService, createUserApi,
@@ -155,9 +224,9 @@ export {
     getAllProductApi,
     getAllUserApi,
     deleteUserApi,
-    getAllCategoryApi, getAllBrandApi,
-    editCategoryApi, editBrandApi,
-    deleteCategoryApi, deleteBrandApi,
-    createCategoryApi, createBrandApi,
-    productCategoryApi, productBrandApi
+    getAllCategoryApi, getAllBrandApi, getAllTypeApi,
+    editCategoryApi, editBrandApi, editTypeApi, editProductApi,
+    deleteCategoryApi, deleteBrandApi, deleteTypeApi, deleteProductApi,
+    createCategoryApi, createBrandApi, createTypeApi, createProductApi,
+    productCategoryApi, productBrandApi, productTypeApi,
 }

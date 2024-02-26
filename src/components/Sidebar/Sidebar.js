@@ -55,13 +55,16 @@ const Sidebar = () => {
                         </li>
                         <div className="title"><IoBagAddSharp className="icon" /> SẢN PHẨM</div>
                         <li>
-                            <span>Quản lý sản phẩm</span>
+                            <span><Link to="/system/manage-product">Quản lý sản phẩm</Link></span>
                         </li>
                         <li>
                             <span><Link to="/system/manage-category">Quản lý danh mục</Link></span>
                         </li>
                         <li>
                             <span><Link to="/system/manage-brand">Quản lý Thương hiệu</Link></span>
+                        </li>
+                        <li>
+                            <span><Link to="/system/manage-type">Quản lý phân loại</Link></span>
                         </li>
                         <li>
                             {/*  */}

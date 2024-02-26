@@ -2,42 +2,14 @@ import {
     getAllProductApi, updateUserApi, getAllUserApi, deleteUserApi,
     createUserApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
-    productBrandApi
+    productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
+    deleteProductApi, editProductApi, createProductApi
+
 } from "../../services/userService";
 import adminReducer from "../reducer/adminReducer";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
 
-export const getAllProduct = () => {
-    return async (dispatch, getState) => {
-        try {
-            // Lấy state hiện tại từ Redux store
-            const state = getState();
-            // Lấy access token từ state
-            const token = state.user.accessToken;
-
-            const res = await getAllProductApi(token);
-
-            if (res.errCode === 0) {
-                dispatch({
-                    type: actionTypes.GET_All_PRODUCT_SUCCESS,
-                    payload: {
-                        product: res.product
-                    }
-                });
-            } else {
-                dispatch({
-                    type: actionTypes.GET_All_PRODUCT_FAILED,
-                });
-            }
-        } catch (error) {
-            dispatch({
-                type: actionTypes.GET_All_PRODUCT_FAILED,
-                payload: error.response ? error.response.message : error.message
-            }); console.error('Error:', error);
-        }
-    };
-};
 
 export const getAllUser = () => {
     return async (dispatch, getState) => {
@@ -467,6 +439,282 @@ export const productBrand = (brandId) => {
                 type: actionTypes.GET_All_PRODUCT_BRAND_FAILED,
                 payload: error.response ? error.response.message : error.message
             }); console.error('Error:', error);
+        }
+    };
+};
+
+//type
+export const getAllType = () => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            const res = await getAllTypeApi(token);
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_All_TYPE_SUCCESS,
+                    payload: {
+                        type: res.type
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_All_TYPE_FAILED,
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_All_TYPE_FAILED,
+                payload: error.response ? error.response.message : error.message
+            }); console.error('Error:', error);
+        }
+    };
+};
+
+export const editType = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await editTypeApi(data, token);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.EDIT_TYPE_SUCCESS,
+                    payload: response.message
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.EDIT_TYPE_FAILED,
+
+                });
+                toast.success('Cập nhật phân loại thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.EDIT_TYPE_FAILED,
+                payload: error.response ? error.response.message : error.message
+            });
+            toast.error('Có lỗi xảy ra khi cập nhật phân loại!');
+            console.log(error)
+        }
+    };
+};
+
+export const deleteType = (_id) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // console.log('Token:', token);
+
+            const response = await deleteTypeApi(token, _id);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.DELETE_TYPE_SUCCESS,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.DELETE_TYPE_FAILED,
+                });
+                toast.success('Xóa phân loại thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.DELETE_TYPE_FAILED,
+            });
+            toast.error('Xóa phân loại thất bại!');
+            console.log(error)
+        }
+    };
+};
+
+export const createType = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await createTypeApi(token, data);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.CREATE_TYPE_FAILED,
+                });
+                toast.error('Có lỗi xảy ra khi Thêm phân loại!');
+
+            } else {
+                dispatch({
+                    type: actionTypes.CREATE_TYPE_SUCCESS,
+                });
+                toast.success('Thêm phân loại thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.CREATE_TYPE_FAILED,
+            });
+            toast.error('Có lỗi xảy ra khi thêm phân loại!');
+            console.log(error)
+        }
+    };
+};
+
+export const productType = (typeId) => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            const res = await productTypeApi(token, typeId);
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_All_PRODUCT_TYPE_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_All_PRODUCT_TYPE_FAILED,
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_All_PRODUCT_TYPE_FAILED,
+                payload: error.response ? error.response.message : error.message
+            }); console.error('Error:', error);
+        }
+    };
+};
+
+//product
+export const getAllProduct = () => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            const res = await getAllProductApi(token);
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_All_PRODUCT_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_All_PRODUCT_FAILED,
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_All_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : error.message
+            }); console.error('Error:', error);
+        }
+    };
+};
+
+
+export const editProduct = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await editProductApi(data, token);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.EDIT_PRODUCT_SUCCESS,
+                    payload: response.message
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.EDIT_PRODUCT_FAILED,
+
+                });
+                toast.success('Cập nhật sản phẩm thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.EDIT_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : error.message
+            });
+            toast.error('Có lỗi xảy ra khi cập nhật sản phẩm!');
+            console.log(error)
+        }
+    };
+};
+
+export const deleteProduct = (_id) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // console.log('Token:', token);
+
+            const response = await deleteProductApi(token, _id);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.DELETE_PRODUCT_SUCCESS,
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.DELETE_PRODUCT_FAILED,
+                });
+                toast.success('Xóa sản phẩm thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.DELETE_PRODUCT_FAILED,
+            });
+            toast.error('Xóa sản phẩm thất bại!');
+            console.log(error)
+        }
+    };
+};
+
+export const createProduct = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await createProductApi(token, data);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.CREATE_PRODUCT_FAILED,
+                });
+                toast.error('Có lỗi xảy ra khi Thêm sản phẩmi!');
+
+            } else {
+                dispatch({
+                    type: actionTypes.CREATE_PRODUCT_SUCCESS,
+                });
+                toast.success('Thêm sản phẩm thành công!');
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.CREATE_PRODUCT_FAILED,
+            });
+            toast.error('Có lỗi xảy ra khi thêm sản phẩm!');
+            console.log(error)
         }
     };
 };

@@ -5,11 +5,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const columns = [
-    { id: 'name_product', label: 'Tên sản phẩm', minWidth: 170 },
-    { id: 'brand', label: 'Thương hiệu', minWidth: 100 },
-    { id: 'description', label: 'Mô tả', minWidth: 170 },
-    { id: 'category', label: 'Danh mục', minWidth: 170 },
-    { id: 'price', label: 'Giá', minWidth: 170, align: 'right' },
+    // { id: 'name_product', label: 'Tên sản phẩm', minWidth: 170 },
+    // // { id: 'brand', label: 'Thương hiệu', minWidth: 100 },
+    // { id: 'description', label: 'Mô tả', minWidth: 170 },
+    // // { id: 'category', label: 'Danh mục', minWidth: 170 },
+    // { id: 'price', label: 'Giá', minWidth: 170, align: 'right' },
 ];
 
 const Listht = () => {

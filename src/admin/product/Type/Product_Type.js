@@ -1,58 +1,62 @@
 import React, { useEffect, useState, useRef } from 'react';
-import "./Category.scss"
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { productCategory } from '../../../store/actions/adminAction';
-import Category from './Category';
+import { productType } from '../../../store/actions/adminAction';
 import Select from 'react-select';
+import Type from './Type';
 
-const Product_Category = ({ listNameCategory }) => {
+const Product_Type = ({ listNameType }) => {
 
     const columns = [
         { id: 'name_product', label: 'Tên sản phẩm', minWidth: 170 },
-        { id: 'category', label: 'Tên danh mục', minWidth: 170 },
+        { id: 'product_type', label: 'Tên phân loại', minWidth: 170 },
     ];
 
     const dispatch = useDispatch();
-    const listProductCategory = useSelector(state => state.admin.productCategory);
+    const listProductType = useSelector(state => state.admin.productType);
 
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [selectedType, setSelectedType] = useState('');
 
-    const fetchlistProductCategory = async () => {
+    const fetchlistProductType = async () => {
         try {
-            await dispatch(productCategory(selectedCategory ? selectedCategory.value : ''));
+            await dispatch(productType(selectedType ? selectedType.value : ''));
         } catch (error) {
-            console.error('Error fetching category list:', error);
+            console.error('Error fetching Type list:', error);
         }
     };
 
     useEffect(() => {
-        fetchlistProductCategory();
-    }, [selectedCategory]);
+        fetchlistProductType();
+        console.log(listNameType);
 
+    }, [selectedType]);
+
+    //xử lý khi giá trị của Select thay đổi
     const handleSelectChange = (selectedOption) => {
         // Lưu trữ giá trị đã chọn vào state
-        setSelectedCategory(selectedOption);
+        setSelectedType(selectedOption);
     };
 
-    const categoryOptions = listNameCategory.map(category => ({
-        value: category._id,
-        label: category.category_name, // Thay 'name' bằng tên trường chứa tên danh mục
+    // Tạo ra mảng options cho Select từ listNameType
+    const TypeOptions = listNameType.map(product_type => ({
+        value: product_type._id,
+        label: product_type.type_name, // Thay 'name' bằng tên trường chứa tên danh mục
+
     }));
 
     return (
         <>
             <div className='category'>
                 <div className='col'>
-                    <div className='title-cate h4 my-3 px-2'>Danh sách sản phẩm của danh mục</div>
+                    <div className='title-cate h4 my-3 px-2'>Danh sách sản phẩm của phân loại</div>
 
                     <div className='row '>
                         <div className='col-4 px-4'>
                             <Select
-                                options={categoryOptions}
+                                options={TypeOptions}
                                 onChange={handleSelectChange}
-                                value={selectedCategory}
-                                placeholder="Chọn danh mục"
+                                value={selectedType}
+                                placeholder="Chọn phân loại"
                                 styles={{ menu: base => ({ ...base, zIndex: 9999 }) }} // Add this line
 
                             />
@@ -76,10 +80,10 @@ const Product_Category = ({ listNameCategory }) => {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {/* Kiểm tra xem listProductCategory có dữ liệu không */}
-                                                {listProductCategory.length > 0 && (
-                                                    // Nếu có, sử dụng hàm map để tạo một TableRow cho mỗi phần tử trong listProductCategory
-                                                    listProductCategory.map((row) => (
+                                                {/* Kiểm tra xem listProductType có dữ liệu không */}
+                                                {listProductType.length > 0 && (
+                                                    // Nếu có, sử dụng hàm map để tạo một TableRow cho mỗi phần tử trong listProductType
+                                                    listProductType.map((row) => (
                                                         // Tạo một TableRow với key là _id của row
                                                         <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                                                             {/* Tạo một TableCell cho mỗi cột trong columns */}
@@ -90,7 +94,7 @@ const Product_Category = ({ listNameCategory }) => {
                                                                 // Kiểm tra xem giá trị có phải là đối tượng không
                                                                 if (Array.isArray(value) && value.length > 0) {
                                                                     // Nếu là mảng, lấy giá trị đầu tiên và giả định rằng nó có một thuộc tính 'type_name' mà chúng ta có thể sử dụng
-                                                                    value = value[0].category_name;
+                                                                    value = value[0].type_name;
                                                                 }
                                                                 return (
                                                                     // Tạo một TableCell với key là id của cột
@@ -121,4 +125,4 @@ const Product_Category = ({ listNameCategory }) => {
     )
 }
 
-export default Product_Category;
+export default Product_Type;

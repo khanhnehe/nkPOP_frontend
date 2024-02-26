@@ -1,20 +1,21 @@
-import React, { useEffect, useState, useRef } from 'react';
-import "./Category.scss"
+import React, { useEffect, useState } from 'react';
+import "./Type.scss"
 import Sidebar from '../../../components/Sidebar/Sidebar';
 import Navbar from '../../../components/Navbar/Navbar';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow } from '@mui/material';
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { MdDeleteOutline } from "react-icons/md";
 import { Modal } from 'react-bootstrap';
-import { getAllCategory, editCategory, deleteCategory, createCategory } from '../../../store/actions/adminAction';
 import { RiEdit2Line } from "react-icons/ri";
+import { editType, createType, deleteType, getAllType } from '../../../store/actions/adminAction';
 import { toast } from 'react-toastify';
-import Product_Category from './Product_Category';
-const Category = () => {
+import Product_Type from './Product_Type';
+
+const Type = () => {
 
     const columns = [
-        { id: 'category_name', label: 'Tên danh mục', minWidth: 170 },
+        { id: 'type_name', label: 'Tên phân loại', minWidth: 170 },
         {
             id: 'edit', label: 'Sửa', minWidth: 100, align: 'center',
             render: (rowData) => <Button
@@ -34,10 +35,10 @@ const Category = () => {
 
     const dispatch = useDispatch();
 
-    const listCategory = useSelector(state => state.admin.allCategory);
-    const [category, setCategory] = useState({ category_name: '' });
+    const listType = useSelector(state => state.admin.allType);
+    const [type, setType] = useState({ type_name: '' });
 
-    const [state, setState] = useState({ category_name: '' })
+    const [state, setState] = useState({ type_name: '' })
 
     //show close modal
     const [show, setShow] = useState(false);
@@ -45,25 +46,27 @@ const Category = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const fetchListCategory = async () => {
+    const fetchListType = async () => {
         try {
-            await dispatch(getAllCategory());
+            await dispatch(getAllType());
         } catch (error) {
-            console.error('Error fetching category list:', error);
+            console.error('Error fetching Type list:', error);
         }
     };
 
 
     useEffect(() => {
-        fetchListCategory();
+        fetchListType();
+        console.log('listType', listType);
+
     }, []);
 
 
     //_______edit
     const handleEdit = (rowData) => {
-        setCategory({
+        setType({
             _id: rowData._id,
-            category_name: rowData.category_name
+            type_name: rowData.type_name
         });
 
         handleShow();
@@ -71,18 +74,19 @@ const Category = () => {
 
     const handleOnChange = (event, name) => {
         const { value } = event.target;
-        const updateCategory = { ...category };
-        updateCategory[name] = value;
-        setCategory(updateCategory);
+        const updateType = { ...type };
+        updateType[name] = value;
+        setType(updateType);
     };
 
+    //edit
     const validateInput = () => {
-        // Kiểm tra xem category_name có giá trị không. Nếu không, trả về false.
-        if (!category.category_name) {
-            toast.error('Bạn điền thiếu tên danh mục');
+        // Kiểm tra xem Type_name có giá trị không. Nếu không, trả về false.
+        if (!type.type_name) {
+            toast.error('Bạn điền thiếu phân loại');
             return false;
         }
-        // Nếu category_name có giá trị, trả về true.
+        // Nếu Type_name có giá trị, trả về true.
         return true;
     };
 
@@ -92,10 +96,10 @@ const Category = () => {
             if (!validateInput()) {
                 return;
             }
-            let updateCategory = { ...category, _id: category._id };
+            let updateType = { ...type, _id: type._id };
 
-            await dispatch(editCategory(updateCategory));
-            fetchListCategory();
+            await dispatch(editType(updateType));
+            fetchListType();
             handleClose();
 
         } catch (e) {
@@ -108,10 +112,10 @@ const Category = () => {
     const handleDelete = async (rowData) => {
         try {
             // Gọi action deleteUser với id của người dùng cần xóa
-            await dispatch(deleteCategory(rowData._id));
+            await dispatch(deleteType(rowData._id));
 
             // Nếu xóa thành công, cập nhật danh sách người dùng và hiển thị thông báo
-            fetchListCategory();
+            fetchListType();
         } catch (error) {
             // Nếu xóa thất bại, hiển thị thông báo lỗi
             console.error('Error deleting user:', error);
@@ -128,24 +132,24 @@ const Category = () => {
     };
 
     const validate = () => {
-        // Kiểm tra xem category_name có giá trị không. Nếu không, trả về false.
-        if (!state.category_name) {
-            toast.error('Bạn điền thiếu tên danh mục');
+        // Kiểm tra xem Type_name có giá trị không. Nếu không, trả về false.
+        if (!state.type_name) {
+            toast.error('Bạn tạo thiếu tên phân loại ');
             return false;
         }
-        // Nếu category_name có giá trị, trả về true.
+        // Nếu Type_name có giá trị, trả về true.
         return true;
     };
-    const handleCreateCategory = async () => {
+    const handleCreateType = async () => {
         try {
             if (!validate()) {
                 return;
             }
-            await dispatch(createCategory(state));
+            await dispatch(createType(state));
             // Reset the form state after successful user creation
-            fetchListCategory();
+            fetchListType();
             setState({
-                category_name: ''
+                type_name: ''
             });
 
         } catch (error) {
@@ -156,30 +160,30 @@ const Category = () => {
 
     return (
         <>
-            <div className='category'>
+            <div className='Type'>
                 <Sidebar />
-                <div className='category-container'>
+                <div className='Type-container'>
                     <Navbar />
-                    <div className='category-content'>
+                    <div className='Type-content'>
                         <div className='top row'>
                             <div className='row px-4 my-3 '>
-                                <div className='title-top col-2'>Thêm danh mục</div>
+                                <div className='title-top col-2'>Thêm phân loại</div>
 
                             </div>
                             <form className="row g-2 px-4">
 
                                 <div className="col-md-5 mb-2">
-                                    <label className="form-label">Tên danh mục</label>
+                                    <label className="form-label">Tên phân loại</label>
                                     <input
                                         type="text"
                                         className="form-control"
-                                        value={state.category_name}
-                                        onChange={(event) => handleOnChangeInput(event, 'category_name')}
+                                        value={state.type_name}
+                                        onChange={(event) => handleOnChangeInput(event, 'type_name')}
                                     ></input>
                                 </div>
 
                                 <div className='col-12'>
-                                    <Button className="btn btn-save text-light" onClick={handleCreateCategory} style={{ backgroundColor: "#85d400", borderColor: "#85d400" }}>
+                                    <Button className="btn btn-save text-light" onClick={handleCreateType} style={{ backgroundColor: "#85d400", borderColor: "#85d400" }}>
                                         Lưu
                                     </Button>
                                 </div>
@@ -187,7 +191,7 @@ const Category = () => {
                             </form>
                         </div>
                         <div className='bottom row'>
-                            <div className='title-cate h4 my-3 mx-2'>Danh sách danh mục</div>
+                            <div className='title-cate h4 my-3 mx-2'>Danh sách phân loại</div>
                             <div className='col-5'>
                                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                                     <TableContainer sx={{ maxHeight: 440 }}>
@@ -206,10 +210,10 @@ const Category = () => {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {/* Kiểm tra xem listCategory có dữ liệu không */}
-                                                {listCategory.length > 0 && (
-                                                    // Nếu có, sử dụng hàm map để tạo một TableRow cho mỗi phần tử trong listCategory
-                                                    listCategory.map((row) => (
+                                                {/* Kiểm tra xem listType có dữ liệu không */}
+                                                {listType.length > 0 && (
+                                                    // Nếu có, sử dụng hàm map để tạo một TableRow cho mỗi phần tử trong listType
+                                                    listType.map((row) => (
                                                         // Tạo một TableRow với key là _id của row
                                                         <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
                                                             {/* Tạo một TableCell cho mỗi cột trong columns */}
@@ -233,7 +237,7 @@ const Category = () => {
                                 </Paper>
                             </div>
                             <div className='col-7'>
-                                <Product_Category listNameCategory={listCategory} />
+                                <Product_Type listNameType={listType} />
 
                             </div>
                         </div>
@@ -243,18 +247,18 @@ const Category = () => {
             </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header className='modal-header' closeButton>
-                    <Modal.Title >Chỉnh sửa danh mục</Modal.Title>
+                    <Modal.Title >Chỉnh sửa phân loại</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='col ben-trai'>
                         <div className="form-group row mb-3">
-                            <label className="col-sm-4 col-form-label" >Tên Danh mục</label>
+                            <label className="col-sm-4 col-form-label" >Tên Phân loại</label>
                             <div className="col-sm-8">
                                 <input
                                     type="text"
                                     className="form-control"
-                                    value={category.category_name}
-                                    onChange={(event) => handleOnChange(event, 'category_name')}
+                                    value={type.type_name}
+                                    onChange={(event) => handleOnChange(event, 'type_name')}
                                 ></input>
                             </div>
                         </div>
@@ -275,4 +279,4 @@ const Category = () => {
     )
 }
 
-export default Category;
+export default Type;

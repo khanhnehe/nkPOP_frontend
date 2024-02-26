@@ -7,6 +7,8 @@ import HomeAdmin from "../pages/home/HomeAdmin";
 import ManagerUser from "../admin/user/ManagerUser";
 import Category from "../admin/product/category/Category";
 import Brand from "../admin/product/Brand/Brand";
+import Type from "../admin/product/Type/Type";
+import Product from "../admin/product/Product/Product";
 
 
 const System = () => {
@@ -16,6 +18,8 @@ const System = () => {
             <Route path="manage-user" element={<ManagerUser />} />
             <Route path="manage-category" element={<Category />} />
             <Route path="manage-brand" element={<Brand />} />
+            <Route path="manage-type" element={<Type />} />
+            <Route path="manage-product" element={<Product />} />
         </Routes>
     );
 }

@@ -164,7 +164,7 @@ const Brand = () => {
                 <div className='Brand-container'>
                     <Navbar />
                     <div className='Brand-content'>
-                        <div className='top col'>
+                        <div className='top row'>
                             <div className='row px-4 my-3 '>
                                 <div className='title-top col-2'>Thêm thương hiệu</div>
 

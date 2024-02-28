@@ -1,22 +1,33 @@
-
 .react-select__placeholder {
     color: gray !important;
 }
 
-.custombg{
-    background-color: #dfffd2!important;
+.custombg {
+    background-color: #dfffd2 !important;
 
-    th{
+    th {
         font-size: 15px;
     }
 
 }
 
-.btn-custom{
-    border: 2px solid #ffffff;
+.btn-custom {
+    border          : 2px solid #ffffff;
     background-color: #85d400;
-    color: rgb(255 255 255);
-    border-radius: 4px;
-    margin-left: 3px;
-    /* padding: 2px 8px; */
+    color           : rgb(255 255 255);
+    border-radius   : 4px;
+    margin-left     : 3px;
+    padding      : 2px; 
+}
+
+.btn-delete{
+    border: 1px solid white;
+    background-color: #ededed;
+}
+
+.title-product{
+    color: #85d400;
+    font-size: 24px;
+    font-weight: 700;
+
 }

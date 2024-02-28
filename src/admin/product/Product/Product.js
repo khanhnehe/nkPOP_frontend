@@ -12,6 +12,8 @@ import { RiEdit2Line } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import { getBase64 } from '../../../utils/Base64';
 import CreateProduct from './CreateProduct';
+import { useNavigate } from 'react-router-dom';
+
 
 const Product = () => {
 
@@ -53,7 +55,7 @@ const Product = () => {
         },
         {
             id: 'product_type', label: 'Loại sản phẩm', minWidth: 110, render: (rowData) => (
-                <div className="description">
+                <div className="product_type">
                     {rowData.product_type ? rowData.product_type.map(type => type.type_name).join(', ') : ''}
                 </div>
             ),
@@ -75,8 +77,8 @@ const Product = () => {
             label: 'Mục sản phẩm',
             minWidth: 110,
             render: (rowData) => (
-                <div>
-                    {rowData.variants && rowData.variants.map((variant) => (
+                <div className='product_type'>
+                    {rowData.variants && rowData.variants.slice(0, 2).map((variant) => (
                         <div key={variant._id} className='variants'>
                             {variant.name} {variant.price}, SL: {variant.quantity}
                         </div>
@@ -104,6 +106,7 @@ const Product = () => {
 
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const listProduct = useSelector(state => state.admin.allProduct);
     const [product, setProduct] = useState({ name_product: '' });
@@ -111,10 +114,6 @@ const Product = () => {
     const [state, setState] = useState({ name_product: '' })
 
     //show close modal
-    const [show, setShow] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -158,82 +157,16 @@ const Product = () => {
 
     //_______edit
     const handleEdit = (rowData) => {
-        setProduct({
-            _id: rowData._id,
-            name_product: rowData.name_product
-        });
-
-        handleShow();
+        // Navigate to the edit product page with the product id as a URL parameter
+        navigate(`/system/manage-edit-product/${rowData._id}`);
     };
 
-    const handleOnChange = (event, name) => {
-        const { value } = event.target;
-        const updateProduct = { ...Product };
-        updateProduct[name] = value;
-        setProduct(updateProduct);
-    };
-
-    const validateInput = () => {
-        // Kiểm tra xem Product_name có giá trị không. Nếu không, trả về false.
-        if (!product.name_product) {
-            toast.error('Bạn điền thiếu tên danh mục');
-            return false;
-        }
-        return true;
-    };
-
-    const handleUpdate = async () => {
-        try {
-            if (!validateInput()) {
-                return;
-            }
-            let updateProduct = { ...product, _id: product._id };
-
-            await dispatch(editProduct(updateProduct));
-            fetchListProduct();
-            handleClose();
-
-        } catch (e) {
-            console.log('Error updating profile:', e);
-
-        }
-    }
 
 
 
-    //create
-    const handleOnChangeInput = (event, id) => {
-        const value = event.target.value;
-        setState((prevState) => ({
-            ...prevState,
-            [id]: value,
-        }));
-    };
 
-    const validate = () => {
-        // Kiểm tra xem Product_name có giá trị không. Nếu không, trả về false.
-        if (!state.name_product) {
-            toast.error('Bạn điền thiếu tên danh mục');
-            return false;
-        }
-        return true;
-    };
-    const handleCreateProduct = async () => {
-        try {
-            if (!validate()) {
-                return;
-            }
-            await dispatch(createProduct(state));
-            // Reset the form state after successful user creation
-            fetchListProduct();
-            setState({
-                Product_name: ''
-            });
 
-        } catch (error) {
-            console.error('Error create user:', error);
-        }
-    }
+
 
 
     return (
@@ -244,7 +177,7 @@ const Product = () => {
                     <Navbar />
                     <div className='Product-content'>
                         <div className='top row'>
-                            <CreateProduct />
+                            <CreateProduct fetchProduct={fetchListProduct} />
                         </div>
                         <div className='bottom row'>
                             <div className='title-cate h4 my-3 mx-2'>Danh sách danh mục</div>

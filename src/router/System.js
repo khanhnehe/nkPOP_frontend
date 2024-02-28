@@ -9,7 +9,8 @@ import Category from "../admin/product/category/Category";
 import Brand from "../admin/product/Brand/Brand";
 import Type from "../admin/product/Type/Type";
 import Product from "../admin/product/Product/Product";
-
+import EditProduct from "../admin/product/Product/EditProduct";
+import { useParams } from 'react-router-dom';
 
 const System = () => {
     return (
@@ -20,6 +21,7 @@ const System = () => {
             <Route path="manage-brand" element={<Brand />} />
             <Route path="manage-type" element={<Type />} />
             <Route path="manage-product" element={<Product />} />
+            <Route path="manage-edit-product/:id" element={<EditProduct />} />
         </Routes>
     );
 }

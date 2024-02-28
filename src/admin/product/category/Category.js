@@ -69,6 +69,7 @@ const Category = () => {
         handleShow();
     };
 
+    //edit
     const handleOnChange = (event, name) => {
         const { value } = event.target;
         const updateCategory = { ...category };
@@ -118,7 +119,7 @@ const Category = () => {
         }
     };
 
-    //create
+    //_____create
     const handleOnChangeInput = (event, id) => {
         const value = event.target.value;
         setState((prevState) => ({

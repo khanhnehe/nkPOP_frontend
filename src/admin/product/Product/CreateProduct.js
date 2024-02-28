@@ -7,7 +7,7 @@ import { createProduct, getAllBrand, getAllCategory, getAllType } from '../../..
 import Select from 'react-select';
 import { getBase64 } from '../../../utils/Base64';
 
-const CreateProduct = () => {
+const CreateProduct = ({ fetchProduct }) => {
     const [product, setProduct] = useState({
         name_product: '',
         brand: '',
@@ -19,7 +19,17 @@ const CreateProduct = () => {
         quantity: '',
         discount: '',
         sale_price: '',
-        variants: [],
+        variants: [
+            {
+                name: "",
+                images: [],
+                price: '',
+                quantity: '',
+                discount: '',
+                promotionPrice: '',
+                sku: "",
+            }
+        ],
         sku: '',
     });
 
@@ -48,6 +58,21 @@ const CreateProduct = () => {
         }
     }, [product.price, product.discount]);
 
+    useEffect(() => {
+        setProduct(prevProduct => ({
+            // sao chép tất cả các thuộc tính của prevProduct vào một object mới.
+            ...prevProduct,
+            // Cập nhật thuộc tính variants của product.
+            variants: prevProduct.variants.map(variant => ({
+                // sao chép tất cả các thuộc tính của variant vào một object mới.
+                ...variant,
+                promotionPrice: variant.price - (variant.price * variant.discount) / 100,
+            })),
+        }));
+        // useEffect sẽ chạy lại mỗi khi giá trị của price hoặc discount trong bất kỳ variant nào thay đổi.
+    }, [product.variants.map(variant => variant.price), product.variants.map(variant => variant.discount)]);
+
+
     const handleOnChange = (event, id) => {
         const value = event.target.value;
         setProduct((prevState) => ({
@@ -58,19 +83,29 @@ const CreateProduct = () => {
 
     const validateInput = () => {
         let isValid = true;
-        let checkArr = ['name_product', 'brand', 'description', 'category', 'product_type',
-            'images', 'price', 'quantity', 'sku'];
+        let checkArr = ['name_product', 'brand', 'description', 'category', 'product_type', 'images', 'price', 'quantity', 'sku'];
+
+        const displayNames = {
+            'name_product': 'Tên sản phẩm',
+            'brand': 'Thương hiệu',
+            'description': 'Mô tả',
+            'category': 'Danh mục',
+            'product_type': 'Loại sản phẩm',
+            'images': 'Hình ảnh',
+            'price': 'Giá',
+            'quantity': 'Số lượng',
+            'sku': 'SKU'
+        };
 
         for (let i = 0; i < checkArr.length; i++) {
             if (!product[checkArr[i]]) {
                 isValid = false;
-                toast.error('Bạn điền thiếu: ' + checkArr[i]);
+                toast.error('Bạn điền thiếu: ' + displayNames[checkArr[i]]);
                 break;
             }
         }
         return isValid;
     };
-
     const handleCreateProduct = async () => {
         try {
             let isValid = validateInput();
@@ -89,12 +124,26 @@ const CreateProduct = () => {
                 quantity: '',
                 discount: '',
                 sale_price: '',
-                variants: [],
+                variants: [
+                    {
+                        name: "",
+                        images: [],
+                        price: '',
+                        quantity: '',
+                        discount: '',
+                        promotionPrice: '',
+                        sku: "",
+                    }
+                ],
                 sku: '',
             });
             setSelectCategory([]); // Reset danh sách danh mục đã chọn
             setSelectBrand([]);
             setSelectType([]);
+
+            if (fetchProduct) {
+                fetchProduct();
+            }
         } catch (error) {
             console.error('Error create user:', error);
         }
@@ -155,6 +204,8 @@ const CreateProduct = () => {
     };
 
     const fileInputRef = useRef();
+    const fileInputRefVa = useRef();
+
 
 
     const handleImageChange = async (event) => {
@@ -169,36 +220,80 @@ const CreateProduct = () => {
         }));
         setProduct(prevState => ({ ...prevState, images: [...prevState.images, ...updatedImages] }));
     };
+    // xóa ảnh
+    const handleRemoveImage = (index) => {
+        setProduct(prevState => {
+            const images = [...prevState.images];
+            images.splice(index, 1);
+            return { ...prevState, images };
+        });
+    };
 
     const handleUploadClick = () => {
         fileInputRef.current.click();
     };
 
-    const [variants, setVariants] = useState([
-        { name: '', images: [], price: '', quantity: '', discount: '', promotionPrice: '', sku: '' }
-    ]);
 
+
+    //mục sản phẩm
+    // Hàm này thêm một biến thể mới vào mảng variants trong product
     const handleAddVariant = () => {
-        setVariants([...variants, { name: '', images: [], price: '', quantity: '', discount: '', promotionPrice: '', sku: '' }]);
+        setProduct(prevState => ({
+            // Sử dụng toán tử spread để sao chép tất cả các thuộc tính hiện tại của product
+            ...prevState,
+            // Thêm một biến thể mới vào mảng variants
+            variants: [...prevState.variants, { name: '', images: [], price: '', quantity: '', discount: '', promotionPrice: '', sku: '' }]
+        }));
     };
 
+    // Hàm này cập nhật giá trị của một trường trong một biến thể cụ thể
     const handleInputChange = (event, index) => {
         const { name, value } = event.target;
-        const newVariants = [...variants];
-        newVariants[index][name] = value;
-        setVariants(newVariants);
+        setProduct(prevState => {
+            // Tạo một bản sao mới của mảng variants
+            const newVariants = [...prevState.variants];
+            // Cập nhật giá trị của trường tương ứng trong biến thể cụ thể
+            newVariants[index][name] = value;
+            // Trả về một bản sao mới của product với mảng variants đã được cập nhật
+            return { ...prevState, variants: newVariants };
+        });
+    };
+    const handleButtonClick = () => {
+        fileInputRefVa.current.click();
     };
 
+    // Hàm này cập nhật mảng hình ảnh của một biến thể cụ thể
+    const handleImageVar = async (event, index) => {
+        const file = event.target.files[0]; // chỉ lấy file đầu tiên từ danh sách file
+        let base64Image = await getBase64(file);
+        base64Image = `data:image/jpeg;base64,${base64Image.split(',')[1]}`;
+        setProduct(prevState => {
+            // Tạo một bản sao mới của mảng variants
+            const newVariants = [...prevState.variants];
+            // Cập nhật hình ảnh của biến thể cụ thể
+            newVariants[index].images = [base64Image]; // chỉ đặt một hình ảnh duy nhất
+            // Trả về một bản sao mới của product với mảng variants đã được cập nhật
+            return { ...prevState, variants: newVariants };
+        });
+    };
+
+    const handleRemoveVariant = (index) => {
+        setProduct(prevState => {
+            const newVariants = [...prevState.variants];
+            newVariants.splice(index, 1);
+            return { ...prevState, variants: newVariants };
+        });
+    };
 
     return (
         <>
             <div className='CreateProduct'>
-                <div className='row title h5 mb-3'>Thêm sản phẩm</div>
+                <div className='col-2 title-product mb-3'>Thêm sản phẩm</div>
                 <div className='col ben-trai '>
                     <div className="form-group row mb-3">
                         <label className="col-sm-2 h6 col-form-label">Tên sản phẩm:</label>
                         <div className="col-sm-4">
-                            <input
+                            <input placeholder="Tên sản phẩm"
                                 type="text"
                                 className="form-control"
                                 value={product.name_product}
@@ -245,7 +340,6 @@ const CreateProduct = () => {
                         </div>
                     </div>
 
-
                     <div className="form-group row mb-3">
                         <label className="col-sm-2 h6 col-form-label">Phân loại sản phẩm:</label>
                         <div className="col-sm-4">
@@ -268,12 +362,12 @@ const CreateProduct = () => {
                     <div className="form-group row mb-3">
                         <label className="col-sm-2 h6 col-form-label">Mô tả sản phẩm:</label>
                         <div className="col-sm-4">
-                            <input
-                                type="text"
+                            <textarea
+                                rows="3"
                                 className="form-control"
                                 value={product.description}
                                 onChange={(event) => handleOnChange(event, 'description')}
-                            />
+                            ></textarea>
                         </div>
                     </div>
 
@@ -281,7 +375,7 @@ const CreateProduct = () => {
                         <label className="col-sm-2 h6 col-form-label">Giá:</label>
                         <div className="col-sm-4">
                             <input
-                                type="text"
+                                type="text" placeholder="Giá"
                                 className="form-control"
                                 value={product.price}
                                 onChange={(event) => handleOnChange(event, 'price')}
@@ -292,7 +386,7 @@ const CreateProduct = () => {
                         <label className="col-sm-2 h6 col-form-label">Mã giảm(nhập 0-100)%:</label>
                         <div className="col-sm-4">
                             <input
-                                type="text"
+                                type="text" placeholder="Nhập từ 0% đến 100%"
                                 className="form-control"
                                 value={product.discount}
                                 onChange={(event) => handleOnChange(event, 'discount')}
@@ -304,7 +398,7 @@ const CreateProduct = () => {
                         <label className="col-sm-2 h6 col-form-label">Giá bán:</label>
                         <div className="col-sm-4">
                             <input
-                                type="text"
+                                type="text" placeholder="Giá bán"
                                 className="form-control"
                                 value={product.sale_price}
                                 onChange={(event) => handleOnChange(event, 'sale_price')}
@@ -316,7 +410,7 @@ const CreateProduct = () => {
                         <label className="col-sm-2 h6 col-form-label">Số lượng:</label>
                         <div className="col-sm-4">
                             <input
-                                type="text"
+                                type="text" placeholder="Số lượng"
                                 className="form-control"
                                 value={product.quantity}
                                 onChange={(event) => handleOnChange(event, 'quantity')}
@@ -328,7 +422,7 @@ const CreateProduct = () => {
                         <label className="col-sm-2 h6 col-form-label">Mã SKU:</label>
                         <div className="col-sm-4">
                             <input
-                                type="text"
+                                type="text" placeholder="Mã SKU"
                                 className="form-control"
                                 value={product.sku}
                                 onChange={(event) => handleOnChange(event, 'sku')}
@@ -338,7 +432,6 @@ const CreateProduct = () => {
 
 
                     <div className="form-group row mb-3">
-
                         <labe className='col-sm-2 h6 col-form-label' >Thêm hình ảnh </labe>
                         <div className="col-sm-4 mt-1">
                             Số hình ảnh ({product.images.length})
@@ -350,35 +443,41 @@ const CreateProduct = () => {
                                 style={{ display: 'none' }}
                                 accept="image/*"
                             />
-                            <Button variant="outlined" onClick={handleUploadClick}>Chọn hình ảnh</Button>
+                            <Button variant="outlined" className="ms-3" onClick={handleUploadClick}>Chọn hình ảnh</Button>
                         </div>
-                        <div>
+                        <div className='' style={{ display: 'flex', flexWrap: 'wrap' }}>
                             {product.images && product.images.map((image, index) => (
-                                <img key={index} src={image} style={{ height: '100px', width: '100px', marginTop: '5px' }} />
+                                <div key={index}>
+                                    <img src={image} style={{ height: '100px', width: '100px', marginTop: '3px', }} />
+                                    <button className='btn-delete' onClick={() => handleRemoveImage(index)}>x</button>
+                                </div>
                             ))}
                         </div>
-
-                        <div className='ms-2 custombg col-10 p-3 mt-3 '>
+                        {/*  */}
+                        <div className='ms-2 custombg col-12 p-3 mt-3 '>
                             <div className='h6'>Mục sản phẩm</div>
                             <table>
                                 <thead>
                                     <tr>
-                                        <th>Kích thước</th>
+                                        <th>Tên phân loại</th>
                                         <th>Giá</th>
-                                        <th>Kho hàng</th>
+                                        <th>Giảm giá</th>
+                                        <th>Giá khuyến mãi</th>
+                                        <th>Số lượng</th>
                                         <th>SKU phân loại</th>
+                                        <th>Hình ảnh</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {variants.map((variant, index) => (
+                                    {product.variants.map((variant, index) => (
                                         <tr key={index}>
                                             <td>
-                                                <input type="text"
+                                                <input type="text" className=''
                                                     name="name"
                                                     value={variant.name}
                                                     onChange={(event) => handleInputChange(event, index)}
-                                                    placeholder="Kích thước" />
+                                                    placeholder="Tên phân loại" />
                                             </td>
                                             <td>
                                                 <input type="text" name="price"
@@ -386,9 +485,19 @@ const CreateProduct = () => {
                                                     onChange={(event) => handleInputChange(event, index)} placeholder="Giá" />
                                             </td>
                                             <td>
+                                                <input type="text" name="discount"
+                                                    value={variant.discount}
+                                                    onChange={(event) => handleInputChange(event, index)} placeholder="Giảm giá" />
+                                            </td>
+                                            <td>
+                                                <input type="text" name="promotionPrice"
+                                                    value={variant.promotionPrice}
+                                                    onChange={(event) => handleInputChange(event, index)} placeholder="Giá khuyến mãi" />
+                                            </td>
+                                            <td>
                                                 <input type="text" name="quantity"
                                                     value={variant.quantity}
-                                                    onChange={(event) => handleInputChange(event, index)} placeholder="Kho hàng" />
+                                                    onChange={(event) => handleInputChange(event, index)} placeholder="Số  lượng" />
                                             </td>
                                             <td>
                                                 <input type="text" name="sku"
@@ -396,7 +505,32 @@ const CreateProduct = () => {
                                                     onChange={(event) => handleInputChange(event, index)} placeholder="SKU phân loại" />
                                             </td>
                                             <td>
-                                                <button className='btn-custom' onClick={handleAddVariant}>+</button>
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    id="file-upload"
+                                                    className="custom-file-input"
+                                                    type="file"
+                                                    onChange={(event) => handleImageVar(event, index)}
+                                                    multiple
+                                                    accept="image/*"
+                                                    ref={fileInputRefVa}
+
+                                                />
+
+                                                <label htmlFor="file-upload" className="custom-file-upload ">
+                                                    <Button variant="contained" size="small" onClick={handleButtonClick}>Tải lên</Button>
+                                                </label>
+                                                <div>
+                                                    {variant.images && variant.images.map((image, index) => (
+                                                        <img key={index} src={image} style={{ height: '50px', width: '50px', marginTop: '3px' }} />
+                                                    ))}
+                                                </div>
+
+                                            </td>
+
+                                            <td>
+                                                <div className='btn-custom' onClick={() => handleAddVariant()}>+</div>
+                                                {product.variants.length > 1 && <div className='btn-custom' onClick={() => handleRemoveVariant(index)}>-</div>}
                                             </td>
                                         </tr>
                                     ))}

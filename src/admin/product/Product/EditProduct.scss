@@ -1,0 +1,28 @@
+.EditProduct{
+    display: flex;
+    width: 100%;
+    background-color: whitesmoke;
+    .edit-container{
+        flex: 6;
+        margin-bottom: 20px;
+
+        .top{
+            padding: 20px;
+
+            .ben-trai{
+                padding: 15px 20px;
+                -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+                border-radius: 10px;
+                background-color: rgb(255, 255, 255);
+
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+
+            }
+        }
+
+    }
+
+}

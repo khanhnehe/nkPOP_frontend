@@ -3,7 +3,7 @@ import {
     createUserApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
     productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
-    deleteProductApi, editProductApi, createProductApi
+    deleteProductApi, editProductApi, createProductApi, detailProductApi
 
 } from "../../services/userService";
 import adminReducer from "../reducer/adminReducer";
@@ -639,15 +639,18 @@ export const editProduct = (data) => {
 
             if (response.errCode !== 0) {
                 dispatch({
-                    type: actionTypes.EDIT_PRODUCT_SUCCESS,
+                    type: actionTypes.EDIT_PRODUCT_FAILED,
                     payload: response.message
                 });
+                toast.error('Cập nhật sản phẩm thất bại');
+
+
             } else {
                 dispatch({
-                    type: actionTypes.EDIT_PRODUCT_FAILED,
-
+                    type: actionTypes.EDIT_PRODUCT_SUCCESS,
                 });
                 toast.success('Cập nhật sản phẩm thành công!');
+
             }
         } catch (error) {
             dispatch({
@@ -715,6 +718,39 @@ export const createProduct = (data) => {
             });
             toast.error('Có lỗi xảy ra khi thêm sản phẩm!');
             console.log(error)
+        }
+    };
+};
+
+//detail product
+export const detailProduct = (productId) => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            const res = await detailProductApi(token, productId);
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_DETAIL_PRODUCT_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_DETAIL_PRODUCT_FAILED,
+                    payload: res.message
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_DETAIL_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : (error.message || 'Unknown error')
+            }); console.error('Error:', error);
         }
     };
 };

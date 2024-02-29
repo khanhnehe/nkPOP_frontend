@@ -7,14 +7,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { MdDeleteOutline } from "react-icons/md";
 import { Modal } from 'react-bootstrap';
-import { getAllCategory, editCategory, deleteCategory, createCategory } from '../../../store/actions/adminAction';
+import { getAllCategory, editCategory, deleteCategory, createCategory, getAllType } from '../../../store/actions/adminAction';
 import { RiEdit2Line } from "react-icons/ri";
 import { toast } from 'react-toastify';
 import Product_Category from './Product_Category';
+import Select from 'react-select';
 const Category = () => {
-
     const columns = [
         { id: 'category_name', label: 'Tên danh mục', minWidth: 170 },
+        {
+            id: 'types', label: 'Tên danh mục', minWidth: 170, render: (rowData) => (
+                <div>
+                    {rowData.types.map(types => types.type_name).join(', ')}
+                </div>
+            )
+        },
         {
             id: 'edit', label: 'Sửa', minWidth: 100, align: 'center',
             render: (rowData) => <Button
@@ -26,18 +33,15 @@ const Category = () => {
             render: (rowData) => <Button
                 style={{ fontSize: '20px', color: '#ee5a5a' }}
                 onClick={() => handleDelete(rowData)}
-            >
-                <MdDeleteOutline />
-            </Button>
+            > <MdDeleteOutline /></Button>
         },
     ];
-
     const dispatch = useDispatch();
-
     const listCategory = useSelector(state => state.admin.allCategory);
-    const [category, setCategory] = useState({ category_name: '' });
+    const [category, setEditCategory] = useState({ category_name: '', types: [] });
 
-    const [state, setState] = useState({ category_name: '' })
+    const [state, setSCreateCategory] = useState({ category_name: '', types: [] })
+    const listProductType = useSelector(state => state.admin.allType);
 
     //show close modal
     const [show, setShow] = useState(false);
@@ -52,21 +56,21 @@ const Category = () => {
             console.error('Error fetching category list:', error);
         }
     };
-
+    useEffect(() => {
+        dispatch(getAllType());
+    }, [dispatch]);
 
     useEffect(() => {
         fetchListCategory();
     }, []);
 
-
     //_______edit
     const handleEdit = (rowData) => {
-        setCategory({
+        setEditCategory({
             _id: rowData._id,
-            category_name: rowData.category_name
-        });
-
-        handleShow();
+            category_name: rowData.category_name,
+            types: rowData.types.map(type => ({ label: type.type_name, value: type._id }))
+        }); handleShow();
     };
 
     //edit
@@ -74,7 +78,22 @@ const Category = () => {
         const { value } = event.target;
         const updateCategory = { ...category };
         updateCategory[name] = value;
-        setCategory(updateCategory);
+        setEditCategory(updateCategory);
+    };
+
+    const handleOnChangeType = (selectedOptions, actionMeta, id) => {
+        if (id === 'types') {
+            // Lọc ds danh mục từ Redux chỉ giữ lại những danh mục đã được chọn
+            const filter_select_type = listProductType.filter(types =>
+                selectedOptions.some(option => option.value === types._id)
+            );
+            setSelectType(filter_select_type);
+
+            setEditCategory((prevState) => ({
+                ...prevState,
+                [id]: selectedOptions.map(option => option.value),
+            }));
+        }
     };
 
     const validateInput = () => {
@@ -97,6 +116,8 @@ const Category = () => {
 
             await dispatch(editCategory(updateCategory));
             fetchListCategory();
+            setSelectType([]);
+
             handleClose();
 
         } catch (e) {
@@ -108,13 +129,9 @@ const Category = () => {
     //delete
     const handleDelete = async (rowData) => {
         try {
-            // Gọi action deleteUser với id của người dùng cần xóa
             await dispatch(deleteCategory(rowData._id));
-
-            // Nếu xóa thành công, cập nhật danh sách người dùng và hiển thị thông báo
             fetchListCategory();
         } catch (error) {
-            // Nếu xóa thất bại, hiển thị thông báo lỗi
             console.error('Error deleting user:', error);
         }
     };
@@ -122,10 +139,27 @@ const Category = () => {
     //_____create
     const handleOnChangeInput = (event, id) => {
         const value = event.target.value;
-        setState((prevState) => ({
+        setSCreateCategory((prevState) => ({
             ...prevState,
             [id]: value,
         }));
+    };
+
+    const [selectType, setSelectType] = useState([]);
+
+    const handleOnChangeTypeInput = (selectedOptions, actionMeta, id) => {
+        if (id === 'types') {
+            // Lọc ds danh mục từ Redux chỉ giữ lại những danh mục đã được chọn
+            const filter_select_type = listProductType.filter(types =>
+                selectedOptions.some(option => option.value === types._id)
+            );
+            setSelectType(filter_select_type);
+
+            setSCreateCategory((prevState) => ({
+                ...prevState,
+                [id]: selectedOptions.map(option => option.value),
+            }));
+        }
     };
 
     const validate = () => {
@@ -134,7 +168,6 @@ const Category = () => {
             toast.error('Bạn điền thiếu tên danh mục');
             return false;
         }
-        // Nếu category_name có giá trị, trả về true.
         return true;
     };
     const handleCreateCategory = async () => {
@@ -145,9 +178,11 @@ const Category = () => {
             await dispatch(createCategory(state));
             // Reset the form state after successful user creation
             fetchListCategory();
-            setState({
+            setSCreateCategory({
                 category_name: ''
             });
+            setSelectType([]);
+
 
         } catch (error) {
             console.error('Error create user:', error);
@@ -164,32 +199,37 @@ const Category = () => {
                     <div className='category-content'>
                         <div className='top row'>
                             <div className='row px-4 my-3 '>
-                                <div className='title-top col-2'>Thêm danh mục</div>
-
-                            </div>
+                                <div className='title-top col-2'>Thêm danh mục</div>  </div>
                             <form className="row g-2 px-4">
-
                                 <div className="col-md-5 mb-2">
                                     <label className="form-label">Tên danh mục</label>
-                                    <input
-                                        type="text"
-                                        className="form-control"
-                                        value={state.category_name}
+                                    <input type="text" className="form-control" value={state.category_name}
                                         onChange={(event) => handleOnChangeInput(event, 'category_name')}
                                     ></input>
                                 </div>
-
+                                <label className="form-label">Phân loại sản phẩm:</label>
+                                <div className="col-sm-4">
+                                    <Select placeholder="Chọn phân loại..."
+                                        styles={{ menu: base => ({ ...base, zIndex: 9999 }) }} // Add this line
+                                        isMulti // Cho phép chọn nhiều mục
+                                        options={listProductType.map(types => ({
+                                            label: types.type_name,
+                                            value: types._id,
+                                        }))}
+                                        value={selectType.map(types => ({
+                                            label: types.type_name,
+                                            value: types._id,
+                                        }))}
+                                        onChange={(selectedOptions, actionMeta) =>
+                                            handleOnChangeTypeInput(selectedOptions, actionMeta, 'types')
+                                        } />
+                                </div>
                                 <div className='col-12'>
                                     <Button className="btn btn-save text-light" onClick={handleCreateCategory} style={{ backgroundColor: "#85d400", borderColor: "#85d400" }}>
-                                        Lưu
-                                    </Button>
-                                </div>
-
-                            </form>
-                        </div>
+                                        Lưu </Button></div></form> </div>
                         <div className='bottom row'>
                             <div className='title-cate h4 my-3 mx-2'>Danh sách danh mục</div>
-                            <div className='col-5'>
+                            <div className='col-6'>
                                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                                     <TableContainer sx={{ maxHeight: 440 }}>
                                         <Table stickyHeader aria-label="sticky table">
@@ -207,20 +247,13 @@ const Category = () => {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {/* Kiểm tra xem listCategory có dữ liệu không */}
                                                 {listCategory.length > 0 && (
-                                                    // Nếu có, sử dụng hàm map để tạo một TableRow cho mỗi phần tử trong listCategory
                                                     listCategory.map((row) => (
-                                                        // Tạo một TableRow với key là _id của row
                                                         <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
-                                                            {/* Tạo một TableCell cho mỗi cột trong columns */}
                                                             {columns.map((column) => {
-                                                                // Lấy giá trị của cột từ row
                                                                 const value = row[column.id];
                                                                 return (
-                                                                    // Tạo một TableCell với key là id của cột
                                                                     <TableCell key={column.id} align={column.align}>
-                                                                        {/* Kiểm tra xem cột có hàm render không. Nếu có, gọi hàm render với row làm đối số. Nếu không, hiển thị giá trị của cột */}
                                                                         {column.render ? column.render(row) : value}
                                                                     </TableCell>
                                                                 );
@@ -233,9 +266,8 @@ const Category = () => {
                                     </TableContainer>
                                 </Paper>
                             </div>
-                            <div className='col-7'>
+                            <div className='col-6'>
                                 <Product_Category listNameCategory={listCategory} />
-
                             </div>
                         </div>
                     </div>
@@ -258,22 +290,30 @@ const Category = () => {
                                     onChange={(event) => handleOnChange(event, 'category_name')}
                                 ></input>
                             </div>
+                            <label className="form-label">Phân loại sản phẩm:</label>
+                            <div className="col">
+                                <Select placeholder="Chọn phân loại..."
+                                    styles={{ menu: base => ({ ...base, zIndex: 9999 }) }}
+                                    isMulti options={listProductType.map(types => ({
+                                        label: types.type_name,
+                                        value: types._id,
+                                    }))}
+                                    value={selectType.types}
+                                    onChange={(selectedOptions, actionMeta) =>
+                                        handleOnChangeType(selectedOptions, actionMeta, 'types')
+                                    }
+                                /> </div>
+
                         </div>
                     </div>
-
                 </Modal.Body>
                 <Modal.Footer>
                     <Button className="btn text-light me-2" onClick={handleClose} style={{ backgroundColor: "#92b060", borderColor: "#85d400" }}>
-                        Đóng
-                    </Button>
+                        Đóng</Button>
                     <Button className="btn btn-save text-light" onClick={handleUpdate} style={{ backgroundColor: "#85d400", borderColor: "#85d400" }}>
-                        Lưu thay đổi
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-
+                        Lưu thay đổi</Button>
+                </Modal.Footer> </Modal>
         </>
     )
 }
-
 export default Category;

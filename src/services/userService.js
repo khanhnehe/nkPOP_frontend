@@ -215,6 +215,14 @@ const createProductApi = (token, data) => {
     });
 }
 
+const detailProductApi = (token, productId) => {
+    return axios.get(`/admin/detailProduct/${productId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 export {
     loginApiService,
     ResisterApiService, createUserApi,
@@ -229,4 +237,5 @@ export {
     deleteCategoryApi, deleteBrandApi, deleteTypeApi, deleteProductApi,
     createCategoryApi, createBrandApi, createTypeApi, createProductApi,
     productCategoryApi, productBrandApi, productTypeApi,
+    detailProductApi
 }

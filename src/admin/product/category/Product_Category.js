@@ -10,7 +10,14 @@ const Product_Category = ({ listNameCategory }) => {
 
     const columns = [
         { id: 'name_product', label: 'Tên sản phẩm', minWidth: 170 },
-        { id: 'category', label: 'Tên danh mục', minWidth: 170 },
+
+        {
+            id: 'category', label: 'Tên danh mục', minWidth: 170, render: (rowData) => (
+                <div >
+                    {rowData.category ? rowData.category.map(category => category.category_name).join(', ') : ''}
+                </div>
+            ),
+        },
     ];
 
     const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
-import { getAllBrand, getAllCategory, getAllType, editProduct, getAllProduct } from '../../../store/actions/adminAction';
+import { getAllBrand, getAllCategory, getAllType, editProduct, detailProduct } from '../../../store/actions/adminAction';
 import Select from 'react-select';
 import "./EditProduct.scss";
 import { getBase64 } from '../../../utils/Base64';
@@ -11,9 +11,11 @@ import Sidebar from '../../../components/Sidebar/Sidebar';
 import { useParams } from 'react-router-dom';
 
 const EditProduct = ({ fetchProduct }) => {
+    //lấy id của sản phẩm 
     const { id } = useParams();
 
     const [product, setProduct] = useState({
+        _id: '',
         name_product: '',
         brand: '',
         description: '',
@@ -37,14 +39,13 @@ const EditProduct = ({ fetchProduct }) => {
         ],
         sku: '',
     });
-
     //select option
     const [selectCategory, setSelectCategory] = useState([]);
-    const [selectBrand, setSelectBrand] = useState([]);
+    const [selectBrand, setSelectBrand] = useState(null);
     const [selectType, setSelectType] = useState([]);
 
-
     const dispatch = useDispatch();
+
     const listBrand = useSelector(state => state.admin.allBrand);
     const listCategory = useSelector(state => state.admin.allCategory);
     const listProductType = useSelector(state => state.admin.allType);
@@ -55,18 +56,74 @@ const EditProduct = ({ fetchProduct }) => {
         dispatch(getAllType());
     }, [dispatch]);
 
+    // thông tin sp
+    const productDetail = useSelector(state => state.admin.detailProduct);
 
-    //lấy product
+    useEffect(() => {
+        dispatch(detailProduct(id));
+    }, [dispatch, id]);
 
-    
+    //lấy thông tin product ra output
+    useEffect(() => {
+        if (productDetail) {
+            setProduct({
+                _id: productDetail._id || '',
+                name_product: productDetail.name_product || '',
+                brand: productDetail.brand || '',
+                description: productDetail.description || '',
+                category: productDetail.category || [],
+                product_type: productDetail.product_type || [],
+                images: productDetail.images || [],
+                price: productDetail.price || '',
+                quantity: productDetail.quantity || '',
+                discount: productDetail.discount || '',
+                sale_price: productDetail.sale_price || '',
+                variants: productDetail.variants || [
+                    {
+                        name: "",
+                        images: [],
+                        price: '',
+                        quantity: '',
+                        discount: '',
+                        promotionPrice: '',
+                        sku: "",
+                    }
+                ],
+                sku: productDetail.sku || '',
+            });
+        }
+    }, [productDetail]);
 
-    const handleOnChange = (event, name) => {
-        const { value } = event.target;
-        const updateProduct = { ...product };
-        updateProduct[name] = value;
-        setProduct(updateProduct);
+    // tính giá sale 
+    useEffect(() => {
+        if (product.price && product.discount) {
+            const sale_price = product.price - (product.price * product.discount) / 100;
+            setProduct(prevProduct => ({ ...prevProduct, sale_price }));
+        }
+    }, [product.price, product.discount]);
+
+    // tính giá sale của biến thể
+    useEffect(() => {
+        setProduct(prevProduct => ({
+            // sao chép tất cả các thuộc tính của prevProduct vào một object mới.
+            ...prevProduct,
+            // Cập nhật thuộc tính variants của product.
+            variants: prevProduct.variants.map(variant => ({
+                // sao chép tất cả các thuộc tính của variant vào một object mới.
+                ...variant,
+                promotionPrice: variant.price - (variant.price * variant.discount) / 100,
+            })),
+        }));
+    }, [product.variants.map(variant => variant.price), product.variants.map(variant => variant.discount)]);
+
+
+    const handleOnChange = (event, id) => {
+        const value = event.target.value;
+        setProduct((prevState) => ({
+            ...prevState,
+            [id]: value,
+        }));
     };
-
 
     const validateInput = () => {
         let isValid = true;
@@ -94,41 +151,16 @@ const EditProduct = ({ fetchProduct }) => {
         return isValid;
     };
 
-    const handleEditProduct = async () => {
+    //update
+    const handleUpdateProduct = async () => {
         try {
             let isValid = validateInput();
             if (!isValid) {
                 return;
             }
-            let updateProduct = { ...product, _id: product._id }
+            let updateProduct = await { ...product, _id: product._id }
             await dispatch(editProduct(updateProduct));
-            setProduct({
-                name_product: '',
-                brand: '',
-                description: '',
-                category: [],
-                product_type: [],
-                images: [],
-                price: '',
-                quantity: '',
-                discount: '',
-                sale_price: '',
-                variants: [
-                    {
-                        name: "",
-                        images: [],
-                        price: '',
-                        quantity: '',
-                        discount: '',
-                        promotionPrice: '',
-                        sku: "",
-                    }
-                ],
-                sku: '',
-            });
-            setSelectCategory([]); // Reset danh sách danh mục đã chọn
-            setSelectBrand([]);
-            setSelectType([]);
+
 
             if (fetchProduct) {
                 fetchProduct();
@@ -138,38 +170,33 @@ const EditProduct = ({ fetchProduct }) => {
         }
     };
 
-    const handleOnChangeCategory = (selectedOptions, actionMeta, id) => {
-        if (id === 'category') {
-            // Lọc ds danh mục từ Redux chỉ giữ lại những danh mục đã được chọn
-            const filter_select_type = listCategory.filter(category =>
-                selectedOptions.some(option => option.value === category._id)
-            );
-            // Cập nhật state local với danh sách danh mục đã chọn
-            setSelectCategory(filter_select_type);
 
-            // Cập nhật trường 'category' trong state local của sản phẩm với ID của các danh mục đã chọn
-            setProduct((prevState) => ({
-                ...prevState,
-                [id]: selectedOptions.map(option => option.value),
-            }));
-        }
+    const handleOnChangeCategory = (selectedOptions, actionMeta, name) => {
+        let selectCategory = selectedOptions.map(option => ({
+            _id: option.value,
+            category: option.label
+        }));
+
+        setProduct(prevState => ({
+            ...prevState,
+            [name]: selectCategory
+        }))
     };
 
-    const handleOnChangeType = (selectedOptions, actionMeta, id) => {
-        if (id === 'product_type') {
-            // Lọc ds danh mục từ Redux chỉ giữ lại những danh mục đã được chọn
-            const filter_select_type = listProductType.filter(product_type =>
-                selectedOptions.some(option => option.value === product_type._id)
-            );
-            setSelectType(filter_select_type);
-
-            setProduct((prevState) => ({
-                ...prevState,
-                [id]: selectedOptions.map(option => option.value),
-            }));
-
-        }
-    };
+    // làm nhu này để lấy đc tên type và thay đổi mà có tên tyoe
+    const handleOnChangeType = (selectedOptions, actionMeta, name) => {
+        // dùng map chuyển đổi mảng selectedOptions thành mảng selectedProductTypes
+        // Mỗi phần tử của mảng selectedProductTypes là một đối tượng product_type bao gồm _id và type_name
+        let selectedProductTypes = selectedOptions.map(option => ({
+            _id: option.value,
+            type_name: option.label
+        }));
+        // [name]: selectedProductTypes được sử dụng để cập nhật thuộc tính tương ứng với name của product với selectedProductTypes
+        setProduct(prevState => ({
+            ...prevState,
+            [name]: selectedProductTypes
+        }));
+    }
 
     const handleOnChangeBrand = (selectedOption) => {
         // Cập nhật selectBrand
@@ -186,10 +213,9 @@ const EditProduct = ({ fetchProduct }) => {
 
     };
 
+    //Image
     const fileInputRef = useRef();
     const fileInputRefVa = useRef();
-
-
 
     const handleImageChange = async (event) => {
         const fileList = Array.from(event.target.files);
@@ -212,10 +238,10 @@ const EditProduct = ({ fetchProduct }) => {
         });
     };
 
+    // tạo ảnh 
     const handleUploadClick = () => {
         fileInputRef.current.click();
     };
-
 
 
     //mục sản phẩm
@@ -229,7 +255,6 @@ const EditProduct = ({ fetchProduct }) => {
         }));
     };
 
-    // Hàm này cập nhật giá trị của một trường trong một biến thể cụ thể
     const handleInputChange = (event, index) => {
         const { name, value } = event.target;
         setProduct(prevState => {
@@ -245,7 +270,7 @@ const EditProduct = ({ fetchProduct }) => {
         fileInputRefVa.current.click();
     };
 
-    // Hàm này cập nhật mảng hình ảnh của một biến thể cụ thể
+
     const handleImageVar = async (event, index) => {
         const file = event.target.files[0]; // chỉ lấy file đầu tiên từ danh sách file
         let base64Image = await getBase64(file);
@@ -260,6 +285,7 @@ const EditProduct = ({ fetchProduct }) => {
         });
     };
 
+    // xóa biến thể 
     const handleRemoveVariant = (index) => {
         setProduct(prevState => {
             const newVariants = [...prevState.variants];
@@ -268,14 +294,14 @@ const EditProduct = ({ fetchProduct }) => {
         });
     };
 
+
     return (
         <>
             <div className='EditProduct'>
                 <Sidebar />
                 <div className='edit-container'>
                     <Navbar />
-
-                    <div className='top row'>
+                    <div className='top'>
                         <div className='col ben-trai '>
                             <div className='col-2 title-product mb-3'>Chỉnh sửa thông tin sản phẩm</div>
 
@@ -295,17 +321,15 @@ const EditProduct = ({ fetchProduct }) => {
                                 <label className="col-sm-2 h6 col-form-label">Thương hiệu:</label>
                                 <div className="col-sm-4">
                                     <Select
-                                        options={listBrand.map(brand => ({ // Chuyển đổi  ds brand Select
+                                        options={listBrand.map(brand => ({
                                             label: brand.brand_name,
                                             value: brand._id,
                                         }))}
-                                        value={{
+                                        value={selectBrand && {
                                             label: selectBrand.brand_name,
                                             value: selectBrand._id,
                                         }}
-                                        onChange={(selectedOption) =>
-                                            handleOnChangeBrand(selectedOption, 'brand')
-                                        }
+                                        onChange={handleOnChangeBrand}
                                     />
                                 </div>
                             </div>
@@ -318,7 +342,7 @@ const EditProduct = ({ fetchProduct }) => {
                                             label: category.category_name, // Tên danh mục sẽ hiển thị cho người dùng
                                             value: category._id, // ID danh mục sẽ được lưu khi người dùng chọn mục này
                                         }))}
-                                        value={selectCategory.map(category => ({ // Chuyển đổi danh sách danh mục đã chọn từ state local thành Select
+                                        value={product.category.map(category => ({ // Chuyển đổi danh sách danh mục đã chọn từ state local thành Select
                                             label: category.category_name, // Tên danh mục sẽ hiển thị cho người dùng
                                             value: category._id, // ID danh mục sẽ được lưu khi người dùng chọn mục này
                                         }))}
@@ -338,7 +362,7 @@ const EditProduct = ({ fetchProduct }) => {
                                             label: product_type.type_name,
                                             value: product_type._id,
                                         }))}
-                                        value={selectType.map(product_type => ({
+                                        value={product.product_type.map(product_type => ({
                                             label: product_type.type_name,
                                             value: product_type._id,
                                         }))}
@@ -528,7 +552,7 @@ const EditProduct = ({ fetchProduct }) => {
                                 </div>
 
                                 <div className='col-12 mt-3'>
-                                    <Button className="btn btn-save text-light" onClick={handleEditProduct} style={{ backgroundColor: "#85d400", borderColor: "#85d400" }}>
+                                    <Button className="btn btn-save text-light" onClick={handleUpdateProduct} style={{ backgroundColor: "#85d400", borderColor: "#85d400" }}>
                                         Lưu
                                     </Button>
 

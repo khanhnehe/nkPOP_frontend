@@ -14,6 +14,7 @@ const initialState = {
     productType: [],
     //product
     allProduct: [],  // Danh sách sản phẩm, ban đầu là một mảng trống
+    detailProduct: null
 
 
 };
@@ -140,7 +141,19 @@ const adminReducer = (state = initialState, action) => {
                 allProduct: action.payload.product
             };
 
+        //detail product
 
+        case actionTypes.GET_DETAIL_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                detailProduct: action.payload.product
+            };
+
+        case actionTypes.GET_DETAIL_PRODUCT_FAILED:
+            return {
+                ...state,
+                detailProduct: null,
+            };
 
         default:
             return state;

@@ -1,54 +1,148 @@
-.banner-container{
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16),;
-     
+.banner-container {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+    width: 100%;
+    z-index: 10;
+    position: relative;
+
     .banner {
         display: flex;
-        height: 100%;
         padding: 10px 12px;
         width: 100%;
         font-weight: 600;
-        // border-bottom: 1px solid  black;
-        background-color: #85d400;
-    .banner-left{
-        display: flex;
-        white-space: nowrap; // Ngăn chặn xuống dòng
-        margin-right: 30px;
-    }
-      
+        background-color: #a5d651;
+
+        .a-con{
+            color: black;
+            font-size: 14px;
+        }
+
+        .banner-left {
+            display: flex;
+            margin: 0px 25px;
+
+            div {
+                padding: 5px;
+                position: relative;
+                display: inline-block;
+
+                span {
+                    cursor: pointer;
+                }
+
+                ul {
+                    display: none;
+                    position: absolute;
+                    background-color: white;
+                    min-width: 200px;
+                    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                    border-radius: 5px;
+                    z-index: 0;
+                   
+
+                    li {
+                        list-style: none;
+                        padding: 12px 16px;
+
+                        &::marker {
+                            content: "";
+                        }
+
+                       
+                    }
+                }
+
+                &:hover {
+                    ul {
+                        display: block;
+                    }
+                    .a-con:hover {
+                        color: #a5d651; /* Thay đổi màu sắc khi di chuột vào */
+                    }
+                }
+            }
+        }
+
         .banner-right {
             display: flex;
-            flex-wrap: nowrap;
-            gap: 30px;
+            gap: 25px;
             justify-content: flex-start;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            scroll-behavior: smooth;
-            white-space: nowrap;
-            width: 100%;
-            // Ẩn thanh cuộn cho Firefox
+            // width: 100%;
             scrollbar-width: none;
             scrollbar-height: none;
-    
-            // Ẩn thanh cuộn cho Chrome, Edge và Safari
+
             &::-webkit-scrollbar {
                 display: none;
             }
+
+            div {
+                padding: 5px;
+                position: relative;
+                display: inline-block;
+
+                span {
+                    cursor: pointer;
+                }
+
+                ul {
+                    display: none;
+                    position: absolute;
+                    background-color: white;
+                    min-width: 200px;
+                    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                    border-radius: 5px;
+                    z-index: 0;
+                   
+
+                    li {
+                        list-style: none;
+                        padding: 12px 16px;
+
+                        &::marker {
+                            content: "";
+                        }
+
+                        .type-item {
+                            padding: 0;
+                        }
+                    }
+                }
+
+                &:hover {
+                    ul {
+                        display: block;
+                    }
+                    .a-con:hover {
+                        color: #a5d651; /* Thay đổi màu sắc khi di chuột vào */
+                    }
+                    
+                    
+                }
+            }
         }
-    
+
         .TiThMenu {
             font-size: 25px;
-           
         }
-    
+
         a {
             color: rgb(255, 255, 255);
             text-decoration: none;
-            transition: color 0.3s;
-    
+            font-size: 17px;
+
             &:hover {
-                color: #f5ff85;
+                ul {
+                    list-style: none;
+
+                    li {
+                        list-style: none; // This will hide the bullet points when hovered
+                        &::marker {
+                            content: "" !important;
+                        }
+                    }
+                }
             }
         }
+        
+
     }
 }
-

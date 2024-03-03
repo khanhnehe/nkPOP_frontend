@@ -59,19 +59,21 @@ const CreateProduct = ({ fetchProduct }) => {
     }, [product.price, product.discount]);
 
     useEffect(() => {
-        setProduct(prevProduct => ({
-            // sao chép tất cả các thuộc tính của prevProduct vào một object mới.
-            ...prevProduct,
-            // Cập nhật thuộc tính variants của product.
-            variants: prevProduct.variants.map(variant => ({
-                // sao chép tất cả các thuộc tính của variant vào một object mới.
-                ...variant,
-                promotionPrice: variant.price - (variant.price * variant.discount) / 100,
-            })),
-        }));
-        // useEffect sẽ chạy lại mỗi khi giá trị của price hoặc discount trong bất kỳ variant nào thay đổi.
-    }, [product.variants.map(variant => variant.price), product.variants.map(variant => variant.discount)]);
+        const updatedVariants = product.variants.map(variant => {
+            if (variant.price && variant.discount) {
+                const promotionPrice = variant.price - (variant.price * variant.discount) / 100;
+                return { ...variant, promotionPrice };
+            }
+            return variant;
+        });
 
+        if (JSON.stringify(product.variants) !== JSON.stringify(updatedVariants)) {
+            setProduct(prevProduct => ({
+                ...prevProduct,
+                variants: updatedVariants,
+            }));
+        }
+    }, [product.variants]);
 
     const handleOnChange = (event, id) => {
         const value = event.target.value;

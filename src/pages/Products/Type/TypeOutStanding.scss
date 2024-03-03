@@ -1,0 +1,56 @@
+.Type-container {
+    padding: 10px;
+    margin-bottom: 30px;
+
+    .Type-title {
+        font-size  : 30px;
+        font-weight: 600;
+        font-family: fangsong;
+        margin-left: 30px;
+    }
+
+    .types-item {
+        display      : flex;
+        padding      : 20px 30px;
+        gap          : 25px;
+        justify-items: center;
+
+        .type-child {
+            display      : grid;
+            justify-items: center;
+
+            a {
+                text-decoration: none;
+                color          : black;
+               
+
+            }
+
+            .type-name {
+                text-decoration: none;
+                color          : black;
+                font-weight: 600;
+
+                
+            }
+
+
+            .type-img {
+                width : 120px;
+                height: 120px;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover {
+                transform: scale(1.1);
+        
+                .type-name {
+                    color: #a5d651;
+                }
+            }
+
+            
+        }
+    }
+
+}

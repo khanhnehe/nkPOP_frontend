@@ -3,7 +3,7 @@ import {
     createUserApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
     productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
-    deleteProductApi, editProductApi, createProductApi, detailProductApi
+    deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi
 
 } from "../../services/userService";
 import adminReducer from "../reducer/adminReducer";
@@ -750,6 +750,73 @@ export const detailProduct = (productId) => {
             dispatch({
                 type: actionTypes.GET_DETAIL_PRODUCT_FAILED,
                 payload: error.response ? error.response.message : (error.message || 'Unknown error')
+            }); console.error('Error:', error);
+        }
+    };
+};
+
+//search product
+export const searchProduct = (query) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await searchProductApi(token, query);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.GET_SEARCH_PRODUCT_FAILED,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.GET_SEARCH_PRODUCT_SUCCESS,
+                    payload: {
+                        product: response.product
+                    }
+
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_SEARCH_PRODUCT_FAILED,
+            });
+            toast.error('Có lỗi xảy tìm kiếm  sản phẩm!');
+            console.log(error)
+        }
+    };
+};
+
+
+//sản phẩm nổi bật
+export const outstandingProductCategory = () => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            // Cứng categoryId, limit và sort
+            const res = await productCategoryApi(token, '65c26a926a6e3fd020fb2286', 8, 'createdAt:desc');
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_All_PRODUCT_CATEGORY_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_All_PRODUCT_CATEGORY_FAILED,
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_All_PRODUCT_CATEGORY_FAILED,
+                payload: error.response ? error.response.message : error.message
             }); console.error('Error:', error);
         }
     };

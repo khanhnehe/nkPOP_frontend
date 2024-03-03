@@ -209,7 +209,7 @@ header {
           position        : absolute;
           top             : 100%;
           left            : 0;
-          z-index         : 1;
+          z-index         : 100;
           background-color: #fff;
           box-shadow      : 0px 2px 4px rgba(0, 0, 0, 0.1);
           padding         : 10px;
@@ -220,6 +220,7 @@ header {
             display       : flex;
             flex-direction: column;
             align-items   : start; // Căn chỉnh các liên kết về bên trái
+            z-index: 100;
 
             a {
               margin    : 5px;

@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { getBase64 } from '../../../utils/Base64';
 import CreateProduct from './CreateProduct';
 import { useNavigate } from 'react-router-dom';
+import SearchProduct from './SearchProduct';
 
 
 const Product = () => {
@@ -176,6 +177,9 @@ const Product = () => {
                 <div className='Product-container'>
                     <Navbar />
                     <div className='Product-content'>
+                        <div className='search-top row'>
+                            <SearchProduct />
+                        </div>
                         <div className='top row'>
                             <CreateProduct fetchProduct={fetchListProduct} />
                         </div>

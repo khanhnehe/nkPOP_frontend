@@ -223,6 +223,14 @@ const detailProductApi = (token, productId) => {
     });
 }
 
+const searchProductApi = (token, query) => {
+    return axios.get(`/search?q=${query}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
 export {
     loginApiService,
     ResisterApiService, createUserApi,
@@ -237,5 +245,5 @@ export {
     deleteCategoryApi, deleteBrandApi, deleteTypeApi, deleteProductApi,
     createCategoryApi, createBrandApi, createTypeApi, createProductApi,
     productCategoryApi, productBrandApi, productTypeApi,
-    detailProductApi
+    detailProductApi, searchProductApi
 }

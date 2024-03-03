@@ -23,8 +23,22 @@
         .Product-content {
             padding: 20px;
 
+            .search-top{
+                padding: 15px 20px;
+                -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
+                box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+                border-radius: 10px;
+                background-color: rgb(255, 255, 255);
+
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+
+            }
+
             .top {
                 padding: 15px 20px;
+
                 -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
                 box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
                 border-radius: 10px;

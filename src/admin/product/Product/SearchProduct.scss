@@ -1,0 +1,27 @@
+.search {
+    .search-group {
+      display    : flex;
+      align-items: center;
+
+      .input-search {
+        width        : 100%;
+        padding      : 10px;
+        border-radius: 0%;
+        outline      : none;
+        border-radius: 5px 0px 0px 5px;
+        border       : 2px solid #afafaf;
+        border-right : 1px solid #85d400;
+
+
+      }
+
+      .icon-search {
+        border-radius   : 0 5px 5px 0;
+        border          : 2px solid #85d400;
+        background-color: #85d400;
+        padding         : 10px;
+        color           : white;
+        cursor          : pointer;
+      }
+    }
+  }

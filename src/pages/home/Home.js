@@ -5,6 +5,8 @@ import Categories from './Section/Categories';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Banner from '../../components/Banner';
+import TypeOutStanding from '../../pages/Products/Type/TypeOutStanding';
+import MakeupCategory from '../../pages/Products/Category/MakeupCategory';
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -23,7 +25,11 @@ class Home extends Component {
             <>
                 <Banner />
                 <Sidler />
-                <ProductCarousel />
+                <TypeOutStanding />
+
+                <MakeupCategory />
+
+
 
                 <Categories />
 

@@ -230,9 +230,19 @@ const searchProductApi = (token, query) => {
         }
     });
 }
-
+//makeu
+const makeupProductApi = (token, categoryId) => {
+    return axios.get(`/admin/getAllProduct`, {
+        params: {
+            categoryId
+        },
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
 export {
-    loginApiService,
+    loginApiService, makeupProductApi,
     ResisterApiService, createUserApi,
     logoutApi,
     updateUserApi,

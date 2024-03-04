@@ -23,6 +23,9 @@ const TypeOutStanding = () => {
         dispatch(getAllType());
     }, [dispatch]);
 
+    const loadType = () => {
+        dispatch(getAllType(listType));
+    };
     const images = {
         "65ded0eea29db3aa7263cdca": tt,
         "65dd971c9138e32a2f2139b8": mn,
@@ -38,7 +41,8 @@ const TypeOutStanding = () => {
 
     return (
         <div className='Type-container'>
-            <div className='Type-title'>
+            <div className='Type-title'
+                onClick={loadType}>
                 Danh mục nổi bật
             </div>
             <div className='types-item'>

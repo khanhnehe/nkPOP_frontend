@@ -16,6 +16,7 @@ const initialState = {
     allProduct: [],  // Danh sách sản phẩm, ban đầu là một mảng trống
     detailProduct: null,
     searchProduct: [],
+    makeupProduct: []
 
 
 };
@@ -23,6 +24,17 @@ const initialState = {
 const adminReducer = (state = initialState, action) => {
     switch (action.type) {
 
+        case actionTypes.GET_MAKEUP_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                makeupProduct: action.payload.product
+            };
+
+        case actionTypes.GET_MAKEUP_PRODUCT_FAILED:
+            return {
+                ...state,
+                makeupProduct: [],
+            };
         case actionTypes.GET_All_PRODUCT_FAILED:
             // Cập nhật state với danh sách sản phẩm trống
             return {
@@ -76,8 +88,9 @@ const adminReducer = (state = initialState, action) => {
             // Cập nhật state với danh sách sản phẩm từ action
             return {
                 ...state,
-                productCategory: action.payload.product
+                productCategory: [...action.payload.product]
             };
+
 
         case actionTypes.GET_All_PRODUCT_CATEGORY_FAILED:
             return {

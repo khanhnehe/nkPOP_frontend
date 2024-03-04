@@ -10,11 +10,11 @@ import Brand from "../admin/product/Brand/Brand";
 import Type from "../admin/product/Type/Type";
 import Product from "../admin/product/Product/Product";
 import EditProduct from "../admin/product/Product/EditProduct";
-import { useParams } from 'react-router-dom';
 
 const System = () => {
     return (
         <Routes>
+
             <Route path="admin-manage" element={<HomeAdmin />} />
             <Route path="manage-user" element={<ManagerUser />} />
             <Route path="manage-category" element={<Category />} />

@@ -10,6 +10,7 @@ const Product_Category = ({ listNameCategory }) => {
 
     const columns = [
         { id: 'name_product', label: 'Tên sản phẩm', minWidth: 170 },
+        { id: 'price', label: 'Tên sản phẩm', minWidth: 170 },
 
         {
             id: 'category', label: 'Tên danh mục', minWidth: 170, render: (rowData) => (

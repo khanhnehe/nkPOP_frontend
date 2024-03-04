@@ -5,6 +5,7 @@ import { productCategory, outstandingProductCategory, getAllProduct, getAllCateg
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import './MakeupCategory.scss'
+import { useDispatch, useSelector } from 'react-redux';
 
 const responsive = {
     desktop: {
@@ -19,22 +20,22 @@ const responsive = {
     },
 };
 
-const MakeupCategory = ({ product, listProductCategory, dispatch }) => {
-    const location = useLocation();
-    const [selectedProducts, setSelectedProducts] = useState([]);
+const MakeupCategory = () => {
+    const dispatch = useDispatch();
+    const listProductCategory = useSelector(state => state.admin.productCategory);
+    const categoryId = '65c26a926a6e3fd020fb2286'; // Or get this from props or state
 
     useEffect(() => {
-        dispatch(outstandingProductCategory());
-        dispatch(productCategory('65c26a926a6e3fd020fb2286'))
-    }, [dispatch]);
+        dispatch(productCategory(categoryId));
+    }, [dispatch, categoryId],); // Only re-run the effect if dispatch or categoryId changes
 
-    useEffect(() => {
-        setSelectedProducts(listProductCategory);
-    }, [listProductCategory]);
-
+    const loadProductCategory = () => {
+        dispatch(productCategory(categoryId));
+    };
     return (
         <div className='makeup-container'>
-            <div className='makeup-title'>
+            <div className='makeup-title'
+                onClick={loadProductCategory}>
                 Trang Điểm
             </div>
             <div className='makeup-item'>
@@ -57,9 +58,4 @@ const MakeupCategory = ({ product, listProductCategory, dispatch }) => {
     );
 }
 
-const mapStateToProps = state => ({
-    listProductCategory: state.admin.productCategory,
-    product: state.admin.allProduct
-});
-
-export default connect(mapStateToProps)(MakeupCategory);
+export default MakeupCategory;

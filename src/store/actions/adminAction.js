@@ -3,7 +3,7 @@ import {
     createUserApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
     productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
-    deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi
+    deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi, makeupProductApi
 
 } from "../../services/userService";
 import adminReducer from "../reducer/adminReducer";
@@ -270,6 +270,9 @@ export const productCategory = (categoryId) => {
             const res = await productCategoryApi(token, categoryId);
 
             if (res.errCode === 0) {
+                // Lưu product vào localStorage
+                localStorage.setItem('productCategory', JSON.stringify(res.product));
+
                 dispatch({
                     type: actionTypes.GET_All_PRODUCT_CATEGORY_SUCCESS,
                     payload: {
@@ -285,7 +288,8 @@ export const productCategory = (categoryId) => {
             dispatch({
                 type: actionTypes.GET_All_PRODUCT_CATEGORY_FAILED,
                 payload: error.response ? error.response.message : error.message
-            }); console.error('Error:', error);
+            });
+            console.error('Error:', error);
         }
     };
 };
@@ -821,3 +825,37 @@ export const outstandingProductCategory = () => {
         }
     };
 };
+
+
+export const getMakeupProduct = (categoryId) => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            // Cứng categoryId, limit và sort
+            const res = await makeupProductApi(token, categoryId);
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_MAKEUP_PRODUCT_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_MAKEUP_PRODUCT_FAILED,
+                    payload: res.message
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_MAKEUP_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : (error.message || 'Unknown error')
+            });
+        }
+    };
+}

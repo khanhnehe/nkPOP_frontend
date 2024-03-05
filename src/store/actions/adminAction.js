@@ -3,7 +3,9 @@ import {
     createUserApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
     productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
-    deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi, makeupProductApi
+    deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi, makeupProductApi,
+    hairProductApi, filterByPriceApi
+
 
 } from "../../services/userService";
 import adminReducer from "../reducer/adminReducer";
@@ -836,9 +838,16 @@ export const getMakeupProduct = (categoryId) => {
             const token = state.user.accessToken;
 
             // Cứng categoryId, limit và sort
-            const res = await makeupProductApi(token, categoryId);
+            const res = await makeupProductApi(token, categoryId, 8, 'createdAt:desc');
 
             if (res.errCode === 0) {
+                const makeupProducts = res.product.filter(product => product.categoryId === '65c26a926a6e3fd020fb2286');
+                dispatch({
+                    type: actionTypes.GET_MAKEUP_PRODUCT_SUCCESS,
+                    payload: {
+                        product: makeupProducts
+                    }
+                });
                 dispatch({
                     type: actionTypes.GET_MAKEUP_PRODUCT_SUCCESS,
                     payload: {
@@ -859,3 +868,77 @@ export const getMakeupProduct = (categoryId) => {
         }
     };
 }
+
+//hair
+export const getHairProduct = (categoryId) => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            // Cứng categoryId, limit và sort
+            const res = await hairProductApi(token, categoryId, 8, 'createdAt:asc');
+
+            if (res.errCode === 0) {
+                const hairProduct = res.product.filter(product => product.categoryId === '65e1f10dbaff0e3fb3abf66d');
+                dispatch({
+                    type: actionTypes.GET_HAIR_PRODUCT_SUCCESS,
+                    payload: {
+                        product: hairProduct
+                    }
+                });
+                dispatch({
+                    type: actionTypes.GET_HAIR_PRODUCT_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_HAIR_PRODUCT_FAILED,
+                    payload: res.message
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_HAIR_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : (error.message || 'Unknown error')
+            });
+        }
+    };
+}
+
+//filter price
+export const filterByPrice = (minPrice, maxPrice) => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            const res = await filterByPriceApi(minPrice, maxPrice, token);
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_PRICE_PRODUCT_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_PRICE_PRODUCT_FAILED,
+                    payload: res.message
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_PRICE_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : (error.message || 'Unknown error')
+            }); console.error('Error:', error);
+        }
+    };
+};

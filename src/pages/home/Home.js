@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 import Banner from '../../components/Banner';
 import TypeOutStanding from '../../pages/Products/Type/TypeOutStanding';
 import MakeupCategory from '../../pages/Products/Category/MakeupCategory';
+import SkinCategory from '../Products/Category/SkinCategory';
+import HairCategory from '../Products/Category/HairCategory';
+
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -23,15 +26,14 @@ class Home extends Component {
 
         return (
             <>
-                <Banner />
                 <Sidler />
                 <TypeOutStanding />
 
                 <MakeupCategory />
 
+                <SkinCategory />
 
-
-                <Categories />
+                <HairCategory />
 
             </>
         );

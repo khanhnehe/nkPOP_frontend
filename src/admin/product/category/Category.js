@@ -16,7 +16,7 @@ const Category = () => {
     const columns = [
         { id: 'category_name', label: 'Tên danh mục', minWidth: 170 },
         {
-            id: 'types', label: 'Tên danh mục', minWidth: 170, render: (rowData) => (
+            id: 'types', label: 'Tên phân loại', minWidth: 170, render: (rowData) => (
                 <div>
                     {rowData.types.map(types => types.type_name).join(', ')}
                 </div>

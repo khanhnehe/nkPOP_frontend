@@ -17,6 +17,8 @@ import Profile from "./pages/profile/Profile";
 import MyOrder from "./pages/profile/MyOrder";
 import HomeAdmin from "./pages/home/HomeAdmin";
 import System from "./router/System";
+import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import Banner from "./components/Banner";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
         <Route path="/*" element={
           <Fragment>
             <Header />
+            <Banner />
             <Routes>
               <Route path={path.HOMEPAGE} element={<Home />} />
               <Route path={path.TEST} element={<Test />} />
@@ -33,6 +36,7 @@ function App() {
               <Route path={path.REGISTER} element={<Register />} />
               <Route path={path.PROFILE} element={<Profile />} />
               <Route path={path.MY_ORDER} element={<MyOrder />} />
+              <Route path={path.CATEGORY_PAGE} element={<CategoryPage />} />
             </Routes>
             <Footer />
           </Fragment>

@@ -232,21 +232,47 @@ const searchProductApi = (token, query) => {
 }
 //makeu
 const makeupProductApi = (token, categoryId) => {
-    return axios.get(`/admin/getAllProduct`, {
+    return axios.get(`/admin/productCategory/${categoryId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+//tóc
+const hairProductApi = (token, categoryId) => {
+    return axios.get(`/admin/productCategory/${categoryId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+//phân loại theo price 
+
+const filterByPriceApi = (minPrice, maxPrice, token) => {
+    return axios.get(`/admin/filterByPrice/`, {
         params: {
-            categoryId
+            minPrice: minPrice,
+            maxPrice: maxPrice
         },
         headers: {
             Authorization: `Bearer ${token}`
         }
     });
 }
+
 export {
-    loginApiService, makeupProductApi,
-    ResisterApiService, createUserApi,
+    loginApiService,
+    // phân loại outseding
+    makeupProductApi,
+    hairProductApi,
+    //các action user
+    ResisterApiService,
+    createUserApi,
     logoutApi,
     updateUserApi,
     updatePhotoApi,
+    // phần admin
     getAllProductApi,
     getAllUserApi,
     deleteUserApi,
@@ -254,6 +280,11 @@ export {
     editCategoryApi, editBrandApi, editTypeApi, editProductApi,
     deleteCategoryApi, deleteBrandApi, deleteTypeApi, deleteProductApi,
     createCategoryApi, createBrandApi, createTypeApi, createProductApi,
+    //lọc theo cbt
     productCategoryApi, productBrandApi, productTypeApi,
-    detailProductApi, searchProductApi
+    //find
+    detailProductApi,
+    searchProductApi,
+    //lọc theo price
+    filterByPriceApi
 }

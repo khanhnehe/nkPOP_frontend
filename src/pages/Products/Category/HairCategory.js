@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getMakeupProduct, } from '../../../store/actions/adminAction';
+import { getHairProduct, } from '../../../store/actions/adminAction';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import './MakeupCategory.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { MdFavoriteBorder } from "react-icons/md";
 
@@ -22,33 +21,31 @@ const responsive = {
     },
 };
 
-const MakeupCategory = () => {
+const HairCategory = () => {
     const dispatch = useDispatch();
-    const listProductCategory = useSelector(state => state.admin.makeupProduct);
+    const hairCategory = useSelector(state => state.admin.hairProduct);
 
     useEffect(() => {
-        dispatch(getMakeupProduct('65c26a926a6e3fd020fb2286'));
+        dispatch(getHairProduct('65e1f10dbaff0e3fb3abf66d'));
     }, [dispatch,],); // Only re-run the effect if dispatch or categoryId changes
 
     const loadProductCategory = () => {
-        dispatch(getMakeupProduct('65c26a926a6e3fd020fb2286'));
+        dispatch(getHairProduct('65e1f10dbaff0e3fb3abf66d'));
     };
     return (
         <div className='makeup-container'>
             <div className='makeup-title'
                 onClick={loadProductCategory}>
-                Trang Điểm
+                Chăm sóc tóc và da đầu
             </div>
             <div className='makeup-item'>
                 <Carousel responsive={responsive}>
 
-                    {listProductCategory.map((product) => (
+                    {hairCategory.map((product) => (
                         <NavLink to={`/product/${product._id}`} key={product._id}>
-
                             <div className='custom-item'>
                                 <div className="image-container">
                                     <div className='discount'>-{product.discount}%</div>
-
                                     <img src={product.images[0]} className="product-image" />
                                     <img src={product.images[1]} className="product-image hover-image" />
                                 </div>
@@ -73,4 +70,4 @@ const MakeupCategory = () => {
     );
 }
 
-export default MakeupCategory;
+export default HairCategory;

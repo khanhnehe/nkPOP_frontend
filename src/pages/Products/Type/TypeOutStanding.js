@@ -34,7 +34,7 @@ const TypeOutStanding = () => {
         "65d9ec7e69ab84ef225b174a": srm,
         "65da12e31df683ed3dc00cb5": duongam,
         "65d9ed2f6a396c23fe748d09": duongthe,
-        "65d9eb9c4ba2b938a4d6d73d": trangdiem,
+        "65e4a53bfad33e67598e2237": trangdiem,
         "65e48553fad33e67598e1f40": dtoc,
         "65e48761fad33e67598e1f82": nchoa
     };

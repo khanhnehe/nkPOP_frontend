@@ -6,7 +6,9 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdFavoriteBorder } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
+import './MakeupCategory.scss';
 
 const responsive = {
     desktop: {
@@ -33,11 +35,20 @@ const SkinCategory = () => {
     const loadProductCategory = () => {
         dispatch(productCategory(categoryId));
     };
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/category/65d8d2b70009e15caf750694');
+    }
     return (
         <div className='makeup-container'>
-            <div className='makeup-title'
-                onClick={loadProductCategory}>
-                Chăm sóc da
+            <div className='top-makeup'>
+                <div className='makeup-title'
+                    onClick={loadProductCategory}>
+                    Chăm sóc da
+                </div>
+                <div className='more' onClick={handleClick}>Xem thêm... </div>
             </div>
             <div className='makeup-item'>
                 <Carousel responsive={responsive}>

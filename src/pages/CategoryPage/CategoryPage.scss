@@ -2,15 +2,24 @@
     padding: 30px 80px;
 
     .page-row {
+        p.page-p {
+            border          : 1px solid #b6b6b6;
+            padding         : 5px;
+            background-color: #ededed;
+            color           : #000000;
+            /* border-radius: 5px; */
+            border-bottom   : #0d6efd;
+            /* flex-basis   : fit-content; */
+        }
 
         .left {
 
             .top-left {
-                font-size     : 13px;
+                font-size     : 15px;
                 text-transform: uppercase;
                 font-weight   : 500;
                 font-style    : normal;
-                border-bottom: 1px solid #d8d8d8;
+                border-bottom : 1px solid #d8d8d8;
 
 
                 .title-page {
@@ -22,7 +31,7 @@
 
             // phân loại
             .bottom-left {
-                font-size     : 14px;
+                font-size     : 15px;
                 text-transform: uppercase;
                 font-weight   : 500;
                 font-style    : normal;
@@ -35,7 +44,7 @@
                     input[type="checkbox"] {
                         appearance      : none;
                         background-color: #fafafa;
-                        border          : 1px solid #ebebeb;
+                        border          : 1px solid #787878;
                         padding         : 8px;
                         /* border-radius: 3px; */
                         display         : inline-block;
@@ -56,7 +65,7 @@
                     }
 
                     span {
-                        font-size: 13px;
+                        font-size: 14px;
 
                     }
                 }
@@ -68,8 +77,21 @@
                 text-transform: uppercase;
                 font-weight   : 500;
                 font-style    : normal;
-                border-top: 1px solid #d8d8d8;
-                border-bottom: 1px solid #d8d8d8;
+                border-top    : 1px solid #d8d8d8;
+                border-bottom : 1px solid #d8d8d8;
+
+                input.min-price {
+                    margin          : 0;
+                    font-family     : inherit;
+                    font-size       : inherit;
+                    line-height     : inherit;
+                    border          : none;
+                    padding         : 8px;
+                    background-color: #e4ffb6;
+                    margin-bottom      : 20px;
+                    font-size       : 15px;
+                    color           : #7a7474;
+                }
 
             }
 
@@ -81,13 +103,13 @@
                 font-style    : normal;
 
                 .type-of-category {
-                    display   : grid;
-                    gap       : 20px;
+                    display: grid;
+                    gap    : 20px;
 
                     input[type="checkbox"] {
                         appearance      : none;
                         background-color: #fafafa;
-                        border          : 1px solid #ebebeb;
+                        border          : 1px solid #787878;
                         padding         : 8px;
                         /* border-radius: 3px; */
                         display         : inline-block;
@@ -108,7 +130,7 @@
                     }
 
                     span {
-                        font-size: 13px;
+                        font-size: 15px;
 
                     }
                 }
@@ -131,12 +153,24 @@
                 .option {
                     display        : flex;
                     padding-bottom : 19px;
-                    justify-content: space-between;
+                    justify-content: flex-start;
                     padding        : 30px 20px;
                     border-bottom  : 1px solid #d8d8d8;
                     font-size      : 17px;
+                    cursor         : pointer;
+                    gap            : 100px;
+                    font-weight    : 600;
+
+
                 }
 
+                .active {
+                    color           : rgb(255, 255, 255);
+                    border-bottom   : 3px solid #a5d651;
+                    background-color: #a5d651;
+                    padding         : 0px 6px;
+                    border-radius   : 20px;
+                }
 
                 // lưới cho sản phẩm
                 .grid-product {

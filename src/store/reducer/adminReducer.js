@@ -19,7 +19,8 @@ const initialState = {
     makeupProduct: [],
     skinProduct: [],
     hairProduct: [],
-    priceProduct: []
+    priceProduct: [],
+    topProduct: []
 
 
 };
@@ -210,6 +211,18 @@ const adminReducer = (state = initialState, action) => {
                 priceProduct: [],
             };
 
+        //top product 
+        case actionTypes.GET_TOP_PRODUCT_SUCCESS:
+            return {
+                ...state,
+                topProduct: action.payload.product
+            };
+
+        case actionTypes.GET_TOP_PRODUCT_FAILED:
+            return {
+                ...state,
+                topProduct: [],
+            };
         default:
             return state;
     }

@@ -4,7 +4,7 @@ import {
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
     productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
     deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi, makeupProductApi,
-    hairProductApi, filterByPriceApi
+    hairProductApi, filterByPriceApi, getTopSellingApi
 
 
 } from "../../services/userService";
@@ -942,3 +942,37 @@ export const filterByPrice = (minPrice, maxPrice) => {
         }
     };
 };
+
+//bán chạy
+export const getTopSelling = () => {
+    return async (dispatch, getState) => {
+        try {
+            // Lấy state hiện tại từ Redux store
+            const state = getState();
+            // Lấy access token từ state
+            const token = state.user.accessToken;
+
+            // Cứng categoryId, limit và sort
+            const res = await getTopSellingApi();
+
+            if (res.errCode === 0) {
+                dispatch({
+                    type: actionTypes.GET_TOP_PRODUCT_SUCCESS,
+                    payload: {
+                        product: res.product
+                    }
+                });
+            } else {
+                dispatch({
+                    type: actionTypes.GET_TOP_PRODUCT_FAILED,
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_TOP_PRODUCT_FAILED,
+                payload: error.response ? error.response.message : error.message
+            }); console.error('Error:', error);
+        }
+    };
+};
+

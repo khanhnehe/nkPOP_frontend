@@ -260,6 +260,11 @@ const filterByPriceApi = (minPrice, maxPrice, token) => {
         }
     });
 }
+//bán chạy 
+const getTopSellingApi = () => {
+    return axios.get(`/getTopSelling`,
+    );
+}
 
 export {
     loginApiService,
@@ -285,6 +290,6 @@ export {
     //find
     detailProductApi,
     searchProductApi,
-    //lọc theo price
-    filterByPriceApi
+    //lọc theo price, luọt bán 
+    filterByPriceApi, getTopSellingApi
 }

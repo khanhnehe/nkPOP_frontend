@@ -27,6 +27,12 @@ const Banner = () => {
         setDropdownOpen(null); // Đặt trạng thái closed của dropdown
     };
 
+    const handleLoad = () => {
+        dispatch(getAllCategory());
+        dispatch(getAllType());
+        dispatch(getAllBrand());
+    }
+
 
     return (
         <div className='banner-container'>
@@ -81,6 +87,7 @@ const Banner = () => {
                             </li>
                         )}
                     </div>
+                    <div className='an-di ' style={{ color: '#a5d651' }} onClick={handleLoad}>an di</div>
                 </div>
             </div>
         </div>

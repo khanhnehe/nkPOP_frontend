@@ -9,7 +9,10 @@ export const path = {
     MY_ORDER: "/profile/my-order",
     SYSTEM: "/system",
     //
-    CATEGORY_PAGE: "/category/:id"
+    CATEGORY_PAGE: "/category/:id",
+    TYPE_PAGE: "/type/:id",
+    BRAND_PAGE: "/brand/:id",
+
 
 
 

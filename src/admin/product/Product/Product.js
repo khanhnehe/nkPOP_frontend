@@ -189,7 +189,7 @@ const Product = () => {
                                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                                     <TableContainer sx={{ maxHeight: 440 }}>
                                         <Table stickyHeader aria-label="sticky table">
-                                            <TableHead>
+                                            <TableHead stickyHeader aria-label="sticky table">
                                                 <TableRow>
                                                     {columns.map((column) => (
                                                         <TableCell
@@ -209,23 +209,26 @@ const Product = () => {
                                                 {/* Kiểm tra xem listProduct có dữ liệu không */}
                                                 {listProduct && listProduct.length > 0 && (
                                                     // Nếu có, sử dụng hàm map để tạo một TableRow cho mỗi phần tử trong listProduct
-                                                    listProduct.map((row) => (
-                                                        // Tạo một TableRow với key là _id của row
-                                                        <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
-                                                            {/* Tạo một TableCell cho mỗi cột trong columns */}
-                                                            {columns.map((column) => {
-                                                                // Lấy giá trị của cột từ row
-                                                                const value = row[column.id];
-                                                                return (
-                                                                    // Tạo một TableCell với key là id của cột
-                                                                    <TableCell key={column.id} align={column.align}>
-                                                                        {/* Kiểm tra xem cột có hàm render không. Nếu có, gọi hàm render với row làm đối số. Nếu không, hiển thị giá trị của cột */}
-                                                                        {column.render ? column.render(row) : value}
-                                                                    </TableCell>
-                                                                );
-                                                            })}
-                                                        </TableRow>
-                                                    ))
+                                                    listProduct
+                                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+
+                                                        .map((row) => (
+                                                            // Tạo một TableRow với key là _id của row
+                                                            <TableRow hover role="checkbox" tabIndex={-1} key={row._id}>
+                                                                {/* Tạo một TableCell cho mỗi cột trong columns */}
+                                                                {columns.map((column) => {
+                                                                    // Lấy giá trị của cột từ row
+                                                                    const value = row[column.id];
+                                                                    return (
+                                                                        // Tạo một TableCell với key là id của cột
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {/* Kiểm tra xem cột có hàm render không. Nếu có, gọi hàm render với row làm đối số. Nếu không, hiển thị giá trị của cột */}
+                                                                            {column.render ? column.render(row) : value}
+                                                                        </TableCell>
+                                                                    );
+                                                                })}
+                                                            </TableRow>
+                                                        ))
                                                 )}
                                             </TableBody>
                                         </Table>

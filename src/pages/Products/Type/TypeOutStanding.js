@@ -46,7 +46,7 @@ const TypeOutStanding = () => {
                 Danh mục nổi bật
             </div>
             <div className='types-item'>
-                {listType.slice(-10).map((type) => (
+                {listType.slice(-8).map((type) => (
                     <div className='type-child' id={`div-${type._id}`} key={type._id}>
                         <div className=''>
                             <img id={`img-${type._id}`} className='type-img'

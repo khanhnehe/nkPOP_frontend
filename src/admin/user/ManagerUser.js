@@ -202,7 +202,8 @@ const ManagerUser = () => {
                                         <TableHead>
                                             <TableRow>
                                                 {columns.map((column) => (
-                                                    <TableCell key={column.id} align={column.align}
+                                                    <TableCell key={column.id}
+                                                        align={column.align}
                                                         style={{
                                                             minWidth: column.minWidth,
                                                             backgroundColor: '#dfffd2'

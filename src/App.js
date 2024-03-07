@@ -19,6 +19,8 @@ import HomeAdmin from "./pages/home/HomeAdmin";
 import System from "./router/System";
 import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import Banner from "./components/Banner";
+import TypePage from "./pages/Type_Brand_page/TypePage";
+import BrandPage from "./pages/Type_Brand_page/BrandPage";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
               <Route path={path.PROFILE} element={<Profile />} />
               <Route path={path.MY_ORDER} element={<MyOrder />} />
               <Route path={path.CATEGORY_PAGE} element={<CategoryPage />} />
+              <Route path={path.TYPE_PAGE} element={<TypePage />} />
+              <Route path={path.BRAND_PAGE} element={<BrandPage />} />
             </Routes>
             <Footer />
           </Fragment>

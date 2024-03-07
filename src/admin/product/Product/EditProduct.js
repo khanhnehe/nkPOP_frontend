@@ -174,7 +174,7 @@ const EditProduct = ({ fetchProduct }) => {
     const handleOnChangeCategory = (selectedOptions, actionMeta, name) => {
         let selectCategory = selectedOptions.map(option => ({
             _id: option.value,
-            category: option.label
+            category_name: option.label
         }));
 
         setProduct(prevState => ({

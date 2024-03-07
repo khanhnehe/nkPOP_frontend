@@ -20,6 +20,16 @@
             display: flex;
             margin: 0px 25px;
 
+            .brand-item ul {
+                display: grid; /* Sử dụng CSS Grid */
+                grid-template-columns: repeat(2, 1fr); /* Định nghĩa 6 cột với chiều rộng bằng nhau */
+                grid-gap: 10px; /* Đặt khoảng cách giữa các mục */
+                max-width: 600px; /* Giới hạn chiều rộng tối đa */
+            }
+            
+            .brand-item ul li {
+                box-sizing: border-box; /* Đảm bảo padding và border không làm tăng chiều rộng của mục */
+            }
             div {
                 padding: 5px;
                 position: relative;
@@ -37,7 +47,7 @@
                     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
                     border-radius: 5px;
                     z-index: 0;
-                   
+                    
 
                     li {
                         list-style: none;
@@ -53,7 +63,8 @@
 
                 &:hover {
                     ul {
-                        display: block;
+                        display: grid;
+
                     }
                     .a-con:hover {
                         color: #a5d651; /* Thay đổi màu sắc khi di chuột vào */
@@ -144,5 +155,7 @@
         }
         
 
+        //brand
+        
     }
 }

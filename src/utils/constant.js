@@ -12,6 +12,9 @@ export const path = {
     CATEGORY_PAGE: "/category/:id",
     TYPE_PAGE: "/type/:id",
     BRAND_PAGE: "/brand/:id",
+    INFO_PRODUCT: "/product/:id",
+    //
+    CART: "/cart"
 
 
 

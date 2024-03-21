@@ -36,8 +36,6 @@ const updatePhotoApi = (inputData, token) => {
 }
 
 
-
-
 const getAllUserApi = (token) => {
     return axios.get('/admin/getAllUser', {
         headers: {
@@ -248,7 +246,6 @@ const hairProductApi = (token, categoryId) => {
     });
 }
 //phân loại theo price 
-
 const filterByPriceApi = (minPrice, maxPrice, token) => {
     return axios.get(`/admin/filterByPrice/`, {
         params: {
@@ -265,6 +262,26 @@ const getTopSellingApi = () => {
     return axios.get(`/getTopSelling`,
     );
 }
+
+//___order
+const createOrderApi = (token, data) => {
+    return axios.post(`/admin/createOrder`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+//getCartByUseIdApi
+const getCartByUseIdApi = (token, userId) => {
+    return axios.get(`/getCartByUseId?userId=${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+}
+
+
 
 export {
     loginApiService,
@@ -291,5 +308,9 @@ export {
     detailProductApi,
     searchProductApi,
     //lọc theo price, luọt bán 
-    filterByPriceApi, getTopSellingApi
+    filterByPriceApi, getTopSellingApi,
+
+    //__order
+    createOrderApi,
+    getCartByUseIdApi
 }

@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TbLogout } from "react-icons/tb";
 import { useAlert } from 'react-alert'
+import line from "../assets/line-top.webp";
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);

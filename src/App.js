@@ -21,6 +21,8 @@ import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import Banner from "./components/Banner";
 import TypePage from "./pages/Type_Brand_page/TypePage";
 import BrandPage from "./pages/Type_Brand_page/BrandPage";
+import InfoProduct from "./pages/IngfoProfuct/InfoProduct";
+import CartOrder from "./pages/Cart/CartOrder";
 
 function App() {
   return (
@@ -41,6 +43,8 @@ function App() {
               <Route path={path.CATEGORY_PAGE} element={<CategoryPage />} />
               <Route path={path.TYPE_PAGE} element={<TypePage />} />
               <Route path={path.BRAND_PAGE} element={<BrandPage />} />
+              <Route path={path.INFO_PRODUCT} element={<InfoProduct />} />
+              <Route path={path.CART} element={<CartOrder />} />
             </Routes>
             <Footer />
           </Fragment>

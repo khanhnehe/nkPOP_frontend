@@ -46,7 +46,7 @@ const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     user: persistReducer(userPersistConfig, userReducer),
     app: persistReducer(appPersistConfig, appReducer),
-    admin: adminReducer// Thêm adminReducer vào rootReducer
+    admin: adminReducer, // Thêm adminReducer vào rootReducer
 });
 
 export default rootReducer; // Thêm expor

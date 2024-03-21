@@ -1,0 +1,129 @@
+.cart-page {
+    background-color: #ffffff;
+    // padding         : 30px;
+
+    .container {
+        background-color: white;
+        padding         : 30px 40px;
+        width           : 100%;
+
+        label {
+            font-size     : 15px;
+            text-transform: uppercase;
+            font-weight   : 400;
+            font-style    : normal;
+            color         : #000;
+            margin-bottom : 45px;
+        }
+        
+
+        .title-cart {
+            font-size    : 25px;
+            font-weight  : 600;
+            font-family  : fangsong;
+            color        : #000;
+            margin-bottom: 15px
+        }
+
+        .order {
+
+            .left {
+
+                /* phần info */
+                .content-left {
+                    display: flex;
+                    gap    : 15px;
+
+                    .item-left {
+
+                        .cart-image {
+                            width : 120px;
+                            height: auto;
+
+                        }
+                    }
+
+                    .item-right {
+                        .name {
+                            font-weight: 600;
+                        }
+
+                        .name-variant {
+                            font-weight: 600;
+                            color      : #820813;
+                        }
+                    }
+
+
+                }
+
+                /* phần giá và mount */
+                .content-right {
+                    display        : flex;
+                    justify-content: space-evenly;
+
+                    .item-amount {
+                        padding-bottom: 95px;
+                        display       : flex;
+
+
+
+                        .btn-amount {
+                            font-family     : inherit;
+                            font-size       : inherit;
+                            line-height     : inherit;
+                            border          : 1px solid #d1d1d1;
+                            margin          : 0px 10px;
+                            font-size       : 18px;
+                            padding         : 0px 14px;
+                            background-color: #f5f6f9;
+
+                        }
+
+                        .amount-number {
+                            margin          : 0;
+                            font-family     : inherit;
+                            font-size       : inherit;
+                            line-height     : inherit;
+                            /* margin       : 0px 0px; */
+                            font-size       : 16px;
+                            padding         : 10px 16px;
+                            background-color: #a5d651;
+                            color           : white;
+                        }
+                    }
+
+                    .item-price {
+                        .price {
+                            color          : #828282;
+                            font-size      : 13px;
+                            text-decoration: line-through;
+                        }
+
+                        .sale_price {
+                            font-size  : 18px;
+                            font-weight: 600;
+                        }
+
+
+
+                    }
+
+                    .tong-price {
+                        font-size  : 18px;
+                        font-weight: 600;
+                        margin-top : 19px;
+                        color      : #820813;
+
+                    }
+                }
+
+            }
+
+            /* phần tạm tính */
+            .right {
+
+            }
+        }
+    }
+}

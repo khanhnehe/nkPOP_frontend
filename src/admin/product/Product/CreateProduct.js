@@ -26,7 +26,7 @@ const CreateProduct = ({ fetchProduct }) => {
                 price: '',
                 quantity: '',
                 discount: '',
-                promotionPrice: '',
+                sale_price: '',
                 sku: "",
             }
         ],
@@ -61,8 +61,8 @@ const CreateProduct = ({ fetchProduct }) => {
     useEffect(() => {
         const updatedVariants = product.variants.map(variant => {
             if (variant.price && variant.discount) {
-                const promotionPrice = variant.price - (variant.price * variant.discount) / 100;
-                return { ...variant, promotionPrice };
+                const sale_price = variant.price - (variant.price * variant.discount) / 100;
+                return { ...variant, sale_price };
             }
             return variant;
         });
@@ -133,7 +133,7 @@ const CreateProduct = ({ fetchProduct }) => {
                         price: '',
                         quantity: '',
                         discount: '',
-                        promotionPrice: '',
+                        sale_price: '',
                         sku: "",
                     }
                 ],
@@ -244,7 +244,7 @@ const CreateProduct = ({ fetchProduct }) => {
             // Sử dụng toán tử spread để sao chép tất cả các thuộc tính hiện tại của product
             ...prevState,
             // Thêm một biến thể mới vào mảng variants
-            variants: [...prevState.variants, { name: '', images: [], price: '', quantity: '', discount: '', promotionPrice: '', sku: '' }]
+            variants: [...prevState.variants, { name: '', images: [], price: '', quantity: '', discount: '', sale_price: '', sku: '' }]
         }));
     };
 
@@ -365,7 +365,7 @@ const CreateProduct = ({ fetchProduct }) => {
                         <label className="col-sm-2 h6 col-form-label">Mô tả sản phẩm:</label>
                         <div className="col-sm-4">
                             <textarea
-                                rows="3"
+                                rows="6"
                                 className="form-control"
                                 value={product.description}
                                 onChange={(event) => handleOnChange(event, 'description')}
@@ -492,8 +492,8 @@ const CreateProduct = ({ fetchProduct }) => {
                                                     onChange={(event) => handleInputChange(event, index)} placeholder="Giảm giá" />
                                             </td>
                                             <td>
-                                                <input type="text" name="promotionPrice"
-                                                    value={variant.promotionPrice}
+                                                <input type="text" name="sale_price"
+                                                    value={variant.sale_price}
                                                     onChange={(event) => handleInputChange(event, index)} placeholder="Giá khuyến mãi" />
                                             </td>
                                             <td>

@@ -13,14 +13,15 @@ const initialState = {
     allType: [],
     productType: [],
     //product
-    allProduct: [],  // Danh sách sản phẩm, ban đầu là một mảng trống
+    allProduct: [],  // DanLIST sản phẩm, ban đầu là một mảng trống
     detailProduct: null,
     searchProduct: [],
     makeupProduct: [],
     skinProduct: [],
     hairProduct: [],
     priceProduct: [],
-    topProduct: []
+    topProduct: [],
+    listCartOrder: [],
 
 
 };
@@ -222,6 +223,19 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 topProduct: [],
+            };
+
+        //listCartOrder
+        case actionTypes.LIST_ORDER_SUCCESS:
+            return {
+                ...state,
+                listCartOrder: action.payload.cart
+            };
+
+        case actionTypes.LIST_ORDER_FAILED:
+            return {
+                ...state,
+                listCartOrder: [],
             };
         default:
             return state;

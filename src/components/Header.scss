@@ -11,13 +11,13 @@
 // banner
 
 .top-line {
-  height          : 70px;
-  width           : 100%;
-  // background-color: black;
-  border-bottom: 5px solid #85d400;
-  font-size       : 10px;
-  color           : white;
-  background-image: url(../assets/linetop.webp);
+  height: 44px;
+  width: 100%;
+  border-bottom: 5px solid #a5d651;
+  font-size: 10px;
+  color: white;
+  background-size: cover;
+  background-image: url('../assets/line-top.webp');
 }
 
 header {
@@ -153,9 +153,11 @@ header {
         //icon tim
         .tim {
           font-size: 35px;
+          color: #ffc1d4;;
+
 
           &:hover {
-            color: #049632;
+            color: #ff6392;;
           }
         }
 

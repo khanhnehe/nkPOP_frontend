@@ -3,9 +3,9 @@
     // padding         : 30px;
 
     .container {
-        background-color: white;
+        background-color   : white;
         // padding         : 30px 40px;
-        width           : 80%;
+        width              : 80%;
 
         .info-product {
 
@@ -165,7 +165,7 @@
                     display  : flex;
                     flex-wrap: wrap;
                     gap      : 20px;
-                    margin: 25px 0px;
+                    margin   : 25px 0px;
 
                     .product-variant {
                         display    : inline-flex;
@@ -222,7 +222,7 @@
 
                     .amount {
                         display   : flex;
-                        margin-top: 20px;
+                        margin-top: 40px;
 
                         .quantity {
                             font-size  : 14px;
@@ -252,6 +252,66 @@
                             padding         : 10px 16px;
                             background-color: #a5d651;
                             color           : white;
+                        }
+                    }
+
+                    .mua-hang {
+                        display   : flex;
+                        gap       : 20px;
+                        margin-top: 40px;
+
+                        .mua-ngay {
+                            cursor: pointer;
+                            color         : #8cc32f;
+                            font-size     : 15px;
+                            text-transform: uppercase;
+                            font-weight   : 500;
+                            font-style    : normal;
+                            padding       : 10px 60px;
+                            border-radius : 20px;
+                            border        : 2px solid #a5d651;
+
+                            &:hover{
+                                cursor: pointer;
+                                background-color: #a5d651;
+                                color           : white;
+                                font-size       : 15px;
+                                text-transform  : uppercase;
+                                font-weight     : 500;
+                                font-style      : normal;
+                                padding       : 10px 60px;
+                                border-radius   : 20px;
+                                border          : 2px solid #a5d651;
+                            }
+
+
+                        }
+
+                        .add {
+                            cursor: pointer;
+                            background-color: #a5d651;
+                            color           : white;
+                            font-size       : 15px;
+                            text-transform  : uppercase;
+                            font-weight     : 500;
+                            font-style      : normal;
+                            padding         : 10px 30px;
+                            border-radius   : 20px;
+                            border          : 2px solid #a5d651;
+
+                            &:hover{
+                                cursor: pointer;
+                                background-color: #85d400;
+                                color           : white;
+                                font-size       : 15px;
+                                text-transform  : uppercase;
+                                font-weight     : 500;
+                                font-style      : normal;
+                                padding       : 10px 30px;
+                                border-radius   : 20px;
+                                border          : 2px solid #85d400;
+                            }
+
                         }
                     }
                 }

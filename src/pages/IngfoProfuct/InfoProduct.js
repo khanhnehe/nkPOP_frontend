@@ -3,19 +3,21 @@ import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdFavoriteBorder } from "react-icons/md";
 import { useParams } from 'react-router-dom';
-import { detailProduct } from '../../store/actions/adminAction';
+import { detailProduct, } from '../../store/actions/adminAction';
 import './InfoProduct.scss';
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
 import { GrFormNext } from "react-icons/gr";
 import { IoIosStar } from "react-icons/io";
 import { marked } from 'marked';
+import { addCartProduct } from '../../store/actions/productAction';
 
 const InfoProduct = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
 
     const infoProduct = useSelector(state => state.admin.detailProduct);
+
 
     //state cho ảnh hiện tại và variant hiện tại
     const [currentImage, setCurrentImage] = useState(0);
@@ -55,7 +57,53 @@ const InfoProduct = () => {
         }
     };
 
+    //add cart
 
+    useEffect(() => {
+        dispatch(detailProduct(id));
+    }, [dispatch, id]);
+
+    const handleLoad = () => {
+        dispatch(detailProduct(id));
+    }
+
+    const userInfo = JSON.parse(JSON.parse(localStorage.getItem('persist:user')).userInfo);
+    const userId = userInfo._id;
+
+
+    const [cart, setCart] = useState({
+        user: userId,
+        totalPrice: 0,
+        cartItems: [],
+    });
+
+    const addToCart = () => {
+        // Đảm bảo giá sale và số lượng là số trước khi thêm vào giỏ hàng
+
+        const sale_price = Number(currentVariant?.sale_price ? currentVariant.sale_price : infoProduct.sale_price);
+        const quantity = Number(amount);
+
+        // Tính toán itemsPrice
+        const itemsPrice = sale_price * quantity;
+
+        // Tạo một mục giỏ hàng mới với thông tin sản phẩm, số lượng, biến thể (nếu có) và giá sale
+        const newCartItem = {
+            product: infoProduct._id.toString(),
+            amount: quantity,
+            variant: currentVariant && currentVariant._id ? currentVariant._id.toString() : null,
+            sale_price: sale_price, // Đảm bảo giá sale là số
+            itemsPrice: itemsPrice,
+        };
+
+        // Cập nhật giỏ hàng với thông tin người dùng, tổng giá và danh sách sản phẩm
+        const updatedCart = {
+            user: userId,
+            cartItems: [...cart.cartItems, newCartItem], // Thêm sản phẩm mới vào danh sách
+        };
+
+        // Gửi thông tin giỏ hàng mới đến reducer để cập nhật state
+        dispatch(addCartProduct(updatedCart));
+    };
 
     const handleVariantChange = (variant) => {
         //khi nhấp chọn 2 lần để bỏ
@@ -87,13 +135,6 @@ const InfoProduct = () => {
     };
 
 
-    useEffect(() => {
-        dispatch(detailProduct(id));
-    }, [dispatch, id]);
-
-    const handleLoad = () => {
-        dispatch(detailProduct(id));
-    }
 
     return (
         <>
@@ -161,12 +202,12 @@ const InfoProduct = () => {
                                 {/* giá */}
                                 <div className='price-info'>
                                     <div className='price'>
-                                        {currentVariant
+                                        {currentVariant?.price
                                             ? currentVariant?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
                                             : infoProduct?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                     </div>
                                     <div className='sale-price'>
-                                        {currentVariant
+                                        {currentVariant?.sale_price
                                             ? currentVariant?.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
                                             : infoProduct?.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
                                     </div>
@@ -177,7 +218,7 @@ const InfoProduct = () => {
                                     {infoProduct?.variants ? infoProduct.variants.map((variant, index) => (
                                         variant && variant.name && variant.images && variant.images[0] && variant._id ? (
                                             <div
-                                                class={`product-variant ${currentVariant && currentVariant._id === variant._id ? 'active' : ''}`}
+                                                className={`product-variant ${currentVariant && currentVariant._id === variant._id ? 'active' : ''}`}
                                                 key={variant._id}
                                             >
                                                 <input
@@ -204,9 +245,12 @@ const InfoProduct = () => {
                                         <button className='btn-amount' onClick={increaseAmount}>+</button>
                                         <div className='quantity mt-4'>{currentVariant ? currentVariant.quantity : infoProduct?.quantity} Sản phẩm có sẵn</div>
 
-
                                     </div>
 
+                                    <div className='mua-hang'>
+                                        <div className='mua-ngay'>Mua ngay</div>
+                                        <div className='add' onClick={addToCart} >Thêm vào giỏ hàng</div>
+                                    </div>
 
                                 </div>
                             </div>

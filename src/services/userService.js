@@ -281,6 +281,14 @@ const getCartByUseIdApi = (token, userId) => {
     });
 }
 
+const addCartApi = (token, data) => {
+    return axios.post('/addCart', data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
 
 
 export {
@@ -312,5 +320,7 @@ export {
 
     //__order
     createOrderApi,
-    getCartByUseIdApi
+    getCartByUseIdApi,
+    //add product
+    addCartApi
 }

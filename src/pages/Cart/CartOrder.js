@@ -50,16 +50,19 @@ const CartOrder = () => {
                                     <label>Sản phẩm</label>
                                 </div>
                                 <div className='content-right col-6'>
-                                    <label className='me-4'>Số lượng</label>
-                                    <label className='me-4'>Giá</label>
+                                    <label className='me-5'>Số lượng</label>
+                                    <label className='me-5'>Giá</label>
 
                                     <label>Tổng</label>
                                 </div>
                             </div>
                         </div>
                         {/* phải */}
-                        <div className='right col-3'>
-                            <label>Tổng Đơn hàng</label>
+                        <div className='right col-2'>
+                            <span className='text-tam-tinh'>Tổng Đơn hàng</span>
+                            <div className='tam-tinh'>Tạm Tính: {listOrder && listOrder.totalPrice
+                                && listOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                            </div>
                         </div>
                     </div>
                     <div className='order row'>
@@ -76,7 +79,7 @@ const CartOrder = () => {
 
                                             <div className='item-right'>
                                                 <div className='name'>{item.name}</div>
-                                                <div className='name-variant'>{item?.name_variant}</div>
+                                                <span className={item?.name_variant ? 'name-variant' : ''}>{item?.name_variant}</span>
                                             </div>
                                         </div>
                                         {/* amount */}
@@ -96,17 +99,11 @@ const CartOrder = () => {
                                         </div>
                                     </div>
                                 </div>
-
-
                             ))
                         )}
 
                         {/* bên phải */}
-                        <div className='right col-3'>
-                            <div>Tổng: {listOrder && listOrder.totalPrice
-                                && listOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>

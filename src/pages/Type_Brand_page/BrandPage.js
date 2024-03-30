@@ -10,6 +10,7 @@ import { MdFavoriteBorder } from "react-icons/md";
 import { productBrand, productType, filterByPrice, getTopSelling, getAllProduct, } from '../../store/actions/adminAction';
 import { useParams } from 'react-router-dom';
 import { list } from 'postcss';
+import { IoIosStar } from "react-icons/io";
 
 const BrandPage = () => {
 
@@ -254,7 +255,7 @@ const BrandPage = () => {
                                                     <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                                     <div className='sale'>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                                     <div className='bottom-two'>
-                                                        <div className='sao'>{product.averageRating}</div>
+                                                        <div className='sao'>{product.averageRating}<IoIosStar className='icon-star' /></div>
                                                         <div className='purchases'>{product.purchases} Đã bán <MdFavoriteBorder /></div>
                                                     </div>
                                                 </div>

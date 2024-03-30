@@ -17,16 +17,44 @@
         }
 
 
+
         .title-cart {
             font-size     : 25px;
             text-transform: uppercase;
             font-weight   : 400;
             font-style    : normal;
             font-weight   : 500;
-            margin-bottom: 20px;
+            margin-bottom : 20px;
+        }
+        a{
+            text-decoration: none;
+
         }
 
         .order {
+
+            .check-out {
+                cursor: pointer;
+                font-size: 16px;
+                text-transform: uppercase;
+                font-style: normal;
+                font-weight: 700;
+                background-color: #a5d651;
+                height: 40px;
+                padding: 7px 45px;
+                color: white;
+                /* border-radius: 5px; */
+                margin-top: 8px;
+                margin-left: 12px;
+                width: 202px;
+
+
+                &:hover{
+                    background-color: #89d408;
+
+                }
+                
+            }
 
             .left {
 
@@ -36,11 +64,18 @@
                     gap    : 15px;
 
                     .item-left {
+                        display: flex;
 
                         .cart-image {
                             width : 120px;
                             height: auto;
 
+                        }
+
+                        .btn-delete {
+                            background-color: #e7e7e7;
+                            margin          : 45px 0px;
+                            padding-bottom  : 3px;
                         }
                     }
 
@@ -71,7 +106,6 @@
                     .item-amount {
                         padding-bottom: 100px;
                         display       : flex;
-                        width         : 40%;
 
 
 
@@ -84,6 +118,7 @@
                             font-size       : 18px;
                             padding         : 0px 14px;
                             background-color: #f5f6f9;
+                            width           : 43px;
 
                         }
 
@@ -94,14 +129,17 @@
                             line-height     : inherit;
                             /* margin       : 0px 0px; */
                             font-size       : 16px;
-                            padding         : 10px 16px;
+                            padding         : 10px;
                             background-color: #a5d651;
                             color           : white;
+                            width           : 43px;
+                            text-align      : center;
+
                         }
                     }
 
                     .item-price {
-                        width: 28%;
+                        width: 26%;
 
                         .price {
                             color          : #828282;
@@ -134,10 +172,9 @@
 
             /* phần tạm tính */
             .right {
-                display: grid;
+                display        : grid;
                 justify-items  : start;
                 justify-content: space-evenly;
-                margin-left    : 11px;
                 border-left    : 1px solid #666666;
 
                 .text-tam-tinh {
@@ -151,10 +188,12 @@
                 .tam-tinh {
                     font-size     : 16px;
                     text-transform: uppercase;
-                    font-weight   : 400;
                     font-style    : normal;
-                    font-weight   : 500;
+                    font-weight   : 700;
+                    color         : #820813;
                 }
+
+
             }
         }
     }

@@ -22,6 +22,9 @@ const initialState = {
     priceProduct: [],
     topProduct: [],
     listCartOrder: [],
+    checkOutOrder: [],
+    orderValues: [],
+    freeShip: [],
 
 
 };
@@ -237,6 +240,45 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 listCartOrder: [],
             };
+
+        //check out
+
+        case actionTypes.CHECK_OUT_ORDER_SUCCESS:
+            return {
+                ...state,
+                checkOutOrder: action.payload.order
+            };
+
+        case actionTypes.CHECK_OUT_ORDER_FAILED:
+            return {
+                ...state,
+                checkOutOrder: [],
+            };
+
+        case actionTypes.VALUE_ORDER_SUCCESS:
+            return {
+                ...state,
+                orderValues: action.payload.order
+            };
+
+        case actionTypes.VALUE_ORDER_FAILED:
+            return {
+                ...state,
+                orderValues: [],
+            };
+
+        case actionTypes.FREE_SHIP_SUCCESS:
+            return {
+                ...state,
+                freeShip: action.payload.tinhFreeShip
+            };
+
+        case actionTypes.FREE_SHIP_FAILED:
+            return {
+                ...state,
+                orderValues: [],
+            };
+
         default:
             return state;
     }

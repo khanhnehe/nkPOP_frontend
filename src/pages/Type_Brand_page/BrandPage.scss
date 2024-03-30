@@ -286,7 +286,18 @@
                         align-items    : center;
                         justify-content: space-between;
 
-                        .sao {}
+                        .sao {
+                            font-size  : 14px;
+                            font-weight: 500;
+        
+                            .icon-star {
+                                color        : #ffc107;
+                                font-size    : 15px;
+                                margin-bottom: 3px;
+                                margin-left  : 2px;
+                            }
+        
+                        }
 
                         .purchases {
                             font-size  : 14px;

@@ -172,7 +172,7 @@ const InfoProduct = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-6 right p-4'>
+                            <div className='col-6 right p-5'>
                                 {/* thông tin */}
                                 <div className='info-top'>
                                     <div className='brand-info mb-2'>

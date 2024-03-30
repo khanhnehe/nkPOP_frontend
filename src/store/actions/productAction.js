@@ -1,7 +1,11 @@
 import adminReducer from "../reducer/adminReducer";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
-import { createOrderApi, getCartByUseIdApi, addCartApi } from "../../services/userService";
+import {
+    createOrderApi, getCartByUseIdApi, addCartApi,
+    deleteitemCartApi, changeAmountApi, checkOutOrderApi,
+    getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice
+} from "../../services/userService";
 
 export const createOrder = (data) => {
     return async (dispatch, getState) => {
@@ -82,12 +86,204 @@ export const addCartProduct = (data) => {
                     type: actionTypes.ADD_PRODUCT_ORDER_SUCCESS,
                 });
                 toast.success('Thêm sản phẩm vào giỏ hàng thành công');
-                console.log('ADD_PRODUCT_ORDER_SUCCESS action dispatched'); // Add this line
-
             }
         } catch (error) {
             dispatch({
                 type: actionTypes.ADD_PRODUCT_ORDER_FAILED,
+                payload: error.response ? error.response.message : error.message
+
+            });
+            console.log(error)
+        }
+    };
+};
+
+
+export const deleteitemCart = (itemId) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await deleteitemCartApi(token, itemId);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.DELETE_PRODUCT_ORDER_FAILED,
+                });
+                toast.error(response.message || response.errMessage);
+            }
+            else {
+                dispatch({
+                    type: actionTypes.DELETE_PRODUCT_ORDER_SUCCESS,
+                })
+                toast.success('Xóa sản phẩm thành công')
+            }
+
+        } catch (e) {
+            dispatch({
+                payload: e.response ? e.response.message : e.message
+            }); console.error('Error:', e);
+        }
+
+    }
+
+}
+
+export const changeAmount = (itemId, action) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await changeAmountApi(token, itemId, action);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.CHANGE_AMOUNT_ORDER_FAILED,
+                });
+                toast.error(response.message || response.errMessage);
+            }
+            else {
+                dispatch({
+                    type: actionTypes.CHANGE_AMOUNT_ORDER_SUCCESS,
+                })
+            }
+
+        } catch (e) {
+            dispatch({
+                payload: e.response ? e.response.message : e.message
+            }); console.error('Error:', e);
+        }
+
+    }
+
+}
+
+export const checkOutOrder = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await checkOutOrderApi(token, data);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.CHECK_OUT_ORDER_FAILED,
+                });
+                toast.error('Đặt hàng thất bại');
+            }
+            else {
+                dispatch({
+                    type: actionTypes.CHECK_OUT_ORDER_SUCCESS,
+                    payload: {
+                        order: response.order
+                    }
+                })
+                toast.success('Đặt hàng thành công');
+            }
+
+        } catch (e) {
+            dispatch({
+                payload: e.response ? e.response.message : e.message
+            }); console.error('Error:', e);
+        }
+
+    }
+
+}
+
+export const getOrderValues = () => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await getOrderValuesApi(token);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.VALUE_ORDER_FAILED,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.VALUE_ORDER_SUCCESS,
+                    payload: {
+                        order: response.order
+                    }
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.VALUE_ORDER_FAILED,
+                payload: error.response ? error.response.message : error.message
+
+            });
+            console.log(error)
+        }
+    };
+};
+
+export const tinhFreeShip = (totalPrice, city) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await tinhFreeShipApi(token, totalPrice, city);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.FREE_SHIP_FAILED,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.FREE_SHIP_SUCCESS,
+                    payload: {
+                        tinhFreeShip: response.tinhFreeShip
+                    }
+                });
+                return response.tinhFreeShip; // Return the value here
+
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.FREE_SHIP_FAILED,
+                payload: error.response ? error.response.message : error.message
+
+            });
+            console.log(error)
+        }
+    };
+};
+
+export const getShipPrice_total = (totalPrice, city) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await getShipPrice_totalPrice(token, totalPrice, city);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.TOTAL_SHIP_FAILED,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.TOTAL_SHIP_SUCCESS,
+                });
+                //lấy ra các giá trị
+                return {
+                    shippingPrice: response.shippingPrice,
+                    totalPriceOrder: response.totalPriceOrder
+                }
+
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.TOTAL_SHIP_FAILED,
                 payload: error.response ? error.response.message : error.message
 
             });

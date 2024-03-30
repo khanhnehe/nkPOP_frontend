@@ -23,12 +23,14 @@ import TypePage from "./pages/Type_Brand_page/TypePage";
 import BrandPage from "./pages/Type_Brand_page/BrandPage";
 import InfoProduct from "./pages/IngfoProfuct/InfoProduct";
 import CartOrder from "./pages/Cart/CartOrder";
+import CheckOut from "./pages/Cart/CheckOut";
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path={path.SYSTEM + "/*"} element={<System />} />
+        <Route path={path.CHECK_OUT} element={<CheckOut />} />
         <Route path="/*" element={
           <Fragment>
             <Header />

@@ -8,6 +8,7 @@ import './MakeupCategory.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { MdFavoriteBorder } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import { IoIosStar } from "react-icons/io";
 
 
 const responsive = {
@@ -67,7 +68,7 @@ const MakeupCategory = () => {
                                     <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                     <div className='sale'>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                     <div className='bottom-two'>
-                                        <div className='sao'>{product.averageRating}</div>
+                                        <div className='sao'>{product.averageRating}<IoIosStar className='icon-star' /></div>
                                         <div className='purchases'>{product.purchases} Đã bán <MdFavoriteBorder /></div>
                                     </div>
                                 </div>

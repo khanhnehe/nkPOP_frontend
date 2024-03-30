@@ -239,6 +239,7 @@
                             font-size       : 18px;
                             padding         : 0px 14px;
                             background-color: #f5f6f9;
+                            width: 40px;
 
                         }
 
@@ -248,10 +249,12 @@
                             font-size       : inherit;
                             line-height     : inherit;
                             /* margin       : 0px 0px; */
-                            font-size       : 16px;
-                            padding         : 10px 16px;
+                            font-size: 16px;
+                            padding: 10px;
                             background-color: #a5d651;
-                            color           : white;
+                            color: white;
+                            width: 45px;
+                            text-align: center;
                         }
                     }
 
@@ -387,8 +390,8 @@
                         .text-star {
                             font-size  : 25px;
                             font-weight: 500;
-                            padding    : 0px 9px;
-
+                            padding-right: 9px;
+                            
                             .icon-star {
                                 color        : #ffc107;
                                 font-size    : 23px;

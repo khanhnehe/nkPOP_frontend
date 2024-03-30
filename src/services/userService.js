@@ -289,7 +289,53 @@ const addCartApi = (token, data) => {
     })
 }
 
+const deleteitemCartApi = (token, itemId) => {
+    return axios.delete(`/deleteProductCart/${itemId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
 
+const changeAmountApi = (token, itemId, action) => {
+    return axios.put(`/changeAmount/${itemId}`, { action }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+
+const checkOutOrderApi = (token, data) => {
+    return axios.post(`/checkOutOrder`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+const getOrderValuesApi = (token) => {
+    return axios.get(`/admin/getOrderValues`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+const tinhFreeShipApi = (token, totalPrice, city) => {
+    return axios.post(`/tinhFreeShip`, { totalPrice, city }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+const getShipPrice_totalPrice = (token, totalPrice, city) => {
+    return axios.post(`/getShipPrice-totalPrice`, { totalPrice, city }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
 
 export {
     loginApiService,
@@ -322,5 +368,11 @@ export {
     createOrderApi,
     getCartByUseIdApi,
     //add product
-    addCartApi
+    addCartApi,
+    deleteitemCartApi,
+    changeAmountApi,
+    checkOutOrderApi,
+    getOrderValuesApi,
+    tinhFreeShipApi,
+    getShipPrice_totalPrice
 }

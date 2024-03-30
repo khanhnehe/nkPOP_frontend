@@ -14,7 +14,12 @@ export const path = {
     BRAND_PAGE: "/brand/:id",
     INFO_PRODUCT: "/product/:id",
     //
-    CART: "/cart"
+    CART: "/cart",
+    //Check out
+    CHECK_OUT: "/checkout/:id",
+    //page đơn hàng
+    ALL_ORDERS: "/all-orders"
+
 
 
 

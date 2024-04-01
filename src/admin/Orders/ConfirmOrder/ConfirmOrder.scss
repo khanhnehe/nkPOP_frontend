@@ -1,0 +1,21 @@
+@import '../MainOrders.scss';
+
+.ConfirmOrder {
+    // .action-xn {
+    //     cursor          : pointer;
+    //     background-color: #76ace8;
+    //     margin-bottom   : 10px;
+    //     padding         : 5px;
+    //     border-radius   : 5px;
+    //     width           : 90px;
+    //     text-align      : center;
+    //     color           : white;
+    //     font-weight     : 500;
+
+    //     &:hover {
+    //         background-color: rgb(72, 72, 213);
+    //     }
+    // }
+
+    @include AllOrders;
+}

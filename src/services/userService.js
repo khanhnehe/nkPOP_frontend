@@ -329,6 +329,7 @@ const tinhFreeShipApi = (token, totalPrice, city) => {
         }
     })
 }
+
 const getShipPrice_totalPrice = (token, totalPrice, city) => {
     return axios.post(`/getShipPrice-totalPrice`, { totalPrice, city }, {
         headers: {
@@ -336,6 +337,22 @@ const getShipPrice_totalPrice = (token, totalPrice, city) => {
         }
     })
 }
+
+const getAllOrderApi = (token) => {
+    return axios.get(`/admin/getAllOrder`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+const confirmStatusOrderApi = (token, orderId, adminAction) => {
+    return axios.put(`/confirmStatusOrder/${orderId}`, { adminAction }, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
 
 export {
     loginApiService,
@@ -364,7 +381,7 @@ export {
     //lọc theo price, luọt bán 
     filterByPriceApi, getTopSellingApi,
 
-    //__order
+    //cart
     createOrderApi,
     getCartByUseIdApi,
     //add product
@@ -372,7 +389,10 @@ export {
     deleteitemCartApi,
     changeAmountApi,
     checkOutOrderApi,
-    getOrderValuesApi,
     tinhFreeShipApi,
-    getShipPrice_totalPrice
+    getShipPrice_totalPrice,
+    getOrderValuesApi,
+    //order
+    getAllOrderApi,
+    confirmStatusOrderApi
 }

@@ -4,7 +4,8 @@ import actionTypes from "./actionTypes";
 import {
     createOrderApi, getCartByUseIdApi, addCartApi,
     deleteitemCartApi, changeAmountApi, checkOutOrderApi,
-    getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice
+    getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
+    getAllOrderApi, confirmStatusOrderApi
 } from "../../services/userService";
 
 export const createOrder = (data) => {
@@ -291,3 +292,66 @@ export const getShipPrice_total = (totalPrice, city) => {
         }
     };
 };
+
+export const getAllOrder = () => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await getAllOrderApi(token);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.GET_ALL_ORDERS_FAILED,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ALL_ORDERS_SUCCESS,
+                    payload: {
+                        order: response.order
+                    }
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_ALL_ORDERS_FAILED,
+                payload: error.response ? error.response.message : error.message
+
+            });
+            console.log(error)
+        }
+    };
+};
+
+export const confirmStatusOrder = (orderId, adminAction) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await confirmStatusOrderApi(token, orderId, adminAction);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.STATUS_ORDERS_FAILED,
+                });
+                toast.error('Cập nhật trạng thái đơn hàng thất bại');
+
+            }
+            else {
+                dispatch({
+                    type: actionTypes.STATUS_ORDERS_SUCCESS,
+                })
+                toast.success('Cập nhật trạng thái đơn hàng thành công');
+            }
+
+        } catch (e) {
+            dispatch({
+                payload: e.response ? e.response.message : e.message
+            }); console.error('Error:', e);
+        }
+
+    }
+
+}

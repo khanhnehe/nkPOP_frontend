@@ -23,7 +23,7 @@
     "react-bootstrap-multiselect": "^2.4.1",
     "react-bootstrap-table-next": "^4.0.3",
     "react-circular-progressbar": "^2.1.0",
-    "react-datepicker": "^4.24.0",
+    "react-datepicker": "^4.25.0",
     "react-dom": "^18.2.0",
     "react-firebaseui": "^6.0.0",
     "react-icons": "^4.12.0",

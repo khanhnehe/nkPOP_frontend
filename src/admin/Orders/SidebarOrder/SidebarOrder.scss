@@ -1,0 +1,36 @@
+.SidebarOrder {
+
+    .content {
+        display      : flex;
+        gap          : 50px;
+        border-bottom: 1px solid #d9d9d9;
+        margin-top   : 7px;
+
+
+        .item {
+            padding      : 3px 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            color        : #555555;
+            font-weight  : 600;
+
+
+            &:hover {
+                background-color: #dfffd2;
+            }
+        }
+
+        a {
+            text-decoration: none;
+            color          : black;
+        }
+
+        .active {
+            padding         : 3px 5px;
+            border-radius   : 5px;
+            margin-bottom   : 5px;
+            background-color: #dfffd2;
+
+        }
+    }
+}

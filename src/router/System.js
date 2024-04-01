@@ -10,6 +10,8 @@ import Brand from "../admin/product/Brand/Brand";
 import Type from "../admin/product/Type/Type";
 import Product from "../admin/product/Product/Product";
 import EditProduct from "../admin/product/Product/EditProduct";
+import AllOrders from "../admin/Orders/AllOrders";
+import ConfirmOrder from "../admin/Orders/ConfirmOrder/ConfirmOrder";
 
 const System = () => {
     return (
@@ -22,6 +24,8 @@ const System = () => {
             <Route path="manage-type" element={<Type />} />
             <Route path="manage-product" element={<Product />} />
             <Route path="manage-edit-product/:id" element={<EditProduct />} />
+            <Route path="all-orders" element={<AllOrders />} />
+            <Route path="confirm-orders" element={<ConfirmOrder />} />
         </Routes>
     );
 }

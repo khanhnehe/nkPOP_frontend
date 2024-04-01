@@ -45,7 +45,9 @@ const Sidebar = () => {
                         {/*  */}
                         <div className="title"><PiNotepadFill className="icon" />ĐƠN HÀNG</div>
                         <li>
-                            <span>Tất cả đơn hàng</span>
+                            <span>
+                                <Link to="/system/all-orders"> Tất cả đơn hàng</Link>
+                            </span>
                         </li>
                         <li>
                             <span>Đơn hàng đã hủy</span>

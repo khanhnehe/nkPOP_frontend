@@ -1,62 +1,48 @@
 import React, { useEffect, useState, useRef } from 'react';
-import "./AllOrders.scss"
-import Sidebar from '../../components/Sidebar/Sidebar';
-import Navbar from '../../components/Navbar/Navbar';
+import "./OrderHoanThanh.scss"
+import Sidebar from '../../../components/Sidebar/Sidebar';
+import Navbar from '../../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { Modal } from 'react-bootstrap';
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-import SidebarOrder from './SidebarOrder/SidebarOrder';
+import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder } from '../../store/actions/productAction';
+import { getAllOrder, confirmStatusOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
 
-const AllOrders = () => {
+const OrderHoanThanh = () => {
 
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.listAllOrders)
+    const listOrders = useSelector(state => state.admin.listStatusOfOrder)
 
-    const fetchAllOrders = async () => {
-        await dispatch(getAllOrder())
+    const fetchChoXacNhan = async () => {
+        await dispatch(filterStatusOder('Đã giao thành công'))
     }
 
-    const cancelOrder = async (orderId) => {
-        try {
-            await dispatch(confirmStatusOrder(orderId, "cancel"))
-            fetchAllOrders()
+    // const handleOrderHoanThanh = async (orderId) => {
+    //     try {
+    //         await dispatch(confirmStatusOrder(orderId, "receive"))
+    //         fetchChoXacNhan()
 
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    const OrderChoXacNhan = async (orderId) => {
-        try {
-            await dispatch(confirmStatusOrder(orderId, "confirm"))
-            fetchAllOrders()
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     const handleRefresh = () => {
-        fetchAllOrders()
+        fetchChoXacNhan()
     }
 
     useEffect(() => {
-        fetchAllOrders();
+        fetchChoXacNhan();
     }, []);
 
     return (
         <>
-
-            <div className='AllOrders'>
+            <div className='OrderHoanThanh'>
                 <Sidebar />
                 <div className='AllOrders-container'>
                     <Navbar />
@@ -121,39 +107,9 @@ const AllOrders = () => {
                                                 </td>
                                                 <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
                                                 <td className='status'>{order.statusAdmin}</td>
-                                                {/* <td> */}
-                                                {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}
-                                                {/* {order.statusAdmin === 'Đơn hàng đang được giao' */}
-                                                {/* ? (
-                                                            // đúng hiện 'Đã Xác Nhận'
-                                                            <div className='action-yes'>Đã Xác Nhận</div>
-                                                        )
-                                                        : (
-                                                            // sai hiện 'Xác Nhận'
-                                                            <div onClick={() => OrderChoXacNhan(order._id)} className={order.statusAdmin === 'Đơn hàng bị hủy'
-                                                                ?
-                                                                'action-yes disabled'
-                                                                :
-                                                                'action-yes'}>Xác Nhận</div>
-                                                        )} */}
-
-                                                {/*nếu là 'Đơn hàng bị hủy' */}
-                                                {/* {order.statusAdmin === 'Đơn hàng bị hủy'
-                                                        ? (
-                                                            // đúng
-                                                            <div className='action' >Đã hủy Đơn</div>
-                                                        )
-                                                        : (
-                                                            // sai, statusAdmin là ''
-                                                            <div onClick={() => cancelOrder(order._id)} className={order.statusAdmin === 'Đơn hàng đang được giao'
-                                                                ?
-                                                                // tiếp tực Nếu đúng, 'disabled' để vô hiệu div và hiện Hủy đon
-                                                                'action disabled'
-                                                                :
-                                                                'action'}>Hủy Đơn</div>
-                                                        )}
+                                                {/* <td>
+                                                    <div className='action-giao' onClick={() => handleOrderHoanThanh(order._id)}>Xác nhận đã giao</div>
                                                 </td> */}
-
                                                 <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
                                             </tr>
                                         );
@@ -172,4 +128,4 @@ const AllOrders = () => {
     )
 }
 
-export default AllOrders;
+export default OrderHoanThanh;

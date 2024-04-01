@@ -5,7 +5,7 @@ import {
     createOrderApi, getCartByUseIdApi, addCartApi,
     deleteitemCartApi, changeAmountApi, checkOutOrderApi,
     getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
-    getAllOrderApi, confirmStatusOrderApi
+    getAllOrderApi, confirmStatusOrderApi, getChoXacNhanApi, filterStatusOderApi
 } from "../../services/userService";
 
 export const createOrder = (data) => {
@@ -355,3 +355,35 @@ export const confirmStatusOrder = (orderId, adminAction) => {
     }
 
 }
+
+export const filterStatusOder = (statusAdmin) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            // Log giá trị của token ra console
+            const response = await filterStatusOderApi(token, statusAdmin);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.GET_STATUS_ORDERS_FAILED,
+                });
+
+            } else {
+                dispatch({
+                    type: actionTypes.GET_STATUS_ORDERS_SUCCESS,
+                    payload: {
+                        order: response.order
+                    }
+                });
+            }
+        } catch (error) {
+            dispatch({
+                type: actionTypes.GET_ALL_ORDERS_FAILED,
+                payload: error.response ? error.response.message : error.message
+
+            });
+            console.log(error)
+        }
+    };
+};

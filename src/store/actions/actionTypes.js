@@ -189,6 +189,11 @@ const actionTypes = Object.freeze({
     //change status
     STATUS_ORDERS_SUCCESS: "STATUS_ORDERS_SUCCESS",
     STATUS_ORDERS_FAILED: "STATUS_ORDERS_FAILED",
+
+    //lịc order
+    GET_STATUS_ORDERS_SUCCESS: "GET_STATUS_ORDERS_SUCCESS",
+    GET_STATUS_ORDERS_FAILED: "GET_STATUS_ORDERS_FAILED",
+
 });
 
 export default actionTypes;

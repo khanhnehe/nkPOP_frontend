@@ -25,7 +25,8 @@ const initialState = {
     checkOutOrder: [],
     orderValues: [],
     freeShip: [],
-    listAllOrders: []
+    listAllOrders: [],
+    listStatusOfOrder: []
 
 
 };
@@ -292,6 +293,20 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 listAllOrders: [],
             };
+
+        //lọc order chờ xác nhận
+        case actionTypes.GET_STATUS_ORDERS_SUCCESS:
+            return {
+                ...state,
+                listStatusOfOrder: action.payload.order
+            };
+
+        case actionTypes.GET_STATUS_ORDERS_FAILED:
+            return {
+                ...state,
+                listStatusOfOrder: [],
+            };
+
 
         default:
             return state;

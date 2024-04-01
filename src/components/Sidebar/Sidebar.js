@@ -32,9 +32,7 @@ const Sidebar = () => {
                         <li>
                             <span>Doanh thu</span>
                         </li>
-                        <li>
-                            <span>Hiệu suất</span>
-                        </li>
+
                         {/*  */}
                         <div className="title"><MdManageAccounts className="icon" />NGƯỜI DÙNG</div>
                         <li>
@@ -46,15 +44,10 @@ const Sidebar = () => {
                         <div className="title"><PiNotepadFill className="icon" />ĐƠN HÀNG</div>
                         <li>
                             <span>
-                                <Link to="/system/all-orders"> Tất cả đơn hàng</Link>
+                                <Link to="/system/all-orders"> Quản lý đơn hàng</Link>
                             </span>
                         </li>
-                        <li>
-                            <span>Đơn hàng đã hủy</span>
-                        </li>
-                        <li>
-                            <span>Trả/Hoàn hàng</span>
-                        </li>
+
                         <div className="title"><IoBagAddSharp className="icon" /> SẢN PHẨM</div>
                         <li>
                             <span><Link to="/system/manage-product">Quản lý sản phẩm</Link></span>

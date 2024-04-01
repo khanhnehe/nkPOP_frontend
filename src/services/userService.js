@@ -345,6 +345,7 @@ const getAllOrderApi = (token) => {
         }
     })
 }
+// chuyển status của order
 const confirmStatusOrderApi = (token, orderId, adminAction) => {
     return axios.put(`/confirmStatusOrder/${orderId}`, { adminAction }, {
         headers: {
@@ -352,8 +353,23 @@ const confirmStatusOrderApi = (token, orderId, adminAction) => {
         }
     })
 }
+//lọc đơn chưa xác nhận
+const getChoXacNhanApi = (token) => {
+    return axios.get(`/admin/getChoXacNhan`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
 
-
+//filter status theo status
+const filterStatusOderApi = (token, statusAdmin) => {
+    return axios.get(`/admin/filterStatusOder?statusAdmin=${statusAdmin}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
 export {
     loginApiService,
     // phân loại outseding
@@ -394,5 +410,8 @@ export {
     getOrderValuesApi,
     //order
     getAllOrderApi,
-    confirmStatusOrderApi
+    confirmStatusOrderApi,
+    //lọc orde
+    getChoXacNhanApi,
+    filterStatusOderApi
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import "./ConfirmOrder.scss"
+import "./OrderChoXacNhan.scss"
 import Sidebar from '../../../components/Sidebar/Sidebar';
 import Navbar from '../../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,35 +7,35 @@ import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder } from '../../../store/actions/productAction';
+import { getAllOrder, confirmStatusOrder, getChoXacNhan, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
 
-const ConfirmOrder = () => {
+const OrderChoXacNhan = () => {
 
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.listAllOrders)
+    const listOrders = useSelector(state => state.admin.listStatusOfOrder)
 
-    const fetchAllOrders = async () => {
-        await dispatch(getAllOrder())
+    const fetchChoXacNhan = async () => {
+        await dispatch(filterStatusOder('Chờ xác nhận'))
     }
 
     const cancelOrder = async (orderId) => {
         try {
             await dispatch(confirmStatusOrder(orderId, "cancel"))
-            fetchAllOrders()
+            fetchChoXacNhan()
 
         } catch (e) {
             console.log(e);
         }
     }
 
-    const confirmOrder = async (orderId) => {
+    const OrderChoXacNhan = async (orderId) => {
         try {
             await dispatch(confirmStatusOrder(orderId, "confirm"))
-            fetchAllOrders()
+            fetchChoXacNhan()
 
         } catch (e) {
             console.log(e);
@@ -43,16 +43,16 @@ const ConfirmOrder = () => {
     }
 
     const handleRefresh = () => {
-        fetchAllOrders()
+        fetchChoXacNhan()
     }
 
     useEffect(() => {
-        fetchAllOrders();
+        fetchChoXacNhan();
     }, []);
 
     return (
         <>
-            <div className='ConfirmOrder'>
+            <div className='OrderChoXacNhan'>
                 <Sidebar />
                 <div className='AllOrders-container'>
                     <Navbar />
@@ -126,7 +126,7 @@ const ConfirmOrder = () => {
                                                         )
                                                         : (
                                                             // sai hiện 'Xác Nhận'
-                                                            <div onClick={() => confirmOrder(order._id)} className={order.statusAdmin === 'Đơn hàng bị hủy'
+                                                            <div onClick={() => OrderChoXacNhan(order._id)} className={order.statusAdmin === 'Đơn hàng bị hủy'
                                                                 ?
                                                                 'action-yes disabled'
                                                                 :
@@ -167,4 +167,4 @@ const ConfirmOrder = () => {
     )
 }
 
-export default ConfirmOrder;
+export default OrderChoXacNhan;

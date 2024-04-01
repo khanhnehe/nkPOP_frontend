@@ -1,0 +1,23 @@
+@import '../MainOrders.scss';
+
+.OrderHoanThanh {
+    // .action-giao {
+    //     cursor: pointer;
+    //     cursor: pointer;
+    //     background-color: #1da1f2;
+    //     margin-bottom: 10px;
+    //     padding: 5px;
+    //     border-radius: 5px;
+    //     width: 112px;
+    //     text-align: center;
+    //     color: white;
+    //     font-weight: 500;
+
+
+    //     &:hover {
+    //         background-color: #027cc6;
+    //     }
+    // }
+
+    @include AllOrders;
+}

@@ -192,7 +192,7 @@ const InfoProduct = () => {
                                 </div>
 
                                 {/* review */}
-                                <div className='info-center col-6'>
+                                <div className='info-center col-8'>
                                     <p className='text-star'>{infoProduct?.averageRating}<IoIosStar className='icon-star' /></p>
                                     {/* số lượt đánh giá */}
                                     <p className='text-review'>{infoProduct?.reviews?.length} Đánh giá</p>

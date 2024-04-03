@@ -1,0 +1,151 @@
+    .OrderCho {
+
+      .top {
+        padding: 10px;
+
+        .my-order {
+          // border-radius: 5px;
+
+          .boc {
+            box-shadow      : 3px 2px 10px 0px rgba(135, 135, 135, 0.47);
+            border-radius   : 5px;
+            background-color: rgb(255, 255, 255);
+            margin-bottom   : 20px;
+            border          : 1px solid #ddd2d2;
+
+            .product-info {
+              display        : flex;
+              gap            : 10px;
+              border-bottom  : 1px solid #d6d4d4;
+              padding        : 5px;
+              justify-content: flex-start;
+              flex-direction : column;
+
+
+              .product-image {
+                width : 80px;
+                height: auto;
+              }
+
+              .product-info-name {
+                display: flex;
+
+                .up-info {
+                  display      : flex;
+                  gap          : 5px;
+                  align-content: stretch;
+                  align-items  : start;
+
+                  .name {
+                    display: grid;
+
+                    .product-name {
+                      font-weight: 500;
+                      font-size  : 14px;
+                    }
+
+                    .product-variant {
+                      width           : fit-content;
+                      font-weight     : 500;
+                      font-size       : 9px;
+                      color           : #ffffff;
+                      /* border       : 1px solid #a5d651; */
+                      background-color: #a5d651;
+                      padding         : 1px 8px;
+                      border-radius   : 10px;
+                    }
+                  }
+
+
+                }
+
+
+
+                .down-info {
+                  display        : grid;
+                  justify-content: space-around;
+                  justify-items  : end;
+
+                  .price {
+                    color          : #828282;
+                    font-size      : 11px;
+                    text-decoration: line-through;
+
+                  }
+
+                  .price-sale {
+                    color    : brown;
+                    font-size: 14px;
+
+                  }
+
+                  .amount {
+                    font-size: 13px;
+                  }
+
+                }
+
+                //order hoàn thành
+                .btn-review {
+                  cursor: pointer;
+                  padding         : 2px 9px;
+                  background-color: #a5d651;
+                  color           : white;
+                  font-size       : 14px;
+                  margin-top      : 6px;
+                  border-radius   : 5px;
+                  font-weight     : 500;
+
+                  &:hover{
+                    background-color: #6fb000;
+                  }
+                }
+
+
+              }
+
+            }
+
+
+          }
+
+          .bottom {
+            background-color: #f2f1f1;
+            display         : flex;
+            padding         : 10px 32px;
+            /* border-radius: 0px 0px 5px 5px; */
+            gap             : 40px;
+            justify-content : flex-end;
+
+            .tien {
+              color      : brown;
+              font-size  : 14px;
+              font-weight: 600;
+            }
+
+            .status {
+              color    : #000;
+              font-size: 16px;
+            }
+
+            .action-yes {
+              cursor          : pointer;
+              background-color: #a5d651;
+              border-radius   : 5px;
+              padding         : 3px 8px;
+              color           : white;
+              font-weight     : 600;
+              font-size       : 15px;
+
+              &:hover {
+                background-color: #8ec82b;
+              }
+            }
+          }
+
+
+        }
+
+
+      }
+    }

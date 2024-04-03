@@ -1,13 +1,37 @@
-import React, { useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, NavLink, Routes, Route, useLocation, Outlet } from 'react-router-dom';
 import "./MyOrder.scss"
 import { useDispatch, useSelector } from 'react-redux';
+import OrderCho from './MyOrder/OrderCho';
+import OrderGiao from './MyOrder/OrderGiao';
+import OrderHoanThanh from './MyOrder/OrderHoanThanh';
+import AllOrder from "./MyOrder/AllOrder";
+import CancelOrder from './MyOrder/CancelOrder';
 
 const MyOrder = () => {
 
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
-
     const dispatch = useDispatch();
+    const location = useLocation();
+    const [selectedItem, setSelectedItem] = useState('ChoVanChuyen');
+
+
+    const renderOrderComponent = () => {
+        switch (selectedItem) {
+            case 'TatCaDon':
+                return <AllOrder />;
+            case 'ChoVanChuyen':
+                return <OrderCho />;
+            case 'DangGiao':
+                return <OrderGiao />;
+            case 'HoanThanh':
+                return <OrderHoanThanh />;
+            case 'DonHuy':
+                return <CancelOrder />;
+            default:
+                return <OrderCho />;
+        }
+    };
 
     // Kiểm tra xem userInfo có tồn tại không trước khi truy cập lastName và firstName
     const lastName = userInfo && userInfo.lastName;
@@ -36,7 +60,20 @@ const MyOrder = () => {
                         </div>
                     </div>
 
-                    <div className='col-8 content'>ok</div>
+                    <div className='col-8 content'>
+                        <div className='top'>
+                            <div className={`item ${selectedItem === 'TatCaDon' ? 'active' : ''}`} onClick={() => setSelectedItem('TatCaDon')}>Tất cả đơn</div>
+
+                            <div className={`item ${selectedItem === 'ChoVanChuyen' ? 'active' : ''}`} onClick={() => setSelectedItem('ChoVanChuyen')}>Chờ vận chuyển</div>
+                            <div className={`item ${selectedItem === 'DangGiao' ? 'active' : ''}`} onClick={() => setSelectedItem('DangGiao')}>Đang giao</div>
+                            <div className={`item ${selectedItem === 'HoanThanh' ? 'active' : ''}`} onClick={() => setSelectedItem('HoanThanh')}>Hoàn thành</div>
+                            <div className={`item ${selectedItem === 'DonHuy' ? 'active' : ''}`} onClick={() => setSelectedItem('DonHuy')}>Đơn hủy</div>
+                        </div>
+
+                        <div className='bottom'>
+                            {renderOrderComponent()}
+                        </div>
+                    </div>
                 </div>
 
             </div>

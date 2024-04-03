@@ -5,7 +5,8 @@ import {
     createOrderApi, getCartByUseIdApi, addCartApi,
     deleteitemCartApi, changeAmountApi, checkOutOrderApi,
     getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
-    getAllOrderApi, confirmStatusOrderApi, getChoXacNhanApi, filterStatusOderApi
+    getAllOrderApi, confirmStatusOrderApi, getChoXacNhanApi, filterStatusOderApi,
+    addReviewApi
 } from "../../services/userService";
 
 export const createOrder = (data) => {
@@ -387,3 +388,36 @@ export const filterStatusOder = (statusAdmin) => {
         }
     };
 };
+
+//đánh giá product
+
+export const addReview = (productId, data) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await addReviewApi(token, productId, data);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.REVIEW_PRODUCT_FAILED,
+                });
+                toast.error(response.message || response.errMessage);
+            }
+            else {
+                dispatch({
+                    type: actionTypes.REVIEW_PRODUCT_SUCCESS,
+                })
+                toast.success('Đã đánh giá sản phẩm')
+            }
+
+        } catch (e) {
+            dispatch({
+                type: actionTypes.REVIEW_PRODUCT_FAILED,
+                payload: e.response ? e.response.message : e.message
+            }); console.error('Error:', e);
+        }
+
+    }
+
+}

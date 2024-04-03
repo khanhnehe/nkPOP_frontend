@@ -370,6 +370,16 @@ const filterStatusOderApi = (token, statusAdmin) => {
         }
     })
 }
+
+
+const addReviewApi = (token, productId, data) => {
+    return axios.post(`/addReview/${productId}`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
 export {
     loginApiService,
     // phân loại outseding
@@ -413,5 +423,6 @@ export {
     confirmStatusOrderApi,
     //lọc orde
     getChoXacNhanApi,
-    filterStatusOderApi
+    filterStatusOderApi,
+    addReviewApi
 }

@@ -15,7 +15,7 @@ const initialState = {
     //product
     allProduct: [],
     detailProduct: null,
-    searchProduct: [],
+    listSearchProduct: [],
     makeupProduct: [],
     skinProduct: [],
     hairProduct: [],
@@ -197,13 +197,13 @@ const adminReducer = (state = initialState, action) => {
         case actionTypes.GET_SEARCH_PRODUCT_SUCCESS:
             return {
                 ...state,
-                searchProduct: action.payload.product
+                listSearchProduct: action.payload.product
             };
 
         case actionTypes.GET_SEARCH_PRODUCT_FAILED:
             return {
                 ...state,
-                searchProduct: null,
+                listSearchProduct: [],
             };
 
         //price

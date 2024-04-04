@@ -221,13 +221,7 @@ const detailProductApi = (token, productId) => {
     });
 }
 
-const searchProductApi = (token, query) => {
-    return axios.get(`/search?q=${query}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
-}
+
 //makeu
 const makeupProductApi = (token, categoryId) => {
     return axios.get(`/admin/productCategory/${categoryId}`, {
@@ -390,7 +384,16 @@ const searchOrderApi = (token, search) => {
 
     })
 }
-
+const searchProductApi = (token, searchproduct) => {
+    return axios.get(`/search`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+        params: {
+            searchproduct: searchproduct
+        }
+    });
+}
 export {
     loginApiService,
     // phân loại outseding

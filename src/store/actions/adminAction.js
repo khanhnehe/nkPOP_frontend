@@ -762,13 +762,13 @@ export const detailProduct = (productId) => {
 };
 
 //search product
-export const searchProduct = (query) => {
+export const searchProduct = (searchproduct) => {
     return async (dispatch, getState) => {
         try {
             const state = getState();
             const token = state.user.accessToken;
             // Log giá trị của token ra console
-            const response = await searchProductApi(token, query);
+            const response = await searchProductApi(token, searchproduct);
 
             if (response.errCode !== 0) {
                 dispatch({

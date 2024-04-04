@@ -7,7 +7,7 @@ import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder, filterStatusOder } from '../../../store/actions/productAction';
+import { getAllOrder, confirmStatusOrder, filterStatusOder, searchOrder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
@@ -17,9 +17,21 @@ const OrderCancel = () => {
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
     const listOrders = useSelector(state => state.admin.listStatusOfOrder)
+    const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
+
+    const [search, setSearch] = useState('');
 
     const fetchChoXacNhan = async () => {
         await dispatch(filterStatusOder('Đơn hàng bị hủy'))
+    }
+
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value);
+    };
+    const handleSearchSubmit = async () => {
+        await dispatch(searchOrder(search))
+
+
     }
 
     const cancelOrder = async (orderId) => {
@@ -60,10 +72,14 @@ const OrderCancel = () => {
 
                         <div className='top row'>
                             <SidebarOrder />
-
                             <div className='sreach col-7'>
-                                <input type='text' className="input col-9" />
-                                <div className='find'>Tìm kiếm</div>
+                                <input type='text'
+                                    placeholder='Nhập tên sản phẩm cần tìm'
+                                    className="input col-9"
+                                    value={search}
+                                    onChange={(event) => handleSearchChange(event,)} />
+
+                                <div className='find' onClick={handleSearchSubmit}>Tìm kiếm</div>
                             </div>
 
                             <div className='date col-5'>
@@ -93,7 +109,7 @@ const OrderCancel = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listOrders && listOrders.map(order => {
+                                    {(search ? listSearchOrder : listOrders).map(order => {
                                         console.log(order.cart);
                                         return (
                                             <tr key={order._id}>
@@ -116,7 +132,7 @@ const OrderCancel = () => {
                                                     ))}
                                                 </td>
                                                 <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                                                <td className='status'>{order.statusAdmin}</td>
+                                                <td className='status' style={{ color: '#c50013' }}>{order.statusAdmin}</td>
                                                 <td>
                                                     {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}
                                                     {order.statusAdmin === 'Đơn hàng đang được giao'

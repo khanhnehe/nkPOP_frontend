@@ -106,7 +106,7 @@ const OrderHoanThanh = () => {
                                                     ))}
                                                 </td>
                                                 <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                                                <td className='status'>{order.statusAdmin}</td>
+                                                <td className='status' >{order.statusAdmin}</td>
                                                 {/* <td>
                                                     <div className='action-giao' onClick={() => handleOrderHoanThanh(order._id)}>Xác nhận đã giao</div>
                                                 </td> */}

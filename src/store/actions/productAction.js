@@ -6,7 +6,7 @@ import {
     deleteitemCartApi, changeAmountApi, checkOutOrderApi,
     getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
     getAllOrderApi, confirmStatusOrderApi, getChoXacNhanApi, filterStatusOderApi,
-    addReviewApi
+    addReviewApi, searchOrderApi
 } from "../../services/userService";
 
 export const createOrder = (data) => {
@@ -414,6 +414,38 @@ export const addReview = (productId, data) => {
         } catch (e) {
             dispatch({
                 type: actionTypes.REVIEW_PRODUCT_FAILED,
+                payload: e.response ? e.response.message : e.message
+            }); console.error('Error:', e);
+        }
+
+    }
+
+}
+
+export const searchOrder = (search) => {
+    return async (dispatch, getState) => {
+        try {
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await searchOrderApi(token, search);
+
+            if (response.errCode !== 0) {
+                dispatch({
+                    type: actionTypes.SEARCH_ORDERS_FAILED,
+                });
+            }
+            else {
+                dispatch({
+                    type: actionTypes.SEARCH_ORDERS_SUCCESS,
+                    payload: {
+                        order: response.order
+                    }
+                })
+            }
+
+        } catch (e) {
+            dispatch({
+                type: actionTypes.SEARCH_ORDERS_FAILED,
                 payload: e.response ? e.response.message : e.message
             }); console.error('Error:', e);
         }

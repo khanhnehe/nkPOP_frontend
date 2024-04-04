@@ -79,7 +79,7 @@ const OrderGiao = () => {
                                     <div className='bottom'>
                                         <div className='tien'>Thành tiền:   {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>|
 
-                                        <div className='status-giao' style={{ color: "#00c469" }}>{order.statusUser}</div>
+                                        <div className='status-giao' style={{ color: "#00c469", fontWeight: '600' }}>{order.statusUser}</div>
 
                                         {/* <div className='action-yes' onClick={() => confirmOrder(order._id)}>Xác nhận đã nhận hàng</div> */}
 

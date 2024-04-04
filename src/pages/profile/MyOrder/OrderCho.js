@@ -79,7 +79,7 @@ const OrderCho = () => {
                                     <div className='bottom'>
                                         <div className='tien'>Thành tiền:   {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>|
 
-                                        <div className='status'>{order.statusUser}</div>
+                                        <div className='status' style={{ color: "#ffbf00" }}>{order.statusUser}</div>
 
                                         <div className='action-yes' onClick={() => cancelOrder(order._id)}>Hủy Đơn</div>
 

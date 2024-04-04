@@ -10,6 +10,7 @@ import logo1 from "../../assets/logo.png"
 import { Link, NavLink } from 'react-router-dom';
 import { GrFormNext } from "react-icons/gr";
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -26,6 +27,7 @@ const CheckOut = () => {
     const orderValues = useSelector(state => state.admin.orderValues);
     const freeShip = useSelector(state => state.admin.freeShip);
     const listcheckOutOrder = useSelector(state => state.admin.checkOutOrder);
+    const navigate = useNavigate();
 
     const fetchcheckOut = async () => {
         try {
@@ -144,11 +146,15 @@ const CheckOut = () => {
                 cart
             };
             await dispatch(checkOutOrder(orderData));
+            navigate('/profile/my-order/');
+
 
         } catch (e) {
             console.log(e)
         }
     }
+
+
     useEffect(() => {
         getValuesOfOrder()
         fetchcheckOut(id);

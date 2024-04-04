@@ -13,7 +13,7 @@ const initialState = {
     allType: [],
     productType: [],
     //product
-    allProduct: [],  // DanLIST sản phẩm, ban đầu là một mảng trống
+    allProduct: [],
     detailProduct: null,
     searchProduct: [],
     makeupProduct: [],
@@ -26,7 +26,9 @@ const initialState = {
     orderValues: [],
     freeShip: [],
     listAllOrders: [],
-    listStatusOfOrder: []
+    listStatusOfOrder: [],
+    //search order
+    listSearchOrder: []
 
 
 };
@@ -305,6 +307,19 @@ const adminReducer = (state = initialState, action) => {
             return {
                 ...state,
                 listStatusOfOrder: [],
+            };
+
+        //search order 
+        case actionTypes.SEARCH_ORDERS_SUCCESS:
+            return {
+                ...state,
+                listSearchOrder: action.payload.order
+            };
+
+        case actionTypes.SEARCH_ORDERS_FAILED:
+            return {
+                ...state,
+                listSearchOrder: [],
             };
 
 

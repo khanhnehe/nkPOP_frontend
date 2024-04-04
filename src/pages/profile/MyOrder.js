@@ -29,7 +29,7 @@ const MyOrder = () => {
             case 'DonHuy':
                 return <CancelOrder />;
             default:
-                return <OrderCho />;
+                return <AllOrder />;
         }
     };
 

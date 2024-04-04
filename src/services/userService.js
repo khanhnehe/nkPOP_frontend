@@ -379,6 +379,17 @@ const addReviewApi = (token, productId, data) => {
         }
     })
 }
+const searchOrderApi = (token, search) => {
+    return axios.get(`/admin/searchOrder`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+        params: {
+            search: search
+        }
+
+    })
+}
 
 export {
     loginApiService,
@@ -424,5 +435,6 @@ export {
     //lọc orde
     getChoXacNhanApi,
     filterStatusOderApi,
-    addReviewApi
+    addReviewApi,
+    searchOrderApi
 }

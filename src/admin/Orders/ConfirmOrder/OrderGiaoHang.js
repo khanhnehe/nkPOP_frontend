@@ -106,7 +106,7 @@ const OrderGiaoHang = () => {
                                                     ))}
                                                 </td>
                                                 <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                                                <td className='status'>{order.statusAdmin}</td>
+                                                <td className='status' style={{ color: '#00c469' }}>{order.statusAdmin}</td>
                                                 <td>
                                                     <div className='action-giao' onClick={() => handleOrderGiaoHang(order._id)}>Xác nhận đã giao</div>
                                                 </td>

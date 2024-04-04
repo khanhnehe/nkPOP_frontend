@@ -23,7 +23,7 @@ const AllOrder = () => {
             case 'Đã giao thành công':
                 return '#1da1f2';
             default:
-                return 'black'; // màu mặc định nếu không khớp với bất kỳ trạng thái nào
+                return '#ffbf00'; // màu mặc định nếu không khớp với bất kỳ trạng thái nào
         }
     };
 
@@ -83,7 +83,7 @@ const AllOrder = () => {
                                         <div className='tien'>Thành tiền:  {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>|
 
 
-                                        <div className='status-giao' style={{ color: getColor(order.statusUser) }}>{order.statusUser}</div>
+                                        <div className='status-giao' style={{ color: getColor(order.statusUser), fontWeight: '600' }}>{order.statusUser}</div>
                                     </div>
 
                                 </div>

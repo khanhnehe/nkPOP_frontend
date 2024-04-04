@@ -7,7 +7,7 @@ import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder, getChoXacNhan, filterStatusOder } from '../../../store/actions/productAction';
+import { confirmStatusOrder, searchOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
@@ -17,9 +17,22 @@ const OrderChoXacNhan = () => {
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
     const listOrders = useSelector(state => state.admin.listStatusOfOrder)
+    const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
+
+    const [search, setSearch] = useState('');
 
     const fetchChoXacNhan = async () => {
         await dispatch(filterStatusOder('Chờ xác nhận'))
+    }
+
+
+    const handleSearchChange = (event) => {
+        setSearch(event.target.value);
+    };
+    const handleSearchSubmit = async () => {
+        await dispatch(searchOrder(search))
+
+
     }
 
     const cancelOrder = async (orderId) => {
@@ -42,6 +55,8 @@ const OrderChoXacNhan = () => {
         }
     }
 
+
+
     const handleRefresh = () => {
         fetchChoXacNhan()
     }
@@ -62,9 +77,15 @@ const OrderChoXacNhan = () => {
                             <SidebarOrder />
 
                             <div className='sreach col-7'>
-                                <input type='text' className="input col-9" />
-                                <div className='find'>Tìm kiếm</div>
+                                <input type='text'
+                                    placeholder='Nhập tên sản phẩm cần tìm'
+                                    className="input col-9"
+                                    value={search}
+                                    onChange={(event) => handleSearchChange(event,)} />
+
+                                <div className='find' onClick={handleSearchSubmit}>Tìm kiếm</div>
                             </div>
+
 
                             <div className='date col-5'>
                                 <div className='text'>Ngày đặt hàng:</div>
@@ -93,66 +114,69 @@ const OrderChoXacNhan = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listOrders && listOrders.map(order => {
-                                        console.log(order.cart);
-                                        return (
-                                            <tr key={order._id}>
-                                                <td>{order.orderCode}</td>
-                                                <td>
-                                                    {order.cart && order.cart.map((item, index) => (
-                                                        <div key={index} className='product-info'>
-                                                            <img src={item.image} alt={item.name} className='product-image' />
-                                                            {/* tên, variant, amount */}
-                                                            <div className='product-info-name'>
-                                                                <span className='product-name'>{item.name}</span>
-                                                                {item.variant &&
-                                                                    <span className='product-variant'>{item.name_variant}
-                                                                    </span>}
+                                    {(search ? listSearchOrder : listOrders)
+                                        .filter(order => order.statusAdmin === 'Chờ xác nhận')
 
-                                                                <span className='amount'>x {item.amount} </span>
+                                        .map(order => {
+                                            console.log(order.cart);
+                                            return (
+                                                <tr key={order._id}>
+                                                    <td>{order.orderCode}</td>
+                                                    <td>
+                                                        {order.cart && order.cart.map((item, index) => (
+                                                            <div key={index} className='product-info'>
+                                                                <img src={item.image} alt={item.name} className='product-image' />
+                                                                {/* tên, variant, amount */}
+                                                                <div className='product-info-name'>
+                                                                    <span className='product-name'>{item.name}</span>
+                                                                    {item.variant &&
+                                                                        <span className='product-variant'>{item.name_variant}
+                                                                        </span>}
+
+                                                                    <span className='amount'>x {item.amount} </span>
+                                                                </div>
+
                                                             </div>
+                                                        ))}
+                                                    </td>
+                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                                    <td className='status' style={{ color: '#ffbf00' }}>{order.statusAdmin}</td>
+                                                    <td>
+                                                        {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}
+                                                        {order.statusAdmin === 'Đơn hàng đang được giao'
+                                                            ? (
+                                                                // đúng hiện 'Đã Xác Nhận'
+                                                                <div className='action-yes'>Đã Xác Nhận</div>
+                                                            )
+                                                            : (
+                                                                // sai hiện 'Xác Nhận'
+                                                                <div onClick={() => OrderChoXacNhan(order._id)} className={order.statusAdmin === 'Đơn hàng bị hủy'
+                                                                    ?
+                                                                    'action-yes disabled'
+                                                                    :
+                                                                    'action-yes'}>Xác Nhận</div>
+                                                            )}
 
-                                                        </div>
-                                                    ))}
-                                                </td>
-                                                <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                                                <td className='status'>{order.statusAdmin}</td>
-                                                <td>
-                                                    {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}
-                                                    {order.statusAdmin === 'Đơn hàng đang được giao'
-                                                        ? (
-                                                            // đúng hiện 'Đã Xác Nhận'
-                                                            <div className='action-yes'>Đã Xác Nhận</div>
-                                                        )
-                                                        : (
-                                                            // sai hiện 'Xác Nhận'
-                                                            <div onClick={() => OrderChoXacNhan(order._id)} className={order.statusAdmin === 'Đơn hàng bị hủy'
-                                                                ?
-                                                                'action-yes disabled'
-                                                                :
-                                                                'action-yes'}>Xác Nhận</div>
-                                                        )}
-
-                                                    {/*nếu là 'Đơn hàng bị hủy' */}
-                                                    {order.statusAdmin === 'Đơn hàng bị hủy'
-                                                        ? (
-                                                            // đúng
-                                                            <div className='action' >Đã hủy Đơn</div>
-                                                        )
-                                                        : (
-                                                            // sai, statusAdmin là ''
-                                                            <div onClick={() => cancelOrder(order._id)} className={order.statusAdmin === 'Đơn hàng đang được giao'
-                                                                ?
-                                                                // tiếp tực Nếu đúng, 'disabled' để vô hiệu div và hiện Hủy đon
-                                                                'action disabled'
-                                                                :
-                                                                'action'}>Hủy Đơn</div>
-                                                        )}
-                                                </td>
-                                                <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
-                                            </tr>
-                                        );
-                                    })}
+                                                        {/*nếu là 'Đơn hàng bị hủy' */}
+                                                        {order.statusAdmin === 'Đơn hàng bị hủy'
+                                                            ? (
+                                                                // đúng
+                                                                <div className='action' >Đã hủy Đơn</div>
+                                                            )
+                                                            : (
+                                                                // sai, statusAdmin là ''
+                                                                <div onClick={() => cancelOrder(order._id)} className={order.statusAdmin === 'Đơn hàng đang được giao'
+                                                                    ?
+                                                                    // tiếp tực Nếu đúng, 'disabled' để vô hiệu div và hiện Hủy đon
+                                                                    'action disabled'
+                                                                    :
+                                                                    'action'}>Hủy Đơn</div>
+                                                            )}
+                                                    </td>
+                                                    <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
+                                                </tr>
+                                            );
+                                        })}
 
                                 </tbody>
                             </table>

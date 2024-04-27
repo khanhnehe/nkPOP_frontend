@@ -7,7 +7,7 @@ import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder, filterStatusOder } from '../../../store/actions/productAction';
+import { getAllOrder, searchOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
@@ -17,24 +17,27 @@ const OrderHoanThanh = () => {
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
     const listOrders = useSelector(state => state.admin.listStatusOfOrder)
+    const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
+
+    const [search, setSearch] = useState('');
 
     const fetchChoXacNhan = async () => {
         await dispatch(filterStatusOder('Đã giao thành công'))
     }
 
-    // const handleOrderHoanThanh = async (orderId) => {
-    //     try {
-    //         await dispatch(confirmStatusOrder(orderId, "receive"))
-    //         fetchChoXacNhan()
-
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     const handleRefresh = () => {
         fetchChoXacNhan()
     }
+    const handleSearchChange = async (event) => {
+        setSearch(event.target.value);
+        await dispatch(searchOrder(search))
+    };
+
+    const handleSearchSubmit = async () => {
+        await dispatch(searchOrder(search))
+    }
+
 
     useEffect(() => {
         fetchChoXacNhan();
@@ -52,8 +55,13 @@ const OrderHoanThanh = () => {
                             <SidebarOrder />
 
                             <div className='sreach col-7'>
-                                <input type='text' className="input col-9" />
-                                <div className='find'>Tìm kiếm</div>
+                                <input type='text'
+                                    placeholder='Nhập tên sản phẩm cần tìm'
+                                    className="input col-9"
+                                    value={search}
+                                    onChange={(event) => handleSearchChange(event,)} />
+
+                                <div className='find' onClick={handleSearchSubmit}>Tìm kiếm</div>
                             </div>
 
                             <div className='date col-5'>
@@ -83,37 +91,41 @@ const OrderHoanThanh = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listOrders && listOrders.map(order => {
-                                        console.log(order.cart);
-                                        return (
-                                            <tr key={order._id}>
-                                                <td>{order.orderCode}</td>
-                                                <td>
-                                                    {order.cart && order.cart.map((item, index) => (
-                                                        <div key={index} className='product-info'>
-                                                            <img src={item.image} alt={item.name} className='product-image' />
-                                                            {/* tên, variant, amount */}
-                                                            <div className='product-info-name'>
-                                                                <span className='product-name'>{item.name}</span>
-                                                                {item.variant &&
-                                                                    <span className='product-variant'>{item.name_variant}
-                                                                    </span>}
+                                    {(search ? listSearchOrder : listOrders)
+                                        .filter(order => order.statusAdmin === 'Đã giao thành công')
 
-                                                                <span className='amount'>x {item.amount} </span>
+
+                                        .map(order => {
+                                            console.log(order.cart);
+                                            return (
+                                                <tr key={order._id}>
+                                                    <td>{order.orderCode}</td>
+                                                    <td>
+                                                        {order.cart && order.cart.map((item, index) => (
+                                                            <div key={index} className='product-info'>
+                                                                <img src={item.image} alt={item.name} className='product-image' />
+                                                                {/* tên, variant, amount */}
+                                                                <div className='product-info-name'>
+                                                                    <span className='product-name'>{item.name}</span>
+                                                                    {item.variant &&
+                                                                        <span className='product-variant'>{item.name_variant}
+                                                                        </span>}
+
+                                                                    <span className='amount'>x {item.amount} </span>
+                                                                </div>
+
                                                             </div>
-
-                                                        </div>
-                                                    ))}
-                                                </td>
-                                                <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
-                                                <td className='status' >{order.statusAdmin}</td>
-                                                {/* <td>
+                                                        ))}
+                                                    </td>
+                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                                    <td className='status' >{order.statusAdmin}</td>
+                                                    {/* <td>
                                                     <div className='action-giao' onClick={() => handleOrderHoanThanh(order._id)}>Xác nhận đã giao</div>
                                                 </td> */}
-                                                <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
-                                            </tr>
-                                        );
-                                    })}
+                                                    <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
+                                                </tr>
+                                            );
+                                        })}
 
                                 </tbody>
                             </table>

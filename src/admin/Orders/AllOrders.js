@@ -13,6 +13,7 @@ import { FcCalendar } from "react-icons/fc";
 import { getAllOrder, searchOrder } from '../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
+import { IoSearch } from 'react-icons/io5';
 
 
 const AllOrders = () => {
@@ -28,8 +29,10 @@ const AllOrders = () => {
         await dispatch(getAllOrder())
     }
 
-    const handleSearchChange = (event) => {
+    const handleSearchChange = async (event) => {
         setSearch(event.target.value);
+        await dispatch(searchOrder(search))
+
     };
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
@@ -76,7 +79,7 @@ const AllOrders = () => {
                                     value={search}
                                     onChange={(event) => handleSearchChange(event,)} />
 
-                                <div className='find' onClick={handleSearchSubmit}>Tìm kiếm</div>
+                                <div className='find' onClick={handleSearchSubmit}><IoSearch /></div>
                             </div>
 
                             <div className='date col-5'>

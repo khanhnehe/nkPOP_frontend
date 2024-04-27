@@ -24,6 +24,8 @@ import BrandPage from "./pages/Type_Brand_page/BrandPage";
 import InfoProduct from "./pages/IngfoProfuct/InfoProduct";
 import CartOrder from "./pages/Cart/CartOrder";
 import CheckOut from "./pages/Cart/CheckOut";
+import ProductSearch from "./components/ProductSearch";
+
 
 function App() {
   return (
@@ -47,6 +49,7 @@ function App() {
               <Route path={path.BRAND_PAGE} element={<BrandPage />} />
               <Route path={path.INFO_PRODUCT} element={<InfoProduct />} />
               <Route path={path.CART} element={<CartOrder />} />
+              <Route path={path.SEARCH_PRODUCT} element={<ProductSearch />} />
             </Routes>
             <Footer />
           </Fragment>

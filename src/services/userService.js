@@ -394,6 +394,15 @@ const searchProductApi = (token, searchproduct) => {
         }
     });
 }
+
+const getOrderByUserIdApi =(token, userId)=>{
+    return axios.get(`/getOrderByUserId?userId=${userId}`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
 export {
     loginApiService,
     // phân loại outseding
@@ -439,5 +448,6 @@ export {
     getChoXacNhanApi,
     filterStatusOderApi,
     addReviewApi,
-    searchOrderApi
+    searchOrderApi,
+    getOrderByUserIdApi
 }

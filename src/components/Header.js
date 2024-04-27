@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TbLogout } from "react-icons/tb";
 import { useAlert } from 'react-alert'
 import line from "../assets/line-top.webp";
+import { searchProduct } from '../store/actions/adminAction';
 
 const Header = () => {
     const [openMenu, setOpenMenu] = useState(false);
@@ -20,7 +21,20 @@ const Header = () => {
 
     const [firstName, setFirstName] = useState(userInfo ? userInfo.firstName : '');
     const [image, setImage] = useState(userInfo ? userInfo.image : '');
+    const listSearchProduct = useSelector(state => state.admin.listSearchProduct)
 
+    const [searchproduct, setSearchProduct] = useState('');
+
+    const handleSearchChange = (event) => {
+        setSearchProduct(event.target.value);
+    };
+    const handleSearchSubmit = async () => {
+        await dispatch(searchProduct(searchproduct));
+        setSearchProduct('');
+        navigate("/search-product");
+
+
+    }
     // Sử dụng useEffect để cập nhật firstName khi userInfo thay đổi
     useEffect(() => {
         setFirstName(userInfo ? userInfo.firstName : '');
@@ -70,8 +84,12 @@ const Header = () => {
                     <div className='header-left'>
                         <div className='search'>
                             <div className='search-group'>
-                                <input className='input-search' type='text' placeholder='Search...' />
-                                <button className='icon-search'>
+                                <input className='input-search' type='text' placeholder='Nhập tên sản phẩm cần tìm'
+                                    value={searchproduct}
+                                    onChange={(event) => handleSearchChange(event,)}
+                                />
+
+                                <button className='icon-search' onClick={handleSearchSubmit}>
                                     <IoSearch />
                                 </button>
                             </div>

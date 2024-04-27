@@ -5,7 +5,6 @@ import './HomeAdmin.scss'
 import Widget from '../../admin/Widget/Widget';
 import Chart from "../../components/chart/Chart";
 import Featured from "../../components/featured/Featured";
-import Listht from '../../components/listht/Listht';
 
 const HomeAdmin = () => {
     return (
@@ -26,7 +25,6 @@ const HomeAdmin = () => {
                     </div>
                     <div className='list-container'>
                         <div className='list-Title'>Đơn hàng đã giao thành công</div>
-                        <Listht />
                     </div>
                 </div>
             </div>

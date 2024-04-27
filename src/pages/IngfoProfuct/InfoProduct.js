@@ -291,16 +291,17 @@ const InfoProduct = () => {
                             {infoProduct?.reviews?.map((review, index) => {
                                 return (
                                     <div className='danh-gia mt-4'>
-                                        <div key={index} className=''>
+                                        <div key={review} className=''>
                                             <div className='user-info'>
                                                 <img className='user-image' src={review.user.image} />
                                                 <div className='user-name'>{review.user.firstName}</div>
+
                                             </div>
                                             <div className='cmt-info'>
                                                 <div className='rating'>{review.rating} <IoIosStar className='icon-star' /> </div>
+                                                {review.variantName && <span className='variantName mb-2'>{review.variantName}</span>}
                                                 <div className='comment'>{review.comment}</div>
-                                                <div className='created-at'>{new Date(review.createdAt).toLocaleDateString()}</div>
-                                            </div>
+                                                <div className='created-at'>{new Date(review.createdAt).toLocaleString()}</div>                                            </div>
 
                                         </div>
                                     </div>

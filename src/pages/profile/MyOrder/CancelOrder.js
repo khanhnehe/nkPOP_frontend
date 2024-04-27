@@ -3,40 +3,38 @@ import "./OrderCho.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder, filterStatusOder } from '../../../store/actions/productAction';
+import { getOrderByUserId, confirmStatusOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
-import { NavLink } from 'react-router-dom';
+import { NavLink , useParams} from 'react-router-dom';
 
 
 const CancelOrder = () => {
+    const { id } = useParams();
 
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.listStatusOfOrder)
+
+    const listOrders = useSelector(state => state.admin.listOrderById)
 
     const fetchChoXacNhan = async () => {
-        await dispatch(filterStatusOder('Đơn hàng bị hủy'))
+        await dispatch(getOrderByUserId(id))
     }
 
-    const cancelOrder = async (orderId) => {
-        try {
-            await dispatch(confirmStatusOrder(orderId, "cancel"))
-            fetchChoXacNhan()
+    // const cancelOrder = async (orderId) => {
+    //     try {
+    //         await dispatch(confirmStatusOrder(orderId, "cancel"))
+    //         fetchChoXacNhan()
 
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-
-
-    const handleRefresh = () => {
-        fetchChoXacNhan()
-    }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     useEffect(() => {
         fetchChoXacNhan();
-    }, []);
+    }, [id]);
+
+        const cancelledOrders = listOrders.filter(order => order.statusUser === 'Đơn hàng bị hủy');
 
     return (
         <>
@@ -46,9 +44,11 @@ const CancelOrder = () => {
                     <div className='my-order'>
 
 
-                        {listOrders && listOrders.map(order => {
+                    {cancelledOrders && cancelledOrders.map(order => {
                             return (
                                 <div className='boc' key={order._id}>
+                                    <div className='code'>Mã đơn: {order.orderCode}</div>
+
                                     {order.cart && order.cart.map((item, index) => (
                                         <div key={index} className='product-info '>
 
@@ -79,7 +79,7 @@ const CancelOrder = () => {
                                     <div className='bottom'>
                                         <div className='tien'>Thành tiền:   {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>|
 
-                                        <div className='status' style={{ color: "#c50013" }}>{order.statusUser}</div>
+                                        <div className='status-huy'>{order.statusUser}</div>
 
                                     </div>
 

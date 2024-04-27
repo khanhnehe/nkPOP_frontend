@@ -202,6 +202,10 @@ const actionTypes = Object.freeze({
     SEARCH_ORDERS_SUCCESS: "SEARCH_ORDERS_SUCCESS",
     SEARCH_ORDERS_FAILED: "SEARCH_ORDERS_FAILED",
 
+    //
+    GET_ORDERS_BY_ID_SUCCESS: "GET_ORDERS_BY_ID_SUCCESS",
+
+
 });
 
 export default actionTypes;

@@ -7,52 +7,62 @@
           // border-radius: 5px;
 
           .boc {
-            box-shadow: 3px 2px 10px 0px rgba(135, 135, 135, 0.47);
-            border-radius: 5px;
+            box-shadow      : 3px 2px 10px 0px rgba(135, 135, 135, 0.47);
+            border-radius   : 5px;
             background-color: rgb(255, 255, 255);
-            margin-bottom: 20px;
-            border: 1px solid #ddd2d2;
+            margin-bottom   : 20px;
+            border          : 1px solid #ddd2d2;
+
+            .code {
+              font-size  : 12px;
+              font-weight: 700;
+              text-align : right;
+              padding    : 8px 32px;
+              color      : #909090;
+            }
 
             .product-info {
-              display: flex;
-              gap: 10px;
-              border-bottom: 1px solid #d6d4d4;
-              padding: 5px;
+              display        : flex;
+              gap            : 10px;
+              border-bottom  : 1px solid #d6d4d4;
+              padding        : 5px;
               justify-content: flex-start;
-              flex-direction: column;
+              flex-direction : column;
 
 
               .product-image {
-                width: 80px;
+                width : 80px;
                 height: auto;
               }
 
               .product-info-name {
                 display: flex;
 
+
+
                 .up-info {
-                  display: flex;
-                  gap: 5px;
+                  display      : flex;
+                  gap          : 5px;
                   align-content: stretch;
-                  align-items: start;
+                  align-items  : start;
 
                   .name {
                     display: grid;
 
                     .product-name {
                       font-weight: 500;
-                      font-size: 14px;
+                      font-size  : 14px;
                     }
 
                     .product-variant {
-                      width: fit-content;
-                      font-weight: 500;
-                      font-size: 9px;
-                      color: #ffffff;
+                      width           : fit-content;
+                      font-weight     : 500;
+                      font-size       : 9px;
+                      color           : #ffffff;
                       /* border       : 1px solid #a5d651; */
                       background-color: #a5d651;
-                      padding: 1px 8px;
-                      border-radius: 10px;
+                      padding         : 1px 8px;
+                      border-radius   : 10px;
                     }
                   }
 
@@ -62,19 +72,19 @@
 
 
                 .down-info {
-                  display: grid;
+                  display        : grid;
                   justify-content: space-around;
-                  justify-items: end;
+                  justify-items  : end;
 
                   .price {
-                    color: #828282;
-                    font-size: 11px;
+                    color          : #828282;
+                    font-size      : 11px;
                     text-decoration: line-through;
 
                   }
 
                   .price-sale {
-                    color: brown;
+                    color    : brown;
                     font-size: 14px;
 
                   }
@@ -87,14 +97,14 @@
 
                 //order hoàn thành
                 .btn-review {
-                  cursor: pointer;
-                  padding: 2px 9px;
+                  cursor          : pointer;
+                  padding         : 2px 9px;
                   background-color: #a5d651;
-                  color: white;
-                  font-size: 14px;
-                  margin-top: 6px;
-                  border-radius: 5px;
-                  font-weight: 500;
+                  color           : white;
+                  font-size       : 14px;
+                  margin-top      : 6px;
+                  border-radius   : 5px;
+                  font-weight     : 500;
 
                   &:hover {
                     background-color: #6fb000;
@@ -110,34 +120,76 @@
           }
 
           .bottom {
-            background-color: #f2f1f1;
-            display: flex;
-            padding: 10px 32px;
+            background-color: #f8f8f8;
+            display         : flex;
+            padding         : 10px 32px;
             /* border-radius: 0px 0px 5px 5px; */
-            gap: 40px;
-            justify-content: flex-end;
+            gap             : 40px;
+            justify-content : flex-end;
 
             .tien {
-              color: brown;
-              font-size: 14px;
+              color      : brown;
+              font-size  : 14px;
               font-weight: 600;
             }
 
-            .status {
-              color: #000;
-              font-size: 16px;
-              font-weight: 600;
+            //status
+            .status-tong{
+              font-size       : 16px;
+              font-weight     : 500;
+              border-radius   : 50px;
+              padding         : 0px 8px;
+            }
+
+            .status-cho {
+              font-size       : 16px;
+              font-weight     : 500;
+              border-radius   : 50px;
+              margin-bottom   : 4px;
+              padding         : 0px 8px;
+              color           : #65990e;
+              background-color: #e9ffc5;
+            }
+
+            .status-huy {
+              font-size       : 16px;
+              font-weight     : 500;
+              border-radius   : 50px;
+              margin-bottom   : 4px;
+              padding         : 0px 8px;
+              color           : #dc3545;
+              background-color: #f6c4c4;
+            }
+
+            .status-ht {
+              font-size       : 16px;
+              font-weight     : 500;
+              border-radius   : 50px;
+              margin-bottom   : 0px;
+              padding         : 0px 8px;
+              color           : #0a8db3;
+              background-color: #e2fbff;
+            }
+
+            .status-giao {
+              font-size       : 16px;
+              font-weight     : 500;
+              border-radius   : 50px;
+              margin-bottom   : 0px;
+              padding         : 0px 8px;
+              color           : #8912d5;
+              background-color: #ffe2ff;
             }
 
             .action-yes {
-              cursor: pointer;
+              cursor          : pointer;
               background-color: #a5d651;
-              border-radius: 5px;
-              padding: 3px 8px;
-              color: white;
-              font-weight: 600;
-              font-size: 15px;
-              margin-bottom: 2px;
+              border-radius   : 5px;
+              padding         : 3px 8px;
+              color           : white;
+              font-weight     : 600;
+              font-size       : 15px;
+              margin-bottom   : 2px;
 
               &:hover {
                 background-color: #8ec82b;
@@ -152,27 +204,27 @@
       }
     }
 
-   
-      .review-start {
-        display: flex;
 
-        .icon-star {
-          color: #ffc107;
-          font-size: 27px;
-          margin-top: 3px;
-          margin-left: 10px;
-        }
+    .review-start {
+      display: flex;
+
+      .icon-star {
+        color      : #ffc107;
+        font-size  : 27px;
+        margin-top : 3px;
+        margin-left: 10px;
       }
-    
+    }
+
 
 
     .btn-modal {
-      cursor: pointer;
-      border: 1px solid #a5d651;
+      cursor          : pointer;
+      border          : 1px solid #a5d651;
       background-color: #a5d651;
-      border-radius: 5px;
-      padding: 6px 8px;
-      font-size: 16px;
+      border-radius   : 5px;
+      padding         : 6px 8px;
+      font-size       : 16px;
 
       &:hover {
         background-color: #8ec82b;
@@ -181,9 +233,9 @@
 
 
       .anh-sao {
-        width: 20px;
+        width     : 20px;
         /* Thay đổi chiều rộng */
-        height: 20px;
+        height    : 20px;
         /* Thay đổi chiều cao */
         object-fit: contain;
       }

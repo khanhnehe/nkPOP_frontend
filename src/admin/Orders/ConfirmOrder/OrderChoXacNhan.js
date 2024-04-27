@@ -26,9 +26,11 @@ const OrderChoXacNhan = () => {
     }
 
 
-    const handleSearchChange = (event) => {
+    const handleSearchChange = async (event) => {
         setSearch(event.target.value);
+        await dispatch(searchOrder(search))
     };
+
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
 

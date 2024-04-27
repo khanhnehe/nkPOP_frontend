@@ -68,8 +68,10 @@ const Product = () => {
     };
 
 
-    const handleSearchChange = (event) => {
+    const handleSearchChange = async (event) => {
         setSearch(event.target.value);
+        await dispatch(searchProduct(searchproduct))
+
     };
     const handleSearchSubmit = async () => {
         await dispatch(searchProduct(searchproduct))
@@ -124,7 +126,7 @@ const Product = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {((searchproduct ? listSearchProduct : listProduct) || [])
+                                        {((searchproduct ? listSearchProduct : listProduct) || '')
                                             .slice(currentPage * itemsPerPage, (currentPage + 1) * itemsPerPage)
                                             .map((product) => (
                                                 <tr key={product._id}>

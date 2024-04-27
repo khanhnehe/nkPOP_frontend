@@ -7,7 +7,6 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import reduxStore, { persistor } from './store/reduxStore';
 // redux toolkit
-import { store } from './redux/store'
 import { history } from './store/reduxStore';
 import { ConnectedRouter } from 'connected-react-router';
 

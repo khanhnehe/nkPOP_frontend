@@ -239,7 +239,7 @@
                             font-size       : 18px;
                             padding         : 0px 14px;
                             background-color: #f5f6f9;
-                            width: 40px;
+                            width           : 40px;
 
                         }
 
@@ -249,12 +249,12 @@
                             font-size       : inherit;
                             line-height     : inherit;
                             /* margin       : 0px 0px; */
-                            font-size: 16px;
-                            padding: 10px;
+                            font-size       : 16px;
+                            padding         : 10px;
                             background-color: #a5d651;
-                            color: white;
-                            width: 45px;
-                            text-align: center;
+                            color           : white;
+                            width           : 45px;
+                            text-align      : center;
                         }
                     }
 
@@ -264,7 +264,7 @@
                         margin-top: 40px;
 
                         .mua-ngay {
-                            cursor: pointer;
+                            cursor        : pointer;
                             color         : #8cc32f;
                             font-size     : 15px;
                             text-transform: uppercase;
@@ -274,15 +274,15 @@
                             border-radius : 20px;
                             border        : 2px solid #a5d651;
 
-                            &:hover{
-                                cursor: pointer;
+                            &:hover {
+                                cursor          : pointer;
                                 background-color: #a5d651;
                                 color           : white;
                                 font-size       : 15px;
                                 text-transform  : uppercase;
                                 font-weight     : 500;
                                 font-style      : normal;
-                                padding       : 10px 60px;
+                                padding         : 10px 60px;
                                 border-radius   : 20px;
                                 border          : 2px solid #a5d651;
                             }
@@ -291,7 +291,7 @@
                         }
 
                         .add {
-                            cursor: pointer;
+                            cursor          : pointer;
                             background-color: #a5d651;
                             color           : white;
                             font-size       : 15px;
@@ -302,15 +302,15 @@
                             border-radius   : 20px;
                             border          : 2px solid #a5d651;
 
-                            &:hover{
-                                cursor: pointer;
+                            &:hover {
+                                cursor          : pointer;
                                 background-color: #85d400;
                                 color           : white;
                                 font-size       : 15px;
                                 text-transform  : uppercase;
                                 font-weight     : 500;
                                 font-style      : normal;
-                                padding       : 10px 30px;
+                                padding         : 10px 30px;
                                 border-radius   : 20px;
                                 border          : 2px solid #85d400;
                             }
@@ -388,10 +388,10 @@
                         display: flex;
 
                         .text-star {
-                            font-size  : 25px;
-                            font-weight: 500;
+                            font-size    : 25px;
+                            font-weight  : 500;
                             padding-right: 9px;
-                            
+
                             .icon-star {
                                 color        : #ffc107;
                                 font-size    : 23px;
@@ -440,6 +440,16 @@
 
                     .cmt-info {
                         padding: 0px 60px;
+
+                        .variantName {
+                            padding         : 2px;
+                            background-color: #a5d651;
+                            font-size       : 11px;
+                            border-radius   : 5px;
+                            margin-bottom   : 5px;
+                            font-weight     : 600;
+                            color           : white;
+                        }
 
                         .rating {
                             font-weight  : 600;

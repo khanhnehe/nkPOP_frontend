@@ -17,8 +17,7 @@ export const path = {
     CART: "/cart",
     //Check out
     CHECK_OUT: "/checkout/:id",
-    //page đơn hàng
-    // ALL_ORDERS: "/all-orders"
+    SEARCH_PRODUCT: "/search-product",
 
 
 

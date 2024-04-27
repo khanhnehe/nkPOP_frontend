@@ -3,44 +3,41 @@ import "./OrderCho.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder, filterStatusOder } from '../../../store/actions/productAction';
+import { getAllOrder, getOrderByUserId} from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { NavLink } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
 const AllOrder = () => {
-
+    const { id } = useParams();
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.listAllOrders)
+    const listOrders = useSelector(state => state.admin.listOrderById)
 
     const getColor = (statusUser) => {
         switch (statusUser) {
             case 'Đơn hàng bị hủy':
-                return '#c50013';
+                return { color: "#dc3545", backgroundColor: "#f6c4c4" };
             case 'Đơn hàng đang được giao':
-                return '#00c469';
+                return { color: "#8912d5", backgroundColor: "#ffe2ff" };
             case 'Đã giao thành công':
-                return '#1da1f2';
+                return { color: "#0a8db3", backgroundColor: "#e2fbff" };
             default:
-                return '#ffbf00'; // màu mặc định nếu không khớp với bất kỳ trạng thái nào
+                return { color: "#65990e", backgroundColor: "#e9ffc5" };
         }
     };
 
     const fetchAllOrders = async () => {
-        await dispatch(getAllOrder())
+        await dispatch(getOrderByUserId(id))
     }
 
 
-
-    const handleRefresh = () => {
-        fetchAllOrders()
-    }
 
     useEffect(() => {
         fetchAllOrders();
-    }, []);
+    }, [id]);
 
+    
     return (
         <>
             <div className='OrderCho'>
@@ -52,6 +49,8 @@ const AllOrder = () => {
                         {listOrders && listOrders.map(order => {
                             return (
                                 <div className='boc' key={order._id}>
+                                    <div className='code'>Mã đơn: {order.orderCode}</div>
+
                                     {order.cart && order.cart.map((item, index) => (
                                         <div key={index} className='product-info '>
 
@@ -83,8 +82,7 @@ const AllOrder = () => {
                                         <div className='tien'>Thành tiền:  {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>|
 
 
-                                        <div className='status-giao' style={{ color: getColor(order.statusUser), fontWeight: '600' }}>{order.statusUser}</div>
-                                    </div>
+                                        <div className='status-tong' style={{ ...getColor(order.statusUser), fontWeight: '600' }}>{order.statusUser}</div>                                    </div>
 
                                 </div>
                             );

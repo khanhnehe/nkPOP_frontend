@@ -7,7 +7,7 @@ import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, confirmStatusOrder, getChoXacNhan, filterStatusOder } from '../../../store/actions/productAction';
+import { getAllOrder, confirmStatusOrder, searchOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
@@ -17,6 +17,10 @@ const OrderGiaoHang = () => {
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
     const listOrders = useSelector(state => state.admin.listStatusOfOrder)
+    const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
+
+    const [search, setSearch] = useState('');
+
 
     const fetchChoXacNhan = async () => {
         await dispatch(filterStatusOder('Đơn hàng đang được giao'))
@@ -30,6 +34,16 @@ const OrderGiaoHang = () => {
         } catch (e) {
             console.log(e);
         }
+    }
+
+    const handleSearchChange = async (event) => {
+        setSearch(event.target.value);
+        await dispatch(searchOrder(search))
+    };
+
+    const handleSearchSubmit = async () => {
+        await dispatch(searchOrder(search))
+
     }
 
     const handleRefresh = () => {
@@ -52,9 +66,15 @@ const OrderGiaoHang = () => {
                             <SidebarOrder />
 
                             <div className='sreach col-7'>
-                                <input type='text' className="input col-9" />
-                                <div className='find'>Tìm kiếm</div>
+                                <input type='text'
+                                    placeholder='Nhập tên sản phẩm cần tìm'
+                                    className="input col-9"
+                                    value={search}
+                                    onChange={(event) => handleSearchChange(event,)} />
+
+                                <div className='find' onClick={handleSearchSubmit}>Tìm kiếm</div>
                             </div>
+
 
                             <div className='date col-5'>
                                 <div className='text'>Ngày đặt hàng:</div>
@@ -83,7 +103,10 @@ const OrderGiaoHang = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {listOrders && listOrders.map(order => {
+                                {(search ? listSearchOrder : listOrders)
+                                        .filter(order => order.statusAdmin === 'Đơn hàng đang được giao')
+
+                                    .map(order => {
                                         console.log(order.cart);
                                         return (
                                             <tr key={order._id}>

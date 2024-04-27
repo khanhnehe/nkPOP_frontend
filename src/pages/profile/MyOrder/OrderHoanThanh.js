@@ -1,30 +1,36 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addReview, filterStatusOder } from '../../../store/actions/productAction';
-import { NavLink } from 'react-router-dom';
+import { addReview, filterStatusOder,getOrderByUserId } from '../../../store/actions/productAction';
+import { NavLink,useParams } from 'react-router-dom';
 import { Modal, Button, Form } from 'react-bootstrap';
 import './OrderCho.scss'
 import { IoIosStar } from "react-icons/io";
 import sao from '../../../assets/star.png';
 
 const OrderHoanThanh = () => {
+    const { id } = useParams();
     const dispatch = useDispatch();
-    const listOrders = useSelector(state => state.admin.listStatusOfOrder)
-        .sort((a, b) => b.date - a.date); // Sắp xếp theo ngày, ngày mới nhất lên đầu
+    const listOrders = useSelector(state => state.admin.listOrderById)
 
     const [show, setShow] = useState(false);
     const [review, setReview] = useState({ rating: 0, comment: '' });
     const handleClose = () => setShow(false);
     const [currentProduct, setCurrentProduct] = useState(null);
 
-    const handleShow = (productId) => {
-        setCurrentProduct(productId);
+    const handleShow = (productId, variant, name_variant) => {
+        // Kiểm tra xem variant và name_variant có tồn tại không trước khi đặt giá trị cho chúng
+        if (variant && name_variant) {
+            setCurrentProduct({ productId: productId, variantId: variant._id, variantName: name_variant });
+        } else {
+            // Nếu không có variant hoặc name_variant, bạn có thể đặt variantId và variantName thành một chuỗi rỗng hoặc một giá trị mặc định nào đó
+            setCurrentProduct({ productId: productId, variantId: "", variantName: "" });
+        }
         setShow(true);
     };
 
     const fetchHoanhThanh = async () => {
-        await dispatch(filterStatusOder("Đã giao thành công"))
-    }
+        await dispatch(getOrderByUserId(id))
+        }
 
     const handleOnChange = (event, id) => {
         setReview(prevReview => ({
@@ -36,40 +42,40 @@ const OrderHoanThanh = () => {
     const addReviewOrder = async () => {
         if (currentProduct) {
             // Tìm đơn hàng chứa sản phẩm đang được đánh giá
-            const orderContainingProduct = listOrders.find(order =>
-                order.cart.some(item => item.product === currentProduct)
+            const orderUserDaMua = listOrders.find(order =>
+                order.cart.some(item => item.product === currentProduct.productId)
             );
 
-            if (orderContainingProduct) {
-                // console.log('Current product:', currentProduct);
-                // console.log('User ID:', orderContainingProduct.user);
+            if (orderUserDaMua) {
 
-                // Thêm userId vào dữ liệu đánh giá
-                const reviewData = { ...review, userId: orderContainingProduct.user };
-                await dispatch(addReview(currentProduct, reviewData));
+                // Thêm userId, variantId và variantName vào dữ liệu đánh giá
+                const reviewData = { ...review, userId: orderUserDaMua.user, variantId: currentProduct.variantId, variantName: currentProduct.variantName };
+                await dispatch(addReview(currentProduct.productId, reviewData));
 
                 setReview({
                     rating: 0,
                     comment: ''
                 })
                 handleClose();
-
-
             }
         }
     }
+
     useEffect(() => {
         fetchHoanhThanh();
-    }, []);
+    }, [id]);
+    const completedOrders = listOrders.filter(order => order.statusUser === 'Đã giao thành công');
 
     return (
         <>
             <div className='OrderCho'>
                 <div className='top row'>
                     <div className='my-order'>
-                        {listOrders && listOrders.map(order => {
+                        {completedOrders && completedOrders.map(order => {
                             return (
                                 <div className='boc' key={order._id}>
+                                                                        <div className='code'>Mã đơn: {order.orderCode}</div>
+
                                     {order.cart && order.cart.map((item, index) => (
                                         <div key={index} className='product-info '>
                                             <div className='product-info-name row'>
@@ -88,15 +94,14 @@ const OrderHoanThanh = () => {
                                                     <span className='amount'>x {item.amount} </span>
                                                     <div className='price'>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
                                                     <div className='price-sale'>{item.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                                    {!order.isReview && <div className='btn-review' onClick={() => handleShow(item.product)}>Đánh giá</div>}
-
+                                                    <div className='btn-review' onClick={() => handleShow(item.product, item?.variant, item?.name_variant)}>Đánh giá</div>
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
                                     <div className='bottom'>
                                         <div className='tien'>Thành tiền:   {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                        <div className='status-ht' style={{ color: "#1da1f2", fontWeight: '600' }}>{order.statusUser}</div>
+                                        <div className='status-ht' >{order.statusUser}</div>
                                     </div>
                                 </div>
                             );
@@ -128,9 +133,6 @@ const OrderHoanThanh = () => {
                         <div className='col-4' style={{ width: '100px', height: 'auto' }}>
                             <img src={sao} className='anh-sao' style={{ width: '100px', height: 'auto' }} />
                         </div>
-
-
-
 
                         <Form.Group controlId="formBasicComment">
                             <label>Lời đánh giá</label>

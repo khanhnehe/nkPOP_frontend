@@ -6,7 +6,7 @@ import {
     deleteitemCartApi, changeAmountApi, checkOutOrderApi,
     getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
     getAllOrderApi, confirmStatusOrderApi, getChoXacNhanApi, filterStatusOderApi,
-    addReviewApi, searchOrderApi
+    addReviewApi, searchOrderApi, getOrderByUserIdApi
 } from "../../services/userService";
 
 export const createOrder = (data) => {
@@ -453,3 +453,27 @@ export const searchOrder = (search) => {
     }
 
 }
+
+export const getOrderByUserId = (userId) => {
+    return async (dispatch, getState) => {
+        try {
+            
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await getOrderByUserIdApi(token, userId);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ORDERS_BY_ID_SUCCESS,
+                    payload: {
+                        order: response.order
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};

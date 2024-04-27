@@ -172,7 +172,7 @@ const CheckOut = () => {
                     <div className='checkOut row '>
                         <div className='cart'>
                             <Link to='/cart'>
-                                <div className=''>Giỏ hàng</div>
+                                <div className='' style={{ color: "#009eff" }}>Giỏ hàng</div>
 
                             </Link>
 

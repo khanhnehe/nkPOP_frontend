@@ -28,7 +28,8 @@ const initialState = {
     listAllOrders: [],
     listStatusOfOrder: [],
     //search order
-    listSearchOrder: []
+    listSearchOrder: [],
+    listOrderById: []
 
 
 };
@@ -322,6 +323,12 @@ const adminReducer = (state = initialState, action) => {
                 listSearchOrder: [],
             };
 
+        //
+        case actionTypes.GET_ORDERS_BY_ID_SUCCESS:
+            return {
+                ...state,
+                listOrderById: action.payload.order
+            };
 
 
 

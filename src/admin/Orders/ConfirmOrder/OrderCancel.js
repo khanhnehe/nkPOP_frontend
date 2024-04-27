@@ -25,12 +25,13 @@ const OrderCancel = () => {
         await dispatch(filterStatusOder('Đơn hàng bị hủy'))
     }
 
-    const handleSearchChange = (event) => {
+    const handleSearchChange = async (event) => {
         setSearch(event.target.value);
+        await dispatch(searchOrder(search))
     };
+
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
-
 
     }
 
@@ -109,7 +110,9 @@ const OrderCancel = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(search ? listSearchOrder : listOrders).map(order => {
+                                    {(search ? listSearchOrder : listOrders)
+                                    .filter(order => order.statusAdmin === 'Đơn hàng bị hủy')
+                                    .map(order => {
                                         console.log(order.cart);
                                         return (
                                             <tr key={order._id}>

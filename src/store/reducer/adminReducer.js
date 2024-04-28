@@ -29,7 +29,10 @@ const initialState = {
     listStatusOfOrder: [],
     //search order
     listSearchOrder: [],
-    listOrderById: []
+    listOrderById: [],
+    weekRevenue: [],
+    dailyRevenue: [],
+    monthlyRevenue: [],
 
 
 };
@@ -330,6 +333,24 @@ const adminReducer = (state = initialState, action) => {
                 listOrderById: action.payload.order
             };
 
+        //doanh thu
+        case actionTypes.WEEK_REVENUE_SUCCESS:
+            return {
+                ...state,
+                weekRevenue: action.payload.revenue,
+            };
+
+        case actionTypes.DAILY_REVENUE_SUCCESS:
+            return {
+                ...state,
+                dailyRevenue: action.payload.revenue,
+            };
+
+        case actionTypes.MONTH_REVENUE_SUCCESS:
+            return {
+                ...state,
+                monthlyRevenue: action.payload.revenue,
+            };
 
 
         default:

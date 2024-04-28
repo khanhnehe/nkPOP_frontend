@@ -1,13 +1,16 @@
 import adminReducer from "../reducer/adminReducer";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
+
 import {
     createOrderApi, getCartByUseIdApi, addCartApi,
     deleteitemCartApi, changeAmountApi, checkOutOrderApi,
     getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
-    getAllOrderApi, confirmStatusOrderApi, getChoXacNhanApi, filterStatusOderApi,
-    addReviewApi, searchOrderApi, getOrderByUserIdApi
+    getAllOrderApi, confirmStatusOrderApi, filterStatusOderApi,
+    addReviewApi, searchOrderApi, getOrderByUserIdApi,weeklyRevenueApi,
+    dailyRevenueApi, monthlyRevenueApi
 } from "../../services/userService";
+
 
 export const createOrder = (data) => {
     return async (dispatch, getState) => {
@@ -469,6 +472,79 @@ export const getOrderByUserId = (userId) => {
                     type: actionTypes.GET_ORDERS_BY_ID_SUCCESS,
                     payload: {
                         order: response.order
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export const weeklyRevenue = () => {
+    return async (dispatch, getState) => {
+        try {
+            
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await weeklyRevenueApi(token);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.WEEK_REVENUE_SUCCESS,
+                    payload: {
+                        revenue: response.revenue,
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export const dailyRevenue = () => {
+    return async (dispatch, getState) => {
+        try {
+            
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await dailyRevenueApi(token);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.DAILY_REVENUE_SUCCESS,
+                    payload: {
+                        revenue: response.revenue,
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+
+export const monthlyRevenue = () => {
+    return async (dispatch, getState) => {
+        try {
+            
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await monthlyRevenueApi(token);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.MONTH_REVENUE_SUCCESS,
+                    payload: {
+                        revenue: response.revenue,
                     }
                 });
             }

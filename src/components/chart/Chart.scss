@@ -1,15 +1,40 @@
 .chart {
-    flex: 4;
-    padding: 10px;
-    margin-left: 5px;
+    flex              : 4;
+    padding           : 10px;
+    margin-left       : 5px;
     -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.47);
-    box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
-    border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+    box-shadow        : 2px 4px 10px 1px rgba(201, 201, 201, 0.47);
+    border-radius     : 10px;
+    background-color  : rgb(255, 255, 255);
 
     .title {
-        font-size: 16px;
+        font-size  : 18px;
         font-weight: 500;
+    }
+
+    .select-week {
+        width           : 95px;
+        border          : 2px solid #86c386;
+        border-radius   : 5px;
+        height          : 36px;
+        font-weight     : 500;
+        /* padding      : 5px 5px; */
+        // background-color: #ebffeb;
+        // float: right;
+        color           : #4a994a;
+        margin-left: auto;
+        margin-right: 31px;
+    }
+
+    .select-month {
+        width: 95px;
+        border: 2px solid #84cdc9;
+        border-radius: 5px;
+        height: 36px;
+        font-weight: 500;
+        color: #4fb1ac;
+        margin-left: auto;
+        margin-right: 31px;
     }
 
 

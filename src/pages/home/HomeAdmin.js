@@ -3,9 +3,9 @@ import Sidebar from '../../components/Sidebar/Sidebar';
 import Navbar from '../../components/Navbar/Navbar';
 import './HomeAdmin.scss'
 import Widget from '../../admin/Widget/Widget';
-import Chart from "../../components/chart/Chart";
-import Featured from "../../components/featured/Featured";
-
+import ChartWeek from "../../components/chart/ChartWeek";
+import Chart_Daily from "../../components/chart/Chart_Daily";
+import Chart_Month from "../../components/chart/Chart_Month";
 const HomeAdmin = () => {
     return (
         <>
@@ -20,11 +20,13 @@ const HomeAdmin = () => {
                         <Widget type='out_stock' />
                     </div>
                     <div className='charts'>
-                        <Featured />
-                        <Chart />
+                        <Chart_Daily />
+                        <ChartWeek />
                     </div>
                     <div className='list-container'>
-                        <div className='list-Title'>Đơn hàng đã giao thành công</div>
+
+                        <div></div>
+                        <Chart_Month />
                     </div>
                 </div>
             </div>

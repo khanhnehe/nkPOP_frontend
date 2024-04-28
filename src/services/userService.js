@@ -403,6 +403,31 @@ const getOrderByUserIdApi =(token, userId)=>{
     })
 }
 
+
+const weeklyRevenueApi =(token)=>{
+    return axios.get(`/admin/weekly`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+const dailyRevenueApi =(token)=>{
+    return axios.get(`/admin/daily`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+const monthlyRevenueApi =(token)=>{
+    return axios.get(`/admin/monthly`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
 export {
     loginApiService,
     // phân loại outseding
@@ -449,5 +474,9 @@ export {
     filterStatusOderApi,
     addReviewApi,
     searchOrderApi,
-    getOrderByUserIdApi
+    getOrderByUserIdApi,
+    //doanh thu
+    weeklyRevenueApi,
+    dailyRevenueApi,
+    monthlyRevenueApi
 }

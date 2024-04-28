@@ -186,7 +186,7 @@ const InfoProduct = () => {
                                     </div>
                                     <div className='info-top-down'>
                                         <div className='title-info' onClick={handleLoad}>{infoProduct?.name_product}</div>
-                                        <div className='discount'>{currentVariant ? -  currentVariant.discount : -  infoProduct?.discount}%</div>
+                                        <div className='discount-info'>{currentVariant ? -  currentVariant.discount : -  infoProduct?.discount}%</div>
                                     </div>
 
                                 </div>

@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from 'react-icons/gi';
 import { IoSearch } from 'react-icons/io5';
 import { MdFavorite, MdOutlineAccountCircle } from 'react-icons/md';
 import { logout } from '../store/actions/userActions';
-import logo1 from "../../src/assets/logo.png"
+import logo1 from "../../src/assets/logo3.png"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TbLogout } from "react-icons/tb";
@@ -79,9 +79,10 @@ const Header = () => {
             <div className='top-line'></div>
             <header>
                 <div className='header'>
-                    {logoHome}
-
-                    <div className='header-left'>
+                    <div className='col-3'>         
+                                   {logoHome}
+                    </div>
+                    <div className='header-left col-5'>
                         <div className='search'>
                             <div className='search-group'>
                                 <input className='input-search' type='text' placeholder='Nhập tên sản phẩm cần tìm'

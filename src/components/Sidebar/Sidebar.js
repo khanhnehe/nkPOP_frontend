@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import "./Sidebar.scss"
-import logo from "../../assets/logo.png"
+import logo from "../../assets/logo3.png"
 import { MdDashboard } from "react-icons/md";
 import { MdManageAccounts } from "react-icons/md";
 import { TbShoppingBagCheck } from "react-icons/tb";

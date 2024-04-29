@@ -6,6 +6,7 @@ import { IoIosStar } from "react-icons/io";
 import { searchProduct } from '../store/actions/adminAction';
 import './ProductSearch.scss';
 import { GrFormNext } from "react-icons/gr";
+
 const ProductSearch = () => {
 
     const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const ProductSearch = () => {
                 <p style={{ fontSize: '20px', fontFamily: 'fangsong' }}>Có {listSearchProduct.length} sản phẩm cho tìm kiếm</p>
 
                 {/* sản phẩm */}
-                <div className='grid-product mt-5'>
+                <div className='grid-product col-8 mt-5'>
                     {listSearchProduct.map((product) => (
                         <NavLink to={`/product/${product._id}`} key={product._id}>
                             <div className='custom-item'>

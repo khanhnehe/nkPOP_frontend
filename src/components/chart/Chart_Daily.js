@@ -11,8 +11,8 @@ import { dailyRevenue } from "../../store/actions/productAction";
 const Featured = () => {
     const dispatch = useDispatch();
     const revenue = useSelector(state => state.admin.dailyRevenue);
-    const percentage = (revenue / 10000000) * 100;
-    const canDat =  10000000 - revenue
+    const percentage = (revenue / 5000000) * 100;
+    const canDat =  5000000 - revenue
 
     useEffect(() => {
         dispatch(dailyRevenue());
@@ -53,7 +53,7 @@ const Featured = () => {
                             <div className="itemTitle">Mục tiêu</div>
                             <div className="itemResult ">
                                 <FaChevronDown fontSize={'12px'} />
-                                <div className="">10.000.000 đ</div>
+                                <div className="">5.000.000 đ</div>
                             </div>
                         </div>
 

@@ -29,7 +29,7 @@ header {
 
     // width          : 100%;
     height          : 100%;
-    padding         : 15px 20px;
+    padding         : 20px 20px;
     display         : flex;
     justify-content : space-around;
     align-items     : center;
@@ -43,14 +43,14 @@ header {
     }
 
     .logo img {
-      width : 57%;
+      width : 50%;
       height: 60%;
     }
 
 
     // thanh tìm kiếm
     .header-left {
-      width             : 37%;
+      // width             : 37%;
       margin-right      : 5%;
       // justify-content: center;
 

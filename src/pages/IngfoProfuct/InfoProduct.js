@@ -11,6 +11,10 @@ import { GrFormNext } from "react-icons/gr";
 import { IoIosStar } from "react-icons/io";
 import { marked } from 'marked';
 import { addCartProduct } from '../../store/actions/productAction';
+import ReactStars from "react-rating-stars-component";
+
+
+
 
 const InfoProduct = () => {
     const dispatch = useDispatch();
@@ -29,6 +33,8 @@ const InfoProduct = () => {
     const markdownText = infoProduct?.description;
     // Nếu markdownText không tồn tại (undefined hoặc null), chúng ta sẽ chuyển đổi chuỗi rỗng để tránh lỗi
     const htmlText = marked(markdownText || '');
+    // số sao
+
 
 
     const images =
@@ -139,6 +145,17 @@ const InfoProduct = () => {
     return (
         <>
             <div className='product-page'>
+                <div className="line">
+                    <NavLink to='/'>Trang chủ</NavLink> /
+
+                    <NavLink to={`/category/${infoProduct?.category[0]?._id}`}>
+                        {infoProduct?.category[0]?.category_name}
+                    </NavLink>/  
+                    
+                  <p className="link"> {infoProduct?.name_product}</p> 
+
+
+                </div>
                 <div className='container'>
                     <div className='info-product'>
                         <div className='row'>
@@ -228,7 +245,7 @@ const InfoProduct = () => {
                                                     onChange={() => handleVariantChange(variant)}
                                                     checked={currentVariant && currentVariant._id === variant._id}
                                                 />
-                                                <label for={`product-swatch-input-option1-${index + 1}`}>
+                                                <label htmlFor={`product-swatch-input-option1-${index + 1}`}>
                                                     <img className="img-variant" src={variant.images[0]} alt={variant.name} />
                                                     <span className="">{variant.name}</span>
                                                 </label>
@@ -284,28 +301,23 @@ const InfoProduct = () => {
                                     <p className='text-star'>{infoProduct?.averageRating}<IoIosStar className='icon-star' /></p>
                                     <p className='text-p'>trên  5</p>
                                 </div>
-
-
                             </div>
 
                             {infoProduct?.reviews?.map((review, index) => {
                                 return (
-                                    <div className='danh-gia mt-4'>
-                                        <div key={review} className=''>
-                                            <div className='user-info'>
-                                                <img className='user-image' src={review.user.image} />
-                                                <div className='user-name'>{review.user.firstName}</div>
-
-                                            </div>
-                                            <div className='cmt-info'>
-                                                <div className='rating'>{review.rating} <IoIosStar className='icon-star' /> </div>
-                                                {review.variantName && <span className='variantName mb-2'>{review.variantName}</span>}
-                                                <div className='comment'>{review.comment}</div>
-                                                <div className='created-at'>{new Date(review.createdAt).toLocaleString()}</div>                                            </div>
+                                    <div key={review._id} className='danh-gia mt-4'> {/* Đặt thuộc tính key ở đây */}
+                                        <div className='user-info'>
+                                            <img className='user-image' src={review.user.image} />
+                                            <div className='user-name'>{review.user.firstName}</div>
 
                                         </div>
+                                        <div className='cmt-info'>
+                                            <div className='rating'>{review.rating} <IoIosStar className='icon-star' /> </div>
+                                            {review.variantName && <span className='variantName mb-2'>{review.variantName}</span>}
+                                            <div className='comment'>{review.comment}</div>
+                                            <div className='created-at'>{new Date(review.createdAt).toLocaleString()}</div>
+                                        </div>
                                     </div>
-
                                 )
                             })}
                         </div>

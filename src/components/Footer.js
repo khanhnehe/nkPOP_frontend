@@ -21,7 +21,7 @@ class Footer extends Component {
         return (
             <>
                 <footer className="footer bg-body-tertiary text-center">
-                    <div className="container text-center text-md-start mt-2">
+                    <div className="container text-center text-md-start">
                         <div className="row">
                             <div className="col-md-3 col-lg-4 col-xl-3 mx-auto my-4">
                                 <h6 className="text-uppercase fw-bold mb-4">

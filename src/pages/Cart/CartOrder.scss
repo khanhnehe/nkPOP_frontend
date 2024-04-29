@@ -1,11 +1,25 @@
 .cart-page {
-    background-color   : #ffffff;
+    background-color   : rgb(243 243 243);
     // padding         : 30px;
+
+    a {
+        text-decoration: none;
+        color          : black;
+    }
+
+    .line {
+        background-color: rgb(243 243 243);
+        padding         : 13px 101px;
+
+    }
 
     .container {
         background-color: white;
-        padding         : 30px 40px;
+        padding         : 10px 40px;
         width           : 100%;
+        min-height      : 400px;
+        border-radius   : 8px 8px 0px 0px;
+
 
         label {
             font-size     : 15px;
@@ -26,7 +40,8 @@
             font-weight   : 500;
             margin-bottom : 20px;
         }
-        a{
+
+        a {
             text-decoration: none;
 
         }
@@ -34,26 +49,26 @@
         .order {
 
             .check-out {
-                cursor: pointer;
-                font-size: 16px;
-                text-transform: uppercase;
-                font-style: normal;
-                font-weight: 700;
+                cursor          : pointer;
+                font-size       : 16px;
+                text-transform  : uppercase;
+                font-style      : normal;
+                font-weight     : 700;
                 background-color: #a5d651;
-                height: 40px;
-                padding: 7px 45px;
-                color: white;
+                height          : 40px;
+                padding         : 7px 45px;
+                color           : white;
                 /* border-radius: 5px; */
-                margin-top: 8px;
-                margin-left: 12px;
-                width: 202px;
+                margin-top      : 8px;
+                margin-left     : 12px;
+                width           : 202px;
 
 
-                &:hover{
+                &:hover {
                     background-color: #89d408;
 
                 }
-                
+
             }
 
             .left {

@@ -61,8 +61,10 @@ const CartOrder = () => {
     return (
         <>
             <div className='cart-page'>
+            <div className="line"><NavLink to='/'>Trang chủ</NavLink> / Giỏ hàng</div>  
+
                 <div className='container'>
-                    <div className='title-cart'>Giỏ hàng</div>
+                    <div className='title-cart mt-4'>Giỏ hàng</div>
                     {/* <img src={bia} className='freeship' /> */}
                     <div className='order row'>
                         {/* trái */}

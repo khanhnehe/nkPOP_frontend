@@ -15,7 +15,7 @@ const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Thêm middleware để log action và state vào console
 const loggerMiddleware = store => next => action => {
-    console.log('Dispatching:', action);
+    // console.log('Dispatching:', action);
     const result = next(action);
     // console.log('Next state:', store.getState());
     return result;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Sidler.scss';
 import { Carousel } from 'react-bootstrap';
-import poster1 from '../../assets/skin1.webp';
+import poster1 from '../../assets/skin4.webp';
 import poster6 from '../../assets/skin2.webp';
 // import poster5 from '../../assets/poster5.1.jpg';
 import poster2 from '../../assets/skin3.webp';

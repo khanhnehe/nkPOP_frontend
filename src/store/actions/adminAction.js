@@ -1,13 +1,16 @@
 import {
-    getAllProductApi, updateUserApi, getAllUserApi, deleteUserApi,
-    createUserApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
+    getAllProductApi, getAllCategoryApi, editCategoryApi, deleteCategoryApi,
     createCategoryApi, productCategoryApi, createBrandApi, editBrandApi, deleteBrandApi, getAllBrandApi,
     productBrandApi, getAllTypeApi, editTypeApi, deleteTypeApi, createTypeApi, productTypeApi,
-    deleteProductApi, editProductApi, createProductApi, detailProductApi, searchProductApi, makeupProductApi,
+    deleteProductApi, editProductApi, createProductApi, detailProductApi, makeupProductApi,
     hairProductApi, filterByPriceApi, getTopSellingApi
+} from "../../services/productService";
 
-
+import {
+    updateUserApi, getAllUserApi, deleteUserApi, createUserApi, searchProductApi
 } from "../../services/userService";
+
+
 import adminReducer from "../reducer/adminReducer";
 import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";

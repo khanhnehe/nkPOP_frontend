@@ -33,6 +33,7 @@ const initialState = {
     weekRevenue: [],
     dailyRevenue: [],
     monthlyRevenue: [],
+    orderByDate: []
 
 
 };
@@ -352,6 +353,12 @@ const adminReducer = (state = initialState, action) => {
                 monthlyRevenue: action.payload.revenue,
             };
 
+
+        case actionTypes.GET_ORDER_BY_DATE_SUCCESS:
+            return {
+                ...state,
+                orderByDate: action.payload.order,
+            };
 
         default:
             return state;

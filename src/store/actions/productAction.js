@@ -3,13 +3,14 @@ import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
 
 import {
-    createOrderApi, getCartByUseIdApi, addCartApi,
-    deleteitemCartApi, changeAmountApi, checkOutOrderApi,
-    getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
+     checkOutOrderApi,getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
     getAllOrderApi, confirmStatusOrderApi, filterStatusOderApi,
     addReviewApi, searchOrderApi, getOrderByUserIdApi,weeklyRevenueApi,
-    dailyRevenueApi, monthlyRevenueApi
+    dailyRevenueApi, monthlyRevenueApi,getOrderByDateApi
 } from "../../services/userService";
+
+import {createOrderApi, getCartByUseIdApi, addCartApi, 
+    deleteitemCartApi,changeAmountApi } from "../../services/productService";
 
 
 export const createOrder = (data) => {
@@ -545,6 +546,30 @@ export const monthlyRevenue = () => {
                     type: actionTypes.MONTH_REVENUE_SUCCESS,
                     payload: {
                         revenue: response.revenue,
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export const getOrderByDate = (date) => {
+    return async (dispatch, getState) => {
+        try {
+            
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await getOrderByDateApi(token, date);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.GET_ORDER_BY_DATE_SUCCESS,
+                    payload: {
+                        order: response.order,
                     }
                 });
             }

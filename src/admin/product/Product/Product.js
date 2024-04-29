@@ -144,8 +144,8 @@ const Product = () => {
                                                     <td className='variants'>{product.variants ? product.variants.map(variant => variant.name).join(', ') : ''}</td>
 
                                                     <td>
-                                                        <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                                        <div>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                                        <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                                        <div>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                                                     </td>
 
                                                     <td>{product.sku}</td>

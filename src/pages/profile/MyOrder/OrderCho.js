@@ -67,15 +67,15 @@ const OrderCho = () => {
 
                                                 <div className='down-info col-2'>
                                                     <span className='amount'>x {item.amount} </span>
-                                                    <div className='price'>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                                    <div className='price-sale'>{item.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                                    <div className='price'>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                                    <div className='price-sale'>{item.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                 </div>
                                             </div>
                                         </div>
                                     ))}
                                     <div className='bottom'>
-                                        <div className='tien'>Thành tiền:   {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>|
+                                        <div className='tien'>Thành tiền:   {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>|
 
                                         <div className='status-cho'>{order.statusUser}</div>
 

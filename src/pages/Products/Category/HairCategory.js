@@ -64,8 +64,8 @@ const HairCategory = () => {
                                 </div>
                                 <div className='bottom'>
                                     <div className="product-name" >{product.name_product}</div>
-                                    <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                    <div className='sale'>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                    <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                    <div className='sale'>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                                     <div className='bottom-two'>
                                         <div className='sao'>{product.averageRating}<IoIosStar className='icon-star' /></div>
                                         <div className='purchases'>{product.purchases} Đã bán <MdFavoriteBorder /></div>

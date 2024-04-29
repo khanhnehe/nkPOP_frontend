@@ -160,10 +160,10 @@ const TypePage = () => {
                         {/* phân giá */}
                         <div className='option-price p-4'>
                             <div className='min'>
-                                Giá tối thiểu(VND)
+                                Giá tối thiểu(vnd)
                                 <input
                                     type="text"
-                                    value={priceRange.minPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                    value={priceRange.minPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
                                     placeholder="Tối thiểu"
                                     className="min-price"
                                     onChange={(e) => handlePriceChange(e, 'minPrice')}
@@ -173,10 +173,10 @@ const TypePage = () => {
                                 <div className="lineprice"></div>
                             </div>
                             <div className='max'>
-                                Giá tối đa(VND)
+                                Giá tối đa(vnd)
                                 <input
                                     type="text"
-                                    value={priceRange.maxPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })} VND
+                                    value={priceRange.maxPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })} vnd
                                     placeholder="Tối đa"
                                     className="min-price"
                                     onChange={(e) => handlePriceChange(e, 'maxPrice')}
@@ -242,8 +242,8 @@ const TypePage = () => {
                                                 </div>
                                                 <div className='bottom'>
                                                     <div className="product-name">{product.name_product}</div>
-                                                    <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                                    <div className='sale'>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                                    <div className='price'>{product.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                                    <div className='sale'>{product.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                                                     <div className='bottom-two'>
                                                         <div className='sao'>{product.averageRating}<IoIosStar className='icon-star' /></div>
                                                         <div className='purchases'>{product.purchases} Đã bán <MdFavoriteBorder /></div>

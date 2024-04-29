@@ -220,13 +220,13 @@ const InfoProduct = () => {
                                 <div className='price-info'>
                                     <div className='price'>
                                         {currentVariant?.price
-                                            ? currentVariant?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
-                                            : infoProduct?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            ? currentVariant?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })
+                                            : infoProduct?.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
                                     </div>
                                     <div className='sale-price'>
                                         {currentVariant?.sale_price
-                                            ? currentVariant?.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })
-                                            : infoProduct?.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            ? currentVariant?.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })
+                                            : infoProduct?.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
                                     </div>
                                 </div>
 

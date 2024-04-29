@@ -47,7 +47,7 @@ const Featured = () => {
 
                     </div>
                     <div className="title mt-3">Tổng doanh thu hôm nay</div>
-                    <div className="amount">{revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                    <div className="amount">{revenue.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                     <div className="summary">
                         <div className="items">
                             <div className="itemTitle">Mục tiêu</div>
@@ -61,7 +61,7 @@ const Featured = () => {
                             <div className="itemTitle">Cần thêm</div>
                             <div className="itemResult ">
                                 <FaChevronDown fontSize={'12px'} color={"#ee6767"} />
-                                <div className="can-them">{canDat.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                <div className="can-them">{canDat.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                             </div>
 
                         </div>

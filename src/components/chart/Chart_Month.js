@@ -35,7 +35,7 @@ const ChartMonth = () => {
     return (
         <>
             <div className="chart p-4">
-                <div className='title mb-3'>Doanh thu trong tháng: {monthlyRevenueData && monthlyRevenueData[selectedMonth] ? monthlyRevenueData[selectedMonth].monthly.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : 'N/A'}</div>
+                <div className='title mb-3'>Doanh thu trong tháng: {monthlyRevenueData && monthlyRevenueData[selectedMonth] ? monthlyRevenueData[selectedMonth].monthly.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' }) : 'N/A'}</div>
                 <select className="select-month mb-2" value={selectedMonth} onChange={handleMonthChange}>
                     {monthlyRevenueData ? monthlyRevenueData.map((month, index) => (
                         <option value={index} key={index}>Tháng {index + 1}</option>

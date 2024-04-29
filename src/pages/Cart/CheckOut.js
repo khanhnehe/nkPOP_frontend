@@ -289,7 +289,7 @@ const CheckOut = () => {
                                                 <div className='content-right'>
                                                     <div className='amount-number'>x{item.amount}</div>
 
-                                                    <div className='tong-price'>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                                    <div className='tong-price'>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
 
                                                 </div>
@@ -303,20 +303,20 @@ const CheckOut = () => {
                                     <div className='tam-tinh'>Tạm tính </div>
                                     <div className='tam-tinh'>
                                         {listOrder && listOrder.totalPrice
-                                            && listOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                            && listOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
                                     </div>
                                 </div>
                                 <div className='gia-ship col-12'>
                                     <div className='tam-tinh'>Phí vận chuyển </div>
                                     <div className='tam-tinh'>
-                                        {checkout.shippingPrice && checkout.shippingPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                        {checkout.shippingPrice && checkout.shippingPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
                                     </div>
                                 </div>
 
 
                                 <div className='gia col-12'>
                                     <div className='tam'>Tổng cộng</div>
-                                    <div className='tam'>{checkout.totalPriceOrder && checkout.totalPriceOrder.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                    <div className='tam'>{checkout.totalPriceOrder && checkout.totalPriceOrder.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                                 </div>
 
                                 <div className='col thanh-toan col-11'

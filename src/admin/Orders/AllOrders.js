@@ -10,7 +10,7 @@ import SidebarOrder from './SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, searchOrder } from '../../store/actions/productAction';
+import { getAllOrder, searchOrder, getOrderByDate } from '../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 import { IoSearch } from 'react-icons/io5';
@@ -20,7 +20,7 @@ const AllOrders = () => {
 
     const dispatch = useDispatch();
     const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.listAllOrders)
+    const listOrders = useSelector(state => state.admin.orderByDate) // Sử dụng orderByDate từ state
     const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
 
     const [search, setSearch] = useState('');
@@ -34,6 +34,11 @@ const AllOrders = () => {
         await dispatch(searchOrder(search))
 
     };
+
+    const fetchOrdersByDate = async () => {
+        await dispatch(getOrderByDate(startDate));
+    }
+
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
     }
@@ -47,7 +52,7 @@ const AllOrders = () => {
             case 'Đã giao thành công':
                 return '#1da1f2';
             default:
-                return '#ffbf00'; // màu mặc định nếu không khớp với bất kỳ trạng thái nào
+                return '#ffbf00';
         }
     };
 
@@ -55,6 +60,9 @@ const AllOrders = () => {
         fetchAllOrders()
     }
 
+    useEffect(() => {
+        fetchOrdersByDate();
+    }, [startDate]);
 
     useEffect(() => {
         fetchAllOrders();
@@ -130,7 +138,7 @@ const AllOrders = () => {
                                                         </div>
                                                     ))}
                                                 </td>
-                                                <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                                <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
                                                 <td className='status' style={{ color: getColor(order.statusAdmin) }} >{order.statusAdmin}</td>
                                                 <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
                                             </tr>

@@ -85,7 +85,7 @@ const CartOrder = () => {
                         <div className='right col-2'>
                             <span className='text-tam-tinh'>Tổng Đơn hàng</span>
                             <div className='tam-tinh'>Tạm Tính: {listOrder && listOrder.totalPrice
-                                && listOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}
+                                && listOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
                             </div>
 
                         </div>
@@ -119,11 +119,11 @@ const CartOrder = () => {
                                                 </div>
                                             </div>
                                             <div className='item-price'>
-                                                <div className='price'>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
-                                                <div className='sale_price'>{item.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                                <div className='price'>{item.price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                                <div className='sale_price'>{item.sale_price.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                                             </div>
 
-                                            <div className='tong-price'>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</div>
+                                            <div className='tong-price'>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
                                         </div>
                                     </div>
                                 </div>

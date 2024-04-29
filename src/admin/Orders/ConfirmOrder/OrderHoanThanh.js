@@ -7,7 +7,7 @@ import SidebarOrder from '../SidebarOrder/SidebarOrder';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, searchOrder, filterStatusOder } from '../../../store/actions/productAction';
+import { getOrderByDate, searchOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
 
@@ -15,9 +15,10 @@ import { TbRefresh } from "react-icons/tb";
 const OrderHoanThanh = () => {
 
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.listStatusOfOrder)
+    // const listOrders = useSelector(state => state.admin.listStatusOfOrder)
     const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
+    const listOrders = useSelector(state => state.admin.orderByDate)
+    const [startDate, setStartDate] = useState(new Date());
 
     const [search, setSearch] = useState('');
 
@@ -33,10 +34,15 @@ const OrderHoanThanh = () => {
         setSearch(event.target.value);
         await dispatch(searchOrder(search))
     };
-
+    const fetchOrdersByDate = async () => {
+        await dispatch(getOrderByDate(startDate));
+    }
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
     }
+    useEffect(() => {
+        fetchOrdersByDate();
+    }, [startDate]);
 
 
     useEffect(() => {
@@ -75,7 +81,7 @@ const OrderHoanThanh = () => {
                         </div>
                         <div className='bottom row'>
                             <div className='up-order'>
-                                <div className='length'>{listOrders.length} Đơn hàng </div>
+                            <div className='length'>{listOrders.filter(order => order.statusAdmin === 'Đã giao thành công').length} Đơn hàng </div>
                                 <div className='fresh' onClick={handleRefresh}><TbRefresh />   Làm mới</div>
                             </div>
 
@@ -93,8 +99,6 @@ const OrderHoanThanh = () => {
                                 <tbody>
                                     {(search ? listSearchOrder : listOrders)
                                         .filter(order => order.statusAdmin === 'Đã giao thành công')
-
-
                                         .map(order => {
                                             console.log(order.cart);
                                             return (
@@ -117,7 +121,7 @@ const OrderHoanThanh = () => {
                                                             </div>
                                                         ))}
                                                     </td>
-                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
                                                     <td className='status' >{order.statusAdmin}</td>
                                                     {/* <td>
                                                     <div className='action-giao' onClick={() => handleOrderHoanThanh(order._id)}>Xác nhận đã giao</div>

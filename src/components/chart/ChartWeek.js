@@ -35,7 +35,7 @@ const ChartWeek = () => {
     return (
         <>
             <div className="chart">
-                <div className='title mb-3'>Doanh thu trong tuần: {weeklyRevenueData && weeklyRevenueData[selectedWeek] ? weeklyRevenueData[selectedWeek].weekly.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' }) : 'N/A'}</div>
+                <div className='title mb-3'>Doanh thu trong tuần: {weeklyRevenueData && weeklyRevenueData[selectedWeek] ? weeklyRevenueData[selectedWeek].weekly.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' }) : 'N/A'}</div>
                 <select className="select-week mb-2" value={selectedWeek} onChange={handleWeekChange}>
                     {weeklyRevenueData ? weeklyRevenueData.map((week, index) => (
                         <option value={index} key={index}>Tuần {index + 1}</option>

@@ -18,6 +18,13 @@
     .link {
         color : rgb(158 158 158);
         margin: 0px;
+    
+        @media (min-width: 901px) {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 900px;
+        }
     }
 
     .container {

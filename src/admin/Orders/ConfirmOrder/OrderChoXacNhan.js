@@ -141,7 +141,7 @@ const OrderChoXacNhan = () => {
                                                             </div>
                                                         ))}
                                                     </td>
-                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' })}</td>
+                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
                                                     <td className='status' style={{ color: '#ffbf00' }}>{order.statusAdmin}</td>
                                                     <td>
                                                         {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}

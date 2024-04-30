@@ -74,7 +74,7 @@ const InfoProduct = () => {
     }
 
     const userInfo = JSON.parse(JSON.parse(localStorage.getItem('persist:user')).userInfo);
-    const userId = userInfo._id;
+    const userId = userInfo?._id;
 
 
     const [cart, setCart] = useState({
@@ -84,8 +84,13 @@ const InfoProduct = () => {
     });
 
     const addToCart = () => {
-        // Đảm bảo giá sale và số lượng là số trước khi thêm vào giỏ hàng
 
+        if (!userInfo) {
+            alert("Bạn chưa đăng nhập, hãy đăng nhập để mua hàng");
+            return;
+        }
+        
+        // Đảm bảo giá sale và số lượng là số trước khi thêm vào giỏ hàng
         const sale_price = Number(currentVariant?.sale_price ? currentVariant.sale_price : infoProduct.sale_price);
         const quantity = Number(amount);
 

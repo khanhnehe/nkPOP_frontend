@@ -89,13 +89,13 @@ const OrderChoXacNhan = () => {
                             </div>
 
 
-                            <div className='date col-5'>
+                            {/* <div className='date col-5'>
                                 <div className='text'>Ngày đặt hàng:</div>
                                 <div className='boc'>
                                     <FcCalendar className='icon' />
                                     <DatePicker selected={startDate} onChange={date => setStartDate(date)} className='chon-ngay' />
                                 </div>
-                            </div>
+                            </div> */}
 
                         </div>
                         <div className='bottom row'>
@@ -120,10 +120,9 @@ const OrderChoXacNhan = () => {
                                         .filter(order => order.statusAdmin === 'Chờ xác nhận')
 
                                         .map(order => {
-                                            console.log(order.cart);
                                             return (
                                                 <tr key={order._id}>
-                                                    <td>{order.orderCode}</td>
+                                                    <td style={{ fontWeight: "500" }}>{order.orderCode}</td>
                                                     <td>
                                                         {order.cart && order.cart.map((item, index) => (
                                                             <div key={index} className='product-info'>
@@ -137,12 +136,15 @@ const OrderChoXacNhan = () => {
 
                                                                     <span className='amount'>x {item.amount} </span>
                                                                 </div>
+                                                                <div style={{ fontWeight: "500" }} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                             </div>
                                                         ))}
                                                     </td>
-                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
-                                                    <td className='status' style={{ color: '#ffbf00' }}>{order.statusAdmin}</td>
+                                                    <td style={{ fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
+                                                    <td >
+                                                        <span className='status' style={{ color: "#65990e", backgroundColor: "#e9ffc5" }}>{order.statusAdmin}</span>
+                                                    </td>
                                                     <td>
                                                         {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}
                                                         {order.statusAdmin === 'Đơn hàng đang được giao'

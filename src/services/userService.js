@@ -192,10 +192,11 @@ const monthlyRevenueApi =(token)=>{
     })
 }
 
-const getOrderByDateApi = (token, date) => {
+const getOrderByDateApi = (token, startDate, endDate) => {
     return axios.get(`/admin/getOrderByDate`, {
         params: {
-            date: date.toISOString() // Chuyển đổi date thành chuỗi ISO
+            startDate: startDate.toISOString(), // Chuyển đổi startDate thành chuỗi ISO
+            endDate: endDate.toISOString() // Chuyển đổi endDate thành chuỗi ISO
         },
         headers: {
             Authorization: `Bearer ${token}`

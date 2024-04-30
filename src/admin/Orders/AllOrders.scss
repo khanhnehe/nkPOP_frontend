@@ -2,5 +2,14 @@
 
 .AllOrders{
     @include AllOrders;
+
+    .status-tong{
+        font-size: 13px;
+        font-weight: 500;
+        width: fit-content;
+        padding: 1px 12px;
+        border-radius: 23px;
+
+    }
 }
     

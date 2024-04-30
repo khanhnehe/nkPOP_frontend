@@ -19,6 +19,8 @@ const OrderHoanThanh = () => {
     const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
     const listOrders = useSelector(state => state.admin.orderByDate)
     const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
 
     const [search, setSearch] = useState('');
 
@@ -35,14 +37,14 @@ const OrderHoanThanh = () => {
         await dispatch(searchOrder(search))
     };
     const fetchOrdersByDate = async () => {
-        await dispatch(getOrderByDate(startDate));
+        await dispatch(getOrderByDate(startDate, endDate));
     }
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
     }
     useEffect(() => {
         fetchOrdersByDate();
-    }, [startDate]);
+    }, [startDate, endDate]);
 
 
     useEffect(() => {
@@ -74,8 +76,18 @@ const OrderHoanThanh = () => {
                                 <div className='text'>Ngày đặt hàng:</div>
                                 <div className='boc'>
                                     <FcCalendar className='icon' />
-                                    <DatePicker selected={startDate} onChange={date => setStartDate(date)} className='chon-ngay' />
-                                </div>
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={(dates) => {
+                                            const [start, end] = dates;
+                                            setStartDate(start);
+                                            setEndDate(end);
+                                        }}
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        selectsRange
+                                        dateFormat="dd/MM/yyyy"
+                                    />                                </div>
                             </div>
 
                         </div>
@@ -103,7 +115,7 @@ const OrderHoanThanh = () => {
                                             console.log(order.cart);
                                             return (
                                                 <tr key={order._id}>
-                                                    <td>{order.orderCode}</td>
+                                                <td style={{fontWeight: "500"}}>{order.orderCode}</td>
                                                     <td>
                                                         {order.cart && order.cart.map((item, index) => (
                                                             <div key={index} className='product-info'>
@@ -117,12 +129,16 @@ const OrderHoanThanh = () => {
 
                                                                     <span className='amount'>x {item.amount} </span>
                                                                 </div>
+                                                                <div style={{fontWeight: "500"}} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                             </div>
                                                         ))}
                                                     </td>
-                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
-                                                    <td className='status' >{order.statusAdmin}</td>
+                                                    <td style={{fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
+                                                    <td>
+                                                        <span  className='status' style={{color: "#0a8db3", backgroundColor: "#e2fbff"}}>{order.statusAdmin}</span>
+                                                    </td>
+                                                    
                                                     {/* <td>
                                                     <div className='action-giao' onClick={() => handleOrderHoanThanh(order._id)}>Xác nhận đã giao</div>
                                                 </td> */}

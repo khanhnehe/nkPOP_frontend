@@ -19,10 +19,12 @@ import { IoSearch } from 'react-icons/io5';
 const AllOrders = () => {
 
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
-    const listOrders = useSelector(state => state.admin.orderByDate) // Sử dụng orderByDate từ state
+    const listOrders = useSelector(state => state.admin.orderByDate) 
     const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
-
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+  
+    
     const [search, setSearch] = useState('');
 
     const fetchAllOrders = async () => {
@@ -36,7 +38,7 @@ const AllOrders = () => {
     };
 
     const fetchOrdersByDate = async () => {
-        await dispatch(getOrderByDate(startDate));
+        await dispatch(getOrderByDate(startDate, endDate));
     }
 
     const handleSearchSubmit = async () => {
@@ -46,13 +48,13 @@ const AllOrders = () => {
     const getColor = (statusUser) => {
         switch (statusUser) {
             case 'Đơn hàng bị hủy':
-                return '#c50013';
+                return { color: "#dc3545", backgroundColor: "#f6c4c4" };
             case 'Đơn hàng đang được giao':
-                return '#00c469';
+                return { color: "#8912d5", backgroundColor: "#ffe2ff" };
             case 'Đã giao thành công':
-                return '#1da1f2';
+                return { color: "#0a8db3", backgroundColor: "#e2fbff" };
             default:
-                return '#ffbf00';
+                return { color: "#65990e", backgroundColor: "#e9ffc5" };
         }
     };
 
@@ -62,7 +64,7 @@ const AllOrders = () => {
 
     useEffect(() => {
         fetchOrdersByDate();
-    }, [startDate]);
+    }, [startDate, endDate]);
 
     useEffect(() => {
         fetchAllOrders();
@@ -94,15 +96,26 @@ const AllOrders = () => {
                                 <div className='text'>Ngày đặt hàng:</div>
                                 <div className='boc'>
                                     <FcCalendar className='icon' />
-                                    <DatePicker selected={startDate} onChange={date => setStartDate(date)} className='chon-ngay' />
-                                </div>
+                                    <DatePicker
+      selected={startDate}
+      onChange={(dates) => {
+        const [start, end] = dates;
+        setStartDate(start);
+        setEndDate(end);
+      }}
+      startDate={startDate}
+      endDate={endDate}
+      selectsRange
+      dateFormat="dd/MM/yyyy"
+    />
+                            </div>
                             </div>
 
                         </div>
                         <div className='bottom row'>
                             <div className='up-order'>
-                                <div className='length'>{listOrders.length} Đơn hàng </div>
-                                <div className='fresh' onClick={handleRefresh}><TbRefresh />   Làm mới</div>
+                            <div className='length'>{listOrders && listOrders.length} Đơn hàng </div>
+                                                            <div className='fresh' onClick={handleRefresh}><TbRefresh />   Làm mới</div>
                             </div>
 
                             <table className="table">
@@ -117,10 +130,10 @@ const AllOrders = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {(search ? listSearchOrder : listOrders).map(order => {
+                                    {(search ? listSearchOrder : listOrders)?.map(order => {
                                         return (
                                             <tr key={order._id}>
-                                                <td>{order.orderCode}</td>
+                                                <td style={{fontWeight: "500"}}>{order.orderCode}</td>
                                                 <td>
                                                     {order.cart && order.cart.map((item, index) => (
                                                         <div key={index} className='product-info'>
@@ -134,12 +147,15 @@ const AllOrders = () => {
 
                                                                 <span className='amount'>x {item.amount} </span>
                                                             </div>
+                                                            <div style={{fontWeight: "500"}} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                         </div>
                                                     ))}
                                                 </td>
-                                                <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
-                                                <td className='status' style={{ color: getColor(order.statusAdmin) }} >{order.statusAdmin}</td>
+                                                <td style={{fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
+                                                <td >
+                                                <span className='status-tong' style={{ ...getColor(order.statusAdmin),}}>{order.statusAdmin}</span>
+                                                </td>
                                                 <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
                                             </tr>
                                         );

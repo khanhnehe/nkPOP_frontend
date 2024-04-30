@@ -1,9 +1,8 @@
-
 @mixin AllOrders {
     display         : flex;
     width           : 100%;
     background-color: whitesmoke;
-    color           : #616161;
+    color: #616161;
 
     .AllOrders-container {
         flex         : 6;
@@ -105,7 +104,7 @@
                 align-items    : center;
 
                 .up-order {
-                    cursor: pointer;
+                    cursor         : pointer;
                     display        : flex;
                     justify-content: flex-start;
                     gap            : 71px;
@@ -137,7 +136,7 @@
                 .disabled {
                     pointer-events  : none;
                     opacity         : 0.6;
-                    background-color: #a09d9d !important  ;
+                    background-color: #a09d9d !important;
                 }
 
                 .action-yes {
@@ -156,6 +155,7 @@
 
                     }
                 }
+
                 .action {
                     cursor          : pointer;
                     background-color: #ea6774;
@@ -186,13 +186,19 @@
                 .status {
                     color      : rgb(75 157 222);
                     font-weight: 500;
+                    width: fit-content;
+                    padding: 1px 12px;
+                    border-radius: 23px;
+                    font-size: 13px
+
                 }
 
-               
+
 
                 .product-info {
                     display    : flex;
-                    align-items: center;
+                    align-items: flex-start;
+                    gap        : 5px;
 
                     .product-info-name {
                         display: grid;

@@ -31,13 +31,11 @@ const createCategoryApi = (token, data) => {
     });
 }
 
-const productCategoryApi = (token, categoryId) => {
-    return axios.get(`/admin/productCategory/${categoryId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+const productCategoryApi = (categoryId) => {
+    return axios.get(`/admin/productCategory/${categoryId}`)
 }
+
+
 // brand
 const getAllBrandApi = (token) => {
     return axios.get(`/admin/getAllBrand`, {
@@ -68,13 +66,10 @@ const createBrandApi = (token, data) => {
     });
 }
 
-const productBrandApi = (token, brandId) => {
-    return axios.get(`/admin/productBrand/${brandId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+const productBrandApi = ( brandId) => {
+    return axios.get(`/admin/productBrand/${brandId}`)
 }
+
 //type
 const getAllTypeApi = (token) => {
     return axios.get(`/admin/getAllType`, {
@@ -105,22 +100,15 @@ const createTypeApi = (token, data) => {
     });
 }
 
-const productTypeApi = (token, typeId) => {
-    return axios.get(`/admin/productType/${typeId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+const productTypeApi = ( typeId) => {
+    return axios.get(`/admin/productType/${typeId}`)
 }
 
 //product
-const getAllProductApi = (token) => {
-    return axios.get(`/admin/getAllProduct`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+const getAllProductApi = () => {
+    return axios.get(`/admin/getAllProduct`)
 }
+
 
 // const getAllProductApi = (token) => {
 //     return axios.get('/admin/getAllProduct', {
@@ -152,14 +140,9 @@ const createProductApi = (token, data) => {
     });
 }
 
-const detailProductApi = (token, productId) => {
-    return axios.get(`/admin/detailProduct/${productId}`, {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    });
+const detailProductApi = (productId) => {
+    return axios.get(`/admin/detailProduct/${productId}`);
 }
-
 
 //makeu
 const makeupProductApi = (token, categoryId) => {

@@ -3,7 +3,7 @@ import "./OrderCho.scss"
 import { useDispatch, useSelector } from 'react-redux';
 import 'react-datepicker/dist/react-datepicker.css';
 import { FcCalendar } from "react-icons/fc";
-import { getAllOrder, getOrderByUserId} from '../../../store/actions/productAction';
+import { getAllOrder, getOrderByUserId } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { NavLink } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -37,7 +37,7 @@ const AllOrder = () => {
         fetchAllOrders();
     }, [id]);
 
-    
+
     return (
         <>
             <div className='OrderCho'>
@@ -82,7 +82,8 @@ const AllOrder = () => {
                                         <div className='tien'>Thành tiền:  {order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>|
 
 
-                                        <div className='status-tong' style={{ ...getColor(order.statusUser), fontWeight: '600' }}>{order.statusUser}</div>                                    </div>
+                                        <div className='status-tong' style={{ ...getColor(order.statusUser), fontWeight: '600' }}>{order.statusUser}</div>
+                                    </div>
 
                                 </div>
                             );

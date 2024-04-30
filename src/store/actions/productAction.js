@@ -555,13 +555,13 @@ export const monthlyRevenue = () => {
     };
 };
 
-export const getOrderByDate = (date) => {
+export const getOrderByDate = (startDate, endDate) => {
     return async (dispatch, getState) => {
         try {
             
             const state = getState();
             const token = state.user.accessToken;
-            const response = await getOrderByDateApi(token, date);
+            const response = await getOrderByDateApi(token, startDate, endDate);
 
             if (response.errCode !== 0) {
                 console.log('có lỗi')

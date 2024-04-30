@@ -267,12 +267,8 @@ export const createCategory = (data) => {
 export const productCategory = (categoryId) => {
     return async (dispatch, getState) => {
         try {
-            // Lấy state hiện tại từ Redux store
-            const state = getState();
-            // Lấy access token từ state
-            const token = state.user.accessToken;
 
-            const res = await productCategoryApi(token, categoryId);
+            const res = await productCategoryApi( categoryId);
 
             if (res.errCode === 0) {
                 // Lưu product vào localStorage
@@ -424,12 +420,7 @@ export const createBrand = (data) => {
 export const productBrand = (brandId) => {
     return async (dispatch, getState) => {
         try {
-            // Lấy state hiện tại từ Redux store
-            const state = getState();
-            // Lấy access token từ state
-            const token = state.user.accessToken;
-
-            const res = await productBrandApi(token, brandId);
+            const res = await productBrandApi( brandId);
 
             if (res.errCode === 0) {
                 dispatch({
@@ -577,12 +568,8 @@ export const createType = (data) => {
 export const productType = (typeId) => {
     return async (dispatch, getState) => {
         try {
-            // Lấy state hiện tại từ Redux store
-            const state = getState();
-            // Lấy access token từ state
-            const token = state.user.accessToken;
 
-            const res = await productTypeApi(token, typeId);
+            const res = await productTypeApi(typeId);
 
             if (res.errCode === 0) {
                 dispatch({
@@ -610,11 +597,8 @@ export const getAllProduct = () => {
     return async (dispatch, getState) => {
         try {
             // Lấy state hiện tại từ Redux store
-            const state = getState();
-            // Lấy access token từ state
-            const token = state.user.accessToken;
 
-            const res = await getAllProductApi(token);
+            const res = await getAllProductApi();
 
             if (res.errCode === 0) {
                 dispatch({
@@ -733,14 +717,9 @@ export const createProduct = (data) => {
 
 //detail product
 export const detailProduct = (productId) => {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         try {
-            // Lấy state hiện tại từ Redux store
-            const state = getState();
-            // Lấy access token từ state
-            const token = state.user.accessToken;
-
-            const res = await detailProductApi(token, productId);
+            const res = await detailProductApi(productId);
 
             if (res.errCode === 0) {
                 dispatch({

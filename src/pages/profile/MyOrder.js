@@ -13,7 +13,7 @@ const MyOrder = () => {
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const location = useLocation();
-    const [selectedItem, setSelectedItem] = useState('ChoVanChuyen');
+    const [selectedItem, setSelectedItem] = useState('TatCaDon');
 
 
     const renderOrderComponent = () => {

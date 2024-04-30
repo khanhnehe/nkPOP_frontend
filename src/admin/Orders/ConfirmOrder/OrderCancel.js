@@ -15,12 +15,13 @@ import { TbRefresh } from "react-icons/tb";
 const OrderCancel = () => {
 
     const dispatch = useDispatch();
-    const [startDate, setStartDate] = useState(new Date());
     // const listOrders = useSelector(state => state.admin.listStatusOfOrder)
     const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
 
     const listOrders = useSelector(state => state.admin.orderByDate)
 
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const [search, setSearch] = useState('');
 
     const fetchChoXacNhan = async () => {
@@ -37,7 +38,7 @@ const OrderCancel = () => {
 
     }
     const fetchOrdersByDate = async () => {
-        await dispatch(getOrderByDate(startDate));
+        await dispatch(getOrderByDate(startDate, endDate));
     }
 
     const cancelOrder = async (orderId) => {
@@ -63,9 +64,10 @@ const OrderCancel = () => {
     const handleRefresh = () => {
         fetchChoXacNhan()
     }
+
     useEffect(() => {
         fetchOrdersByDate();
-    }, [startDate]);
+    }, [startDate, endDate]);
 
     useEffect(() => {
         fetchChoXacNhan();
@@ -95,7 +97,18 @@ const OrderCancel = () => {
                                 <div className='text'>Ngày đặt hàng:</div>
                                 <div className='boc'>
                                     <FcCalendar className='icon' />
-                                    <DatePicker selected={startDate} onChange={date => setStartDate(date)} className='chon-ngay' />
+                                    <DatePicker
+                                        selected={startDate}
+                                        onChange={(dates) => {
+                                            const [start, end] = dates;
+                                            setStartDate(start);
+                                            setEndDate(end);
+                                        }}
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        selectsRange
+                                        dateFormat="dd/MM/yyyy"
+                                    />
                                 </div>
                             </div>
 
@@ -124,7 +137,7 @@ const OrderCancel = () => {
                                             console.log(order.cart);
                                             return (
                                                 <tr key={order._id}>
-                                                    <td>{order.orderCode}</td>
+                                                <td style={{fontWeight: "500"}}>{order.orderCode}</td>
                                                     <td>
                                                         {order.cart && order.cart.map((item, index) => (
                                                             <div key={index} className='product-info'>
@@ -138,12 +151,15 @@ const OrderCancel = () => {
 
                                                                     <span className='amount'>x {item.amount} </span>
                                                                 </div>
+                                                                <div style={{fontWeight: "500"}} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                             </div>
                                                         ))}
                                                     </td>
-                                                    <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
-                                                    <td className='status' style={{ color: '#c50013' }}>{order.statusAdmin}</td>
+                                                    <td style={{fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
+                                                    <td >
+                                                        <span className='status' style={{color: "#dc3545", backgroundColor: "#f6c4c4" }}>{order.statusAdmin}</span>
+                                                    </td>
                                                     <td>
                                                         {/* nếu statusAdmin  là 'Đơn hàng đang được giao' */}
                                                         {order.statusAdmin === 'Đơn hàng đang được giao'

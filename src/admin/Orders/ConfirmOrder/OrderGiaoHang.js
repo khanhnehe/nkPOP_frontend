@@ -76,13 +76,13 @@ const OrderGiaoHang = () => {
                             </div>
 
 
-                            <div className='date col-5'>
+                            {/* <div className='date col-5'>
                                 <div className='text'>Ngày đặt hàng:</div>
                                 <div className='boc'>
                                     <FcCalendar className='icon' />
                                     <DatePicker selected={startDate} onChange={date => setStartDate(date)} className='chon-ngay' />
                                 </div>
-                            </div>
+                            </div> */}
 
                         </div>
                         <div className='bottom row'>
@@ -110,7 +110,7 @@ const OrderGiaoHang = () => {
                                         console.log(order.cart);
                                         return (
                                             <tr key={order._id}>
-                                                <td>{order.orderCode}</td>
+                                                <td style={{fontWeight: "500"}}>{order.orderCode}</td>
                                                 <td>
                                                     {order.cart && order.cart.map((item, index) => (
                                                         <div key={index} className='product-info'>
@@ -124,12 +124,16 @@ const OrderGiaoHang = () => {
 
                                                                 <span className='amount'>x {item.amount} </span>
                                                             </div>
+                                                            <div style={{fontWeight: "500"}} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                         </div>
                                                     ))}
                                                 </td>
-                                                <td>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
-                                                <td className='status' style={{ color: '#00c469' }}>{order.statusAdmin}</td>
+                                                <td style={{fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
+
+                                                <td >
+                                                    <span className='status' style={{color: "#8912d5", backgroundColor: "#ffe2ff" }}>{order.statusAdmin}</span>
+                                                </td>
                                                 <td>
                                                     <div className='action-giao' onClick={() => handleOrderGiaoHang(order._id)}>Xác nhận đã giao</div>
                                                 </td>

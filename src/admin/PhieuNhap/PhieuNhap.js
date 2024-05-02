@@ -5,8 +5,8 @@ import Navbar from '../../components/Navbar/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { InputAdornment, Button as MaterialButton } from '@mui/material';
 import { Modal, Button as BootstrapButton } from 'react-bootstrap';
-import {  searchProduct } from '../../store/actions/adminAction';
-import { allPhieuNhap , changeNhapHang} from '../../store/actions/productAction';
+import { searchProduct } from '../../store/actions/adminAction';
+import { allPhieuNhap, changeNhapHang } from '../../store/actions/productAction';
 import { IoSearch } from 'react-icons/io5';
 import { MdEditDocument } from "react-icons/md";
 
@@ -34,7 +34,58 @@ const PhieuNhap = () => {
         }
     };
 
-   
+    const handleVariantChange = (e, itemIndex, phieuIndex, variantIndex, field) => {
+        // Chuyển đổi giá trị mới thành số
+        const newValue = e.target.value && !isNaN(e.target.value) ? Number(e.target.value) : 0;
+    
+        // Kiểm tra xem giá trị mới có phải là số không
+        if (isNaN(newValue)) {
+            console.error('Invalid number value');
+            return;
+        }
+    
+        console.log('New value:', newValue);
+    
+        // Tạo một bản sao của listNhapHang
+        const newListNhapHang = [...listNhapHang];
+    
+        // Cập nhật giá trị tương ứng
+        newListNhapHang[itemIndex].phieuItems[phieuIndex].variants[variantIndex][field] = newValue;
+    
+        // Cập nhật state
+        setListNhapHang(newListNhapHang);
+    };
+    
+    const handleSave = (itemIndex, phieuIndex) => {
+        // Tạo một bản sao của listNhapHang
+        const listNhapHangCopy = [...listNhapHang];
+    
+        // Kiểm tra xem listNhapHangCopy[itemIndex] có tồn tại không
+        if (!listNhapHangCopy[itemIndex]) {
+            console.error('Invalid item index');
+            return;
+        }
+    
+        // Lấy dữ liệu cần thiết từ listNhapHang
+        const data = {
+            id: listNhapHangCopy[itemIndex]._id,
+            phieuItems: listNhapHangCopy[itemIndex].phieuItems.map(phieuItem => ({
+                product: phieuItem.product, // Điền vào trường sản phẩm (nếu cần)
+                variants: phieuItem.variants.map(variant => ({
+                    variant: variant.variant, // Điền vào trường variant (nếu cần)
+                    newQuantity: variant.newQuantity, // Lượng mới (số lượng sau nhập)
+                    price: variant.price // Giá mới
+                }))
+            }))
+        };
+    
+        console.log('Data to be saved:', data);
+    
+        // Gửi dữ liệu đến backend
+        dispatch(changeNhapHang(data));
+    };
+    
+    
     const handleSearchChange = async (event) => {
         setSearch(event.target.value);
         await dispatch(searchProduct(searchproduct))
@@ -99,27 +150,27 @@ const PhieuNhap = () => {
                                                 <td>    </td>
                                                 <td>{phieuItem.quantity_product}</td>
                                                 <td>{phieuItem.sku_product}</td>
-                                                <td><input type="number"   value={item.newQuantity}  /></td>
-                                                <td><input type="number"  value={item.price}  /></td>
-                                                <td>{item.totalQuantity}</td>
-                                                <td>{item.totalPrice}</td>
+                                                <td><input type="number" value={item.newQuantity} onChange={e => handleVariantChange(e, index, phieuIndex, 'newQuantity')} /></td>
+                                                <td><input type="number" value={item.price} onChange={e => handleVariantChange(e, index, phieuIndex, 'price')} /></td>
+                                                <td>{typeof item.totalQuantity === 'number' ? item.totalQuantity : 0}</td>
+                                                <td>{typeof item.totalPrice === 'number' ? item.totalPrice : 0}</td>
                                             </tr>
                                             {phieuItem.variants && phieuItem.variants.map((variant, variantIndex) => (
                                                 <tr key={variantIndex}>
                                                     <td>{variant.name_variant}</td>
                                                     <td>{variant.quantity_variant}</td>
                                                     <td>{variant.sku_variant}</td>
-                                                    <td><input type="number" value={variant.newQuantity}/></td>
-                                                    <td><input type="number"  value={variant.price} /></td>
-                                                    <td>{variant.totalQuantity}</td>
-                                                    <td>{variant.itemsPrice}</td>
+                                                    <td><input type="number" value={variant.newQuantity} onChange={e => handleVariantChange(e, index, phieuIndex, variantIndex, 'newQuantity')} /></td>
+                                                    <td><input type="number" value={variant.price} onChange={e => handleVariantChange(e, index, phieuIndex, variantIndex, 'price')} /></td>
+                                                    <td>{typeof variant.totalQuantity === 'number' ? variant.totalQuantity : 0}</td>
+                                                    <td>{typeof item.totalPrice === 'number' ? item.totalPrice : 0}</td>
                                                 </tr>
                                             ))}
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <td colSpan="9">
-                                                    <MaterialButton variant="contained" color="primary">Lưu</MaterialButton>
+                                                    <MaterialButton variant="contained" color="primary" onClick={() => handleSave(index, phieuIndex)}>Lưu</MaterialButton>
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -133,5 +184,4 @@ const PhieuNhap = () => {
         </>
     )
 }
-
 export default PhieuNhap;

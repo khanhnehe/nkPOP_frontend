@@ -11,8 +11,8 @@ import { dailyRevenue } from "../../store/actions/productAction";
 const Featured = () => {
     const dispatch = useDispatch();
     const revenue = useSelector(state => state.admin.dailyRevenue);
-    const percentage = (revenue / 5000000) * 100;
-    const canDat =  5000000 - revenue
+    const percentage = Math.min((revenue / 5000000) * 100, 100);
+    const canDat = revenue >= 5000000 ? 0 : 5000000 - revenue;
 
     useEffect(() => {
         dispatch(dailyRevenue());

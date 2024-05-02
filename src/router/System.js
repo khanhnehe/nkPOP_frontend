@@ -16,6 +16,7 @@ import OrderHoanThanh from "../admin/Orders/ConfirmOrder/OrderHoanThanh";
 import OrderCancel from "../admin/Orders/ConfirmOrder/OrderCancel";
 import { Routes, Route } from 'react-router-dom';
 import ProtectedComponent from './ProtectedComponent';
+import PhieuNhap from "../admin/PhieuNhap/PhieuNhap";
 
 const System = () => {
     return (
@@ -32,6 +33,7 @@ const System = () => {
             <Route path="giao-hang-orders" element={<ProtectedComponent><OrderGiaoHang /></ProtectedComponent>} />
             <Route path="hoan-thanh-orders" element={<ProtectedComponent><OrderHoanThanh /></ProtectedComponent>} />
             <Route path="cancel-orders" element={<ProtectedComponent><OrderCancel /></ProtectedComponent>} />
+            <Route path="phieu-nhap" element={<ProtectedComponent><PhieuNhap /></ProtectedComponent>} />
         </Routes>
     );
 }

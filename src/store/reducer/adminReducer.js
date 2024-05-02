@@ -33,7 +33,8 @@ const initialState = {
     weekRevenue: [],
     dailyRevenue: [],
     monthlyRevenue: [],
-    orderByDate: []
+    orderByDate: [],
+    listNhapHang: []
 
 
 };
@@ -359,6 +360,14 @@ const adminReducer = (state = initialState, action) => {
                 ...state,
                 orderByDate: action.payload.order,
             };
+
+
+        case actionTypes.ALL_NHAP_HANG_SUCCESS:
+            return {
+                ...state,
+                listNhapHang: action.payload.phieu,
+            };
+
 
         default:
             return state;

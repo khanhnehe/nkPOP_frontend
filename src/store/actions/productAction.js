@@ -3,14 +3,17 @@ import { toast } from "react-toastify";
 import actionTypes from "./actionTypes";
 
 import {
-     checkOutOrderApi,getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
+    checkOutOrderApi, getOrderValuesApi, tinhFreeShipApi, getShipPrice_totalPrice,
     getAllOrderApi, confirmStatusOrderApi, filterStatusOderApi,
-    addReviewApi, searchOrderApi, getOrderByUserIdApi,weeklyRevenueApi,
-    dailyRevenueApi, monthlyRevenueApi,getOrderByDateApi
+    addReviewApi, searchOrderApi, getOrderByUserIdApi, weeklyRevenueApi,
+    dailyRevenueApi, monthlyRevenueApi, getOrderByDateApi, allPhieuNhapApi,
+    updateNhapHangApi, changeNhapHangApi
 } from "../../services/userService";
 
-import {createOrderApi, getCartByUseIdApi, addCartApi, 
-    deleteitemCartApi,changeAmountApi } from "../../services/productService";
+import {
+    createOrderApi, getCartByUseIdApi, addCartApi,
+    deleteitemCartApi, changeAmountApi
+} from "../../services/productService";
 
 
 export const createOrder = (data) => {
@@ -461,7 +464,7 @@ export const searchOrder = (search) => {
 export const getOrderByUserId = (userId) => {
     return async (dispatch, getState) => {
         try {
-            
+
             const state = getState();
             const token = state.user.accessToken;
             const response = await getOrderByUserIdApi(token, userId);
@@ -485,7 +488,7 @@ export const getOrderByUserId = (userId) => {
 export const weeklyRevenue = () => {
     return async (dispatch, getState) => {
         try {
-            
+
             const state = getState();
             const token = state.user.accessToken;
             const response = await weeklyRevenueApi(token);
@@ -509,7 +512,7 @@ export const weeklyRevenue = () => {
 export const dailyRevenue = () => {
     return async (dispatch, getState) => {
         try {
-            
+
             const state = getState();
             const token = state.user.accessToken;
             const response = await dailyRevenueApi(token);
@@ -534,7 +537,7 @@ export const dailyRevenue = () => {
 export const monthlyRevenue = () => {
     return async (dispatch, getState) => {
         try {
-            
+
             const state = getState();
             const token = state.user.accessToken;
             const response = await monthlyRevenueApi(token);
@@ -558,7 +561,7 @@ export const monthlyRevenue = () => {
 export const getOrderByDate = (startDate, endDate) => {
     return async (dispatch, getState) => {
         try {
-            
+
             const state = getState();
             const token = state.user.accessToken;
             const response = await getOrderByDateApi(token, startDate, endDate);
@@ -571,6 +574,79 @@ export const getOrderByDate = (startDate, endDate) => {
                     payload: {
                         order: response.order,
                     }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+
+
+//////
+export const allPhieuNhap = () => {
+    return async (dispatch, getState) => {
+        try {
+
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await allPhieuNhapApi(token);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.ALL_NHAP_HANG_SUCCESS,
+                    payload: {
+                        phieu: response.phieu,
+                    }
+                });
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export const changeNhapHang = (data) => {
+    return async (dispatch, getState) => {
+        try {
+
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await changeNhapHangApi(token, data);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+                toast.error(response.message || response.errMessage);
+
+            } else {
+                dispatch({
+                    type: actionTypes.CHANGE_NHAP_HANG_SUCCESS,
+                });
+                toast.success(response.message || response.errMessage);
+
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+
+export const updateNhapHang = (data) => {
+    return async (dispatch, getState) => {
+        try {
+
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await updateNhapHangApi(token, data);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+            } else {
+                dispatch({
+                    type: actionTypes.UPDATE_NHAP_HANG_SUCCESS,
                 });
             }
         } catch (error) {

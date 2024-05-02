@@ -30,7 +30,10 @@ const Sidebar = () => {
                             </span>
                         </li>
                         <li>
-                            <span>Doanh thu</span>
+                            <span>
+                                <Link to="/system/phieu-nhap">Nhập hàng</Link>
+
+                            </span>
                         </li>
 
                         {/*  */}

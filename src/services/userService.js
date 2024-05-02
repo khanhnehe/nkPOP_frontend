@@ -204,6 +204,33 @@ const getOrderByDateApi = (token, startDate, endDate) => {
     })
 }
 
+
+
+
+const allPhieuNhapApi = (token) => {
+    return axios.get(`/admin/getAllPhieuNhap`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+const changeNhapHangApi = (token, data) => {
+    return axios.put(`/admin/changeNhapHang`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+const updateNhapHangApi = (token, data) => {
+    return axios.put(`/admin/updateNhapHang`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
+
 export {
     loginApiService,
     ResisterApiService,
@@ -232,5 +259,8 @@ export {
     weeklyRevenueApi,
     dailyRevenueApi,
     monthlyRevenueApi,
-    getOrderByDateApi
+    getOrderByDateApi,
+    changeNhapHangApi,
+    allPhieuNhapApi,
+    updateNhapHangApi
 }

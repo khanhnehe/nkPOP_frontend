@@ -19,12 +19,12 @@ import { IoSearch } from 'react-icons/io5';
 const AllOrders = () => {
 
     const dispatch = useDispatch();
-    const listOrders = useSelector(state => state.admin.orderByDate) 
+    const listOrders = useSelector(state => state.admin.orderByDate)
     const listSearchOrder = useSelector(state => state.admin.listSearchOrder)
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
-  
-    
+
+
     const [search, setSearch] = useState('');
 
     const fetchAllOrders = async () => {
@@ -97,25 +97,25 @@ const AllOrders = () => {
                                 <div className='boc'>
                                     <FcCalendar className='icon' />
                                     <DatePicker
-      selected={startDate}
-      onChange={(dates) => {
-        const [start, end] = dates;
-        setStartDate(start);
-        setEndDate(end);
-      }}
-      startDate={startDate}
-      endDate={endDate}
-      selectsRange
-      dateFormat="dd/MM/yyyy"
-    />
-                            </div>
+                                        selected={startDate}
+                                        onChange={(dates) => {
+                                            const [start, end] = dates;
+                                            setStartDate(start);
+                                            setEndDate(end);
+                                        }}
+                                        startDate={startDate}
+                                        endDate={endDate}
+                                        selectsRange
+                                        dateFormat="dd/MM/yyyy"
+                                    />
+                                </div>
                             </div>
 
                         </div>
                         <div className='bottom row'>
                             <div className='up-order'>
-                            <div className='length'>{listOrders && listOrders.length} Đơn hàng </div>
-                                                            <div className='fresh' onClick={handleRefresh}><TbRefresh />   Làm mới</div>
+                                <div className='length'>{listOrders && listOrders.length} Đơn hàng </div>
+                                <div className='fresh' onClick={handleRefresh}><TbRefresh />   Làm mới</div>
                             </div>
 
                             <table className="table">
@@ -133,7 +133,7 @@ const AllOrders = () => {
                                     {(search ? listSearchOrder : listOrders)?.map(order => {
                                         return (
                                             <tr key={order._id}>
-                                                <td style={{fontWeight: "500"}}>{order.orderCode}</td>
+                                                <td style={{ fontWeight: "500" }}>{order.orderCode}</td>
                                                 <td>
                                                     {order.cart && order.cart.map((item, index) => (
                                                         <div key={index} className='product-info'>
@@ -147,14 +147,14 @@ const AllOrders = () => {
 
                                                                 <span className='amount'>x {item.amount} </span>
                                                             </div>
-                                                            <div style={{fontWeight: "500"}} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                                            <div style={{ fontWeight: "500" }} className=''>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
 
                                                         </div>
                                                     ))}
                                                 </td>
-                                                <td style={{fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
+                                                <td style={{ fontWeight: "500", color: "#800303" }}>{order.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</td>
                                                 <td >
-                                                <span className='status-tong' style={{ ...getColor(order.statusAdmin),}}>{order.statusAdmin}</span>
+                                                    <span className='status-tong' style={{ ...getColor(order.statusAdmin), }}>{order.statusAdmin}</span>
                                                 </td>
                                                 <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
                                             </tr>

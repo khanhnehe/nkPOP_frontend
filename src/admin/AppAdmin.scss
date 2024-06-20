@@ -1,0 +1,15 @@
+.app {
+    display: grid;
+}
+
+.main-content {
+    margin-left: 250px; /* Bằng với chiều rộng của sidebar */
+    width: calc(100% - 250px); /* Điều chỉnh để phù hợp với phần còn lại của màn hình */
+}
+
+.content {
+    margin-top: 70px; /* Bằng với chiều cao của navbar */
+    padding: 20px;
+    overflow-y: auto;
+    height: calc(100vh - 70px); /* Chiều cao còn lại sau khi trừ navbar */
+}

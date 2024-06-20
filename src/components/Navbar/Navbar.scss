@@ -1,62 +1,60 @@
 .navbar {
-    height          : 70px;
+    position: fixed;
+    top: 0;
+    left: 197px;
+    width: calc(100% - 195px);
+    height: 70px; /* Chiều cao ban đầu của navbar */
     background-color: yellowgreen;
-    align-items     : center;
-    font-size       : 14px;
-    color           : black;
-    border-bottom   : 1px solid lightgray;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    color: black;
+    border-bottom: 1px solid lightgray;
 
     .navbarContainer {
-        display        : flex;
-        width          : 100%;
-        align-items : center; 
+        display: flex;
+        width: 100%;
+        align-items: center; 
         justify-content: space-between;
-        // padding        : 2px 20px;
 
-        .items-left{
+        .items-left {
             display: flex;
             justify-content: space-between;
-            align-items : center; 
-
-
+            align-items: center;
 
             .item-image img {
-                border-radius      : 50px;
-                width              : 50px;
-                height             : 50px;
-                background-image   : url('../../assets/avatar-trang-4.jpg');
-                background-size    : cover;
+                border-radius: 50px;
+                width: 50px;
+                height: 50px;
+                background-image: url('../../assets/avatar-trang-4.jpg');
+                background-size: cover;
                 background-position: center;
             }
-            .hello {
-                color           : #000000;
-                font-weight  : 500; 
-                font-size       : 17px;
-                // border          : 2px solid #7ed957;
-                padding         : 3px 4px;
-                background-color:  white;
-                border-radius   : 10px 8px 10px 0px;
-                color           : #85d400;
-                margin-left: 5px ;
-                cursor: pointer;
-      
-              }
 
-              .icon {
-                // background-color:  white;
-                border-radius   : 10px;
-                color         : white;
-                font-size     : 34px;
-                margin-right  : 3px;
+            .hello {
+                font-weight: 500;
+                font-size: 17px;
+                padding: 3px 4px;
+                background-color: white;
+                border-radius: 10px 8px 10px 0px;
+                color: #85d400;
+                margin-left: 5px;
+                cursor: pointer;
+            }
+
+            .icon {
+                border-radius: 10px;
+                color: white;
+                font-size: 34px;
+                margin-right: 3px;
                 padding-bottom: 5px;
                 font-weight: 700;
-                padding         : 3px 4px;
+                padding: 3px 4px;
                 cursor: pointer;
-
             }
         }
-
-        
-
     }
 }

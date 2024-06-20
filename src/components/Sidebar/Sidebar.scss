@@ -1,83 +1,79 @@
 .sidebar {
-    flex               : 1;
-    // border    : 1px solid blue;
-    min-height         : 100vh;
-    border-radius      : 0.5px solid lightgray;
-    // background-color: whitesmoke;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 196px; /* Điều chỉnh chiều rộng của sidebar */
+    height: 100vh;
+    background-color: #f8f9fa;
+    overflow-y: auto; /* Để sidebar có thể cuộn nếu nội dung quá nhiều */
+    z-index: 1000;
+    flex: 1;
+    min-height: 100vh;
+    border-radius: 0.5px solid lightgray;
     background-color: white;
 
     .top {
-        margin-top     : 16px;
-        display        : flex;
-        height         : 50px;
+        margin-top: 16px;
+        display: flex;
+        height: 50px;
         justify-content: center;
-        align-items    : center;
-        margin-left    : 30px;
+        align-items: center;
+        margin-left: 30px;
 
         .logo img {
-            width : 85%;
+            width: 85%;
             height: 80%;
         }
     }
 
     .bottom {
-        // background-color: #e6e6e6;
         padding-left: 10px;
 
         .icon {
-            color         : #7a7a7a;
-            font-size     : 26px;
-            margin-right  : 3px;
+            color: #7a7a7a;
+            font-size: 26px;
+            margin-right: 3px;
             padding-bottom: 5px;
         }
 
-
         ul {
             list-style: none;
-            margin    : 0;
-            padding   : 0;
+            margin: 0;
+            padding: 0;
 
             .title {
-                font-size       : 14px;
-                font-weight     : bold;
-                color           : #10190e;
-                margin-top      : 15px;
-                margin-bottom   : 5px;
-                /* border-radius: 5px; */
-                border          : 1px solid white;
-                background      : #dfffd2;
-                padding         : 2px;
+                font-size: 14px;
+                font-weight: bold;
+                color: #10190e;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                border: 1px solid white;
+                background: #dfffd2;
+                padding: 2px;
             }
 
             li {
-                display    : flex;
+                display: flex;
                 align-items: center;
-                padding    : 5px;
+                padding: 5px;
                 cursor: pointer;
 
-                &:hover{
+                &:hover {
                     background-color: #eeeeee;
                 }
 
-
-
                 span {
-                    font-size  : 14px;
+                    font-size: 14px;
                     font-weight: bold;
-                    color      : black;
+                    color: black;
                     margin-left: 5px;
                 }
 
-                a{
+                a {
                     text-decoration: none;
                     color: black;
                 }
             }
         }
-
-
     }
-
-
-
 }

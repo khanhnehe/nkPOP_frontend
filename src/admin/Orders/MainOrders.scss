@@ -1,8 +1,8 @@
 @mixin AllOrders {
-    display         : flex;
-    width           : 100%;
     background-color: whitesmoke;
-    color           : #616161;
+    color: #616161;
+    padding-top: 74px;
+    padding-left: 201px;
 
     .AllOrders-container {
         flex         : 6;

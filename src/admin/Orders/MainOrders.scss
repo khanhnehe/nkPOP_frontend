@@ -2,7 +2,7 @@
     display         : flex;
     width           : 100%;
     background-color: whitesmoke;
-    color: #616161;
+    color           : #616161;
 
     .AllOrders-container {
         flex         : 6;
@@ -184,13 +184,12 @@
                 }
 
                 .status {
-                    color      : rgb(75 157 222);
-                    font-weight: 500;
-                    width: fit-content;
-                    padding: 1px 12px;
+                    color        : rgb(75 157 222);
+                    font-weight  : 500;
+                    width        : fit-content;
+                    padding      : 1px 12px;
                     border-radius: 23px;
-                    font-size: 13px
-
+                    font-size    : 13px
                 }
 
 
@@ -254,4 +253,70 @@
         }
 
     }
+
+
+}
+
+.modal-order {
+    padding: 5px 10px;
+    .code{
+        font-weight: 600;
+        font-size: 13px;
+        margin-bottom: 5px;
+
+    }
+    p {
+        font-size: 13px;
+
+    }
+
+    .top {
+        display        : flex;
+        font-size      : 13px;
+        justify-content: space-between;
+
+        .user {
+            display      : grid;
+            gap          : 5px;
+            margin-bottom: 5px;
+        }
+
+    }
+
+    .info {
+        display        : flex;
+        justify-content: space-between;
+        /* gap         : 5px; */
+        margin         : 10px 0px;
+        border-top     : 1px solid #b2b2b2;
+
+        .name-var {
+            display  : grid;
+            font-size: 13px;
+
+            .name {}
+
+            .var {
+                font-weight: 500;
+            }
+
+        }
+
+        .bottom {
+            font-size    : 13px;
+            display      : grid;
+            justify-items: end;
+            gap          : 5px;
+
+        }
+    }
+
+
+
+    .info-bottom {
+        border-top: 1px solid #b2b2b2;
+
+    }
+
+
 }

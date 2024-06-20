@@ -6,6 +6,7 @@ import Widget from '../../admin/Widget/Widget';
 import ChartWeek from "../../components/chart/ChartWeek";
 import Chart_Daily from "../../components/chart/Chart_Daily";
 import Chart_Month from "../../components/chart/Chart_Month";
+import TopSellingChart from '../../components/chart/TopSellingChart';
 const HomeAdmin = () => {
     return (
         <>
@@ -13,12 +14,12 @@ const HomeAdmin = () => {
                 <Sidebar />
                 <div className='homeContainer'>
                     <Navbar />
-                    <div className='widgets'>
+                    {/* <div className='widgets'>
                         <Widget type='order' />
                         <Widget type='revenue' />
                         <Widget type='user' />
                         <Widget type='out_stock' />
-                    </div>
+                    </div> */}
                     <div className='charts'>
                         <Chart_Daily />
                         <ChartWeek />
@@ -27,6 +28,7 @@ const HomeAdmin = () => {
 
                         <div></div>
                         <Chart_Month />
+                        <TopSellingChart/>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import {
     getAllOrderApi, confirmStatusOrderApi, filterStatusOderApi,
     addReviewApi, searchOrderApi, getOrderByUserIdApi, weeklyRevenueApi,
     dailyRevenueApi, monthlyRevenueApi, getOrderByDateApi, allPhieuNhapApi,
-    updateNhapHangApi, changeNhapHangApi
+    updateNhapHangApi, changeNhapHangApi, addNhapHangApi
 } from "../../services/userService";
 
 import {
@@ -94,6 +94,8 @@ export const addCartProduct = (data) => {
                 dispatch({
                     type: actionTypes.ADD_PRODUCT_ORDER_SUCCESS,
                 });
+                const userId = getState().user.id;
+                dispatch(getCartByUseId(userId));
                 toast.success('Thêm sản phẩm vào giỏ hàng thành công');
             }
         } catch (error) {
@@ -625,7 +627,7 @@ export const changeNhapHang = (data) => {
                 dispatch({
                     type: actionTypes.CHANGE_NHAP_HANG_SUCCESS,
                 });
-                toast.success(response.message || response.errMessage);
+                // toast.success(response.message || response.errMessage);
 
             }
         } catch (error) {
@@ -644,13 +646,43 @@ export const updateNhapHang = (data) => {
 
             if (response.errCode !== 0) {
                 console.log('có lỗi')
+                toast.error(response.message || response.errMessage);
+
             } else {
                 dispatch({
                     type: actionTypes.UPDATE_NHAP_HANG_SUCCESS,
                 });
+                toast.success('Lưu phiếu nhập thành công');
+
             }
         } catch (error) {
             console.log(error)
         }
     };
 };
+
+
+export const addNhapHang = (data) => {
+    return async (dispatch, getState) => {
+        try {
+
+            const state = getState();
+            const token = state.user.accessToken;
+            const response = await addNhapHangApi(token, data);
+
+            if (response.errCode !== 0) {
+                console.log('có lỗi')
+                toast.error(response.message || response.errMessage);
+
+            } else {
+                dispatch({
+                    type: actionTypes.ADD_NHAP_HANG_SUCCESS,
+                });
+                toast.success('Đã thêm phiếu nhập');
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    };
+};
+

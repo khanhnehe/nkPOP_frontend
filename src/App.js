@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { path } from "./utils/constant";
 import Home from "./pages/home/Home";
@@ -28,8 +28,10 @@ import ProductSearch from "./components/ProductSearch";
 
 
 function App() {
+
   return (
     <Router>
+
       <Routes>
         <Route path={path.SYSTEM + "/*"} element={<System />} />
         <Route path={path.CHECK_OUT} element={<CheckOut />} />

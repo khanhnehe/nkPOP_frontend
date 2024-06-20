@@ -7,20 +7,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { MdDeleteOutline } from "react-icons/md";
 import { Modal } from 'react-bootstrap';
-import { getAllProduct, searchProduct, deleteProduct, createProduct } from '../../../store/actions/adminAction';
+import { getAllProduct, searchProduct, deleteProduct } from '../../../store/actions/adminAction';
 import { RiEdit2Line } from "react-icons/ri";
-import { toast } from 'react-toastify';
-import { getBase64 } from '../../../utils/Base64';
 import CreateProduct from './CreateProduct';
 import { useNavigate } from 'react-router-dom';
 import SearchProduct from './SearchProduct';
 import { IoSearch } from 'react-icons/io5';
-
+import { MdEditDocument } from "react-icons/md";
+import { addNhapHang } from '../../../store/actions/productAction';
 
 const Product = () => {
-
-
-
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -67,7 +63,18 @@ const Product = () => {
         navigate(`/system/manage-edit-product/${_id}`);
     };
 
+    const handleNhapHang = async (productId) => {
+        const data = {
+            phieuItems: [
+                {
+                    product: productId
+                }
+            ]
+        };
+        await dispatch(addNhapHang(data));
+        alert('Đã thêm phiếu nhập cho sản phẩm')
 
+    };
     const handleSearchChange = async (event) => {
         setSearch(event.target.value);
         await dispatch(searchProduct(searchproduct))
@@ -116,13 +123,15 @@ const Product = () => {
                                             <th>Tên sản phẩm</th>
                                             <th>Thương hiệu</th>
                                             <th>Hình ảnh</th>
-                                            <th>Mô tả</th>
+                                            {/* <th>Mô tả</th> */}
+                                            <th>Số lượng</th>
                                             <th>Danh mục</th>
                                             <th>Loại sản phẩm</th>
                                             <th>Mục sản phẩm</th>
                                             <th>Giá bán</th>
                                             <th>SKU</th>
                                             <th>Hành động</th>
+                                            <th>Nhập hàng</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -135,7 +144,8 @@ const Product = () => {
 
                                                     <td>{product.images && product.images[0] ? <img src={product.images[0]} alt="Product" className="images" /> : ''}</td>
 
-                                                    <td className='description'>{product.description}</td>
+                                                    {/* <td className='description'>{product.description}</td> */}
+                                                    <td className=''>{product.quantity}</td>
 
                                                     <td className=''>{product.category ? product.category.map(category => category.category_name).join(', ') : ''}</td>
 
@@ -159,6 +169,17 @@ const Product = () => {
                                                                 onClick={() => handleDelete(product._id)}
                                                             >
                                                                 <MdDeleteOutline />
+                                                            </Button>
+                                                        </div>
+                                                    </td>
+
+                                                    <td>
+                                                        <div className='action'>
+                                                            <Button
+                                                                style={{ fontSize: '20px', color: 'yellowgreen' }}
+                                                                onClick={() => handleNhapHang(product._id)}
+                                                            >
+                                                                <MdEditDocument />
                                                             </Button>
                                                         </div>
                                                     </td>

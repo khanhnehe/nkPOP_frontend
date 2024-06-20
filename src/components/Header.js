@@ -10,11 +10,14 @@ import logo1 from "../../src/assets/logo3.png"
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { TbLogout } from "react-icons/tb";
-import { useAlert } from 'react-alert'
-import line from "../assets/line-top.webp";
 import { searchProduct } from '../store/actions/adminAction';
+import { useParams } from 'react-router-dom';
+import { getCartByUseId } from '../store/actions/productAction';
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const { id } = useParams();
+
     const [openMenu, setOpenMenu] = useState(false);
     const navigate = useNavigate();
     const { isLoggedIn, userInfo } = useSelector(state => state.user);
@@ -24,6 +27,12 @@ const Header = () => {
     const listSearchProduct = useSelector(state => state.admin.listSearchProduct)
 
     const [searchproduct, setSearchProduct] = useState('');
+
+    const listCartOrder = useSelector(state => state.admin.listCartOrder);
+    const [cart, setCart] = useState(listCartOrder);
+
+
+    // const [cart, setCart] = useState([]);
 
     const handleSearchChange = (event) => {
         setSearchProduct(event.target.value);
@@ -41,7 +50,9 @@ const Header = () => {
         setImage(userInfo ? userInfo.image : '');
     }, [userInfo]);
 
-    const dispatch = useDispatch();
+useEffect(() => {
+    setCart(listCartOrder);
+}, [listCartOrder]);
 
     const logoHome = (
         <div className='logo'>
@@ -57,7 +68,7 @@ const Header = () => {
         <span className='cart px-3'>
             <Link to='/cart'>
                 <MdOutlineShoppingBag />
-                <p>0</p>
+                <p>{listCartOrder && listCartOrder.cartItems ? listCartOrder.cartItems.length : 0}</p>
             </Link>
         </span>
     );
@@ -71,8 +82,20 @@ const Header = () => {
         navigate('/login');
     };
 
-    // lấy name
+    const fetchCart = async () => {
+        try {
+            await dispatch(getCartByUseId(id));
+        } catch (e) {
+            console.error('Error fetching Order list:', e);
+        }
+    }
+    useEffect(() => {
+        // console.log(listCartOrder);
+    }, [listCartOrder]);
 
+    useEffect(() => {
+        fetchCart(id);
+    }, [id])
 
     return (
         <>

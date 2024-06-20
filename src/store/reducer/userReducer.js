@@ -5,7 +5,8 @@ const initialState = {
     isLoggedIn: false,
     userInfo: null,  // Thay vì userInfo là một chuỗi, hãy để nó là một đối tượng hoặc null
     error: '',
-    accessToken: null, // Thêm trường accessToken
+    accessToken: null, // Thêm trường accessToken,
+    isLoading: false,
 
 };
 
@@ -18,6 +19,8 @@ const userReducer = (state = initialState, action) => {
                 userInfo: action.payload.user,
                 accessToken: action.payload.token,
                 error: '',
+                isLoading: false,
+
             };
         case actionTypes.USER_LOGIN_FAIL:
             return {
@@ -33,6 +36,8 @@ const userReducer = (state = initialState, action) => {
                 isLoggedIn: false,
                 userInfo: null,  // Đặt userInfo về null khi đăng xuất
                 error: '',
+                isLoading: false,
+
             }
         case actionTypes.UPDATE_USER_SUCCESS:
             // Cập nhật state với danh sách sản phẩm từ action

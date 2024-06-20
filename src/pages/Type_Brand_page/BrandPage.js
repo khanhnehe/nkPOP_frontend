@@ -4,8 +4,8 @@ import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { useDispatch, useSelector } from 'react-redux';
 import './BrandPage.scss'
-import bia1 from "../../assets/biato.webp"
-import bia2 from "../../assets/biato1.webp"
+import bia1 from "../../assets/biato.png"
+import bia2 from "../../assets/biato1.png"
 import { MdFavoriteBorder } from "react-icons/md";
 import { productBrand, productType, filterByPrice, getTopSelling, getAllProduct, } from '../../store/actions/adminAction';
 import { useParams } from 'react-router-dom';

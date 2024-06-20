@@ -190,7 +190,7 @@ const Brand = () => {
                             </form>
                         </div>
                         <div className='bottom row'>
-                            <div className='title-cate h4 my-3 mx-2'>Danh sách danh mục</div>
+                            <div className='title-cate h4 my-3 mx-2'>Danh sách Thương hiệu</div>
                             <div className='col-5'>
                                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                                     <TableContainer sx={{ maxHeight: 440 }}>
@@ -246,12 +246,12 @@ const Brand = () => {
             </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header className='modal-header' closeButton>
-                    <Modal.Title >Chỉnh sửa danh mục</Modal.Title>
+                    <Modal.Title >Chỉnh sửa Thương hiệu</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className='col ben-trai'>
                         <div className="form-group row mb-3">
-                            <label className="col-sm-4 col-form-label" >Tên Danh mục</label>
+                            <label className="col-sm-4 col-form-label" >Tên Thương hiệu</label>
                             <div className="col-sm-8">
                                 <input
                                     type="text"

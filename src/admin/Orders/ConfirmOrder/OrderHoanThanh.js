@@ -10,6 +10,7 @@ import { FcCalendar } from "react-icons/fc";
 import { getOrderByDate, searchOrder, filterStatusOder } from '../../../store/actions/productAction';
 import { TbEyeSearch } from "react-icons/tb";
 import { TbRefresh } from "react-icons/tb";
+import { Modal } from 'react-bootstrap';
 
 
 const OrderHoanThanh = () => {
@@ -21,7 +22,10 @@ const OrderHoanThanh = () => {
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
 
+    const [selectedOrder, setSelectedOrder] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    
     const [search, setSearch] = useState('');
 
     const fetchChoXacNhan = async () => {
@@ -42,6 +46,15 @@ const OrderHoanThanh = () => {
     const handleSearchSubmit = async () => {
         await dispatch(searchOrder(search))
     }
+
+    const openOrderDetails = (order) => {
+        setSelectedOrder(order);
+        setIsModalOpen(true);
+    };
+    const closeOrderDetails = () => {
+        setIsModalOpen(false);
+    };
+
     useEffect(() => {
         fetchOrdersByDate();
     }, [startDate, endDate]);
@@ -142,7 +155,7 @@ const OrderHoanThanh = () => {
                                                     {/* <td>
                                                     <div className='action-giao' onClick={() => handleOrderHoanThanh(order._id)}>Xác nhận đã giao</div>
                                                 </td> */}
-                                                    <td><TbEyeSearch className='icon-eye' />Chi tiết</td>
+                                                <td onClick={() => openOrderDetails(order)}><TbEyeSearch className='icon-eye' />Chi tiết</td>
                                                 </tr>
                                             );
                                         })}
@@ -155,7 +168,54 @@ const OrderHoanThanh = () => {
 
             </div>
 
+            <Modal show={isModalOpen} onHide={closeOrderDetails}>
+                <Modal.Header style={{ fontSize: '13px' }} closeButton>
+                    <Modal.Title style={{ fontSize: '14px', marginLeft: '5px' }}>Chi tiết hóa đơn</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {selectedOrder && (
+                        <div className='modal-order'>
+                            <div className='code mb-3'>Mã đơn: {selectedOrder.orderCode}</div>
+                            <div className='top'>
+                                <div className='user'>
+                                    <div>Họ tên người nhận: {selectedOrder.shippingAddress.fullName}</div>
+                                    <div>Số điện thoại: {selectedOrder.shippingAddress.phone}</div>
+                                </div>
+                                <div className='user'>
+                                    <div>Thành phố: {selectedOrder.shippingAddress.city}</div>
+                                    <div>Địa chỉ: {selectedOrder.shippingAddress.address}</div>
+                                </div>
+                            </div>
+                            {selectedOrder.cart.map((item, index) => (
+                                <div key={index}>
+                                    <div className='info'>
+                                        <div className='name-var'>
+                                            <div className='name'> {item.name}</div>
+                                            <div className='var'> {item.name_variant}</div>
+                                        </div>
+                                        <div className='bottom'>
+                                            <div>x {item.amount}</div>
+                                            <div>{item.itemsPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                            <div className='info-bottom'>
+                                <p className="mt-3" style={{fontWeight: "600"}}>
+                                    Tổng tiền: {selectedOrder.totalPrice.toLocaleString('vi-VN', { style: 'currency', currency: 'vnd' })}
+                                    </p>
+                                <p>Phương thưc thanh toán: {selectedOrder.paymentMethod}</p>
+                                <p>Phương thức vận chuyển: {selectedOrder.shippingMethod}</p>
+                                {/* {selectedOrder.isPaid && <p>Đã thanh toán</p>}
+                                {selectedOrder.isDelivered && <p>Đã nhận hàng</p>} */}
+                                {selectedOrder.isDelivered && <p>Ngày nhận: {new Date(selectedOrder.deliveredAt).toLocaleDateString()}</p>}
 
+                                <p>{selectedOrder.statusAdmin}</p>
+                            </div>
+                        </div>
+                    )}
+                </Modal.Body>
+            </Modal>
         </>
     )
 }

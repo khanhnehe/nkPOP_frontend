@@ -25,7 +25,7 @@ const Sidebar = () => {
                         <div className="title"><MdDashboard className="icon" />TỔNG QUAN</div>
                         <li>
                             <span>
-                                <Link to="/system/admin-manage">Tổng quan</Link>
+                                <Link to="/system/admin-manage">Doanh thu</Link>
 
                             </span>
                         </li>
@@ -72,7 +72,7 @@ const Sidebar = () => {
                         <li>
                             <span>Mã giảm giá</span>
                         </li>
-                        <div className="title">HỒ SƠ</div>
+                        {/* <div className="title">HỒ SƠ</div>
                         <li>
                             <span>Tổng quan</span>
                         </li>
@@ -81,7 +81,7 @@ const Sidebar = () => {
                         </li>
                         <li>
                             <span>Tổng quan</span>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
 

@@ -222,6 +222,7 @@ const actionTypes = Object.freeze({
     UPDATE_NHAP_HANG_SUCCESS: "UPDATE_NHAP_HANG_SUCCESS",
 
 
+    ADD_NHAP_HANG_SUCCESS: "ADD_NHAP_HANG_SUCCESS",
 
 
 });

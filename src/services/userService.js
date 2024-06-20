@@ -230,6 +230,14 @@ const updateNhapHangApi = (token, data) => {
     })
 }
 
+const addNhapHangApi = (token, data) => {
+    return axios.post(`/admin/addNhapHang`, data, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+}
+
 
 export {
     loginApiService,
@@ -262,5 +270,6 @@ export {
     getOrderByDateApi,
     changeNhapHangApi,
     allPhieuNhapApi,
-    updateNhapHangApi
+    updateNhapHangApi,
+    addNhapHangApi
 }
